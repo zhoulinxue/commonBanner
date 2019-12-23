@@ -13,7 +13,7 @@ import com.common.view.banner.CommonBanner;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements CommonBanner.OnLoadBanner {
+public class MainActivity extends AppCompatActivity implements CommonBanner.Bannerloader {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

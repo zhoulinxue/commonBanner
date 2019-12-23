@@ -25,7 +25,7 @@ import java.util.List;
 public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeListener {
     private List<BannerData> mDatas;
     private BannerPegerAdapter mAdapter;
-    private OnLoadBanner loadBanner;
+    private Bannerloader loadBanner;
     private Handler mHandler;
     private LayoutParams containerLp;
     private RelativeLayout.LayoutParams viewPagerLp, indicatorLp;
@@ -122,11 +122,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
             mIndicators.setCount(datas.size());
     }
 
-    public OnLoadBanner getLoadBanner() {
-        return loadBanner;
-    }
-
-    public void setLoadBanner(OnLoadBanner loadBanner) {
+    public void setLoadBanner(Bannerloader loadBanner) {
         this.loadBanner = loadBanner;
         if (mAdapter != null) {
             mAdapter.setLoadBanner(loadBanner);
@@ -151,7 +147,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     }
 
-    public interface OnLoadBanner {
+    public interface Bannerloader {
         public View loadBanner(BannerData data);
     }
 

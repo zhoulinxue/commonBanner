@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class BannerPegerAdapter extends PagerAdapter {
     private List<BannerData> dataList;
-    private CommonBanner.OnLoadBanner loadBanner;
+    private CommonBanner.Bannerloader loadBanner;
 
     @Override
     public int getCount() {
@@ -51,7 +51,7 @@ public class BannerPegerAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void setLoadBanner(CommonBanner.OnLoadBanner loadBanner) {
+    public void setLoadBanner(CommonBanner.Bannerloader loadBanner) {
         this.loadBanner = loadBanner;
     }
 }
