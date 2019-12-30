@@ -1,12 +1,11 @@
-package com.common.view;
+package com.common;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.DrawableRes;
 
-import com.common.view.banner.BannerData;
+import org.zhx.common.widget.BannerData;
 
 /**
  * Copyright (C), 2015-2019

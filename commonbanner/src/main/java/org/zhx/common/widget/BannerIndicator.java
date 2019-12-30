@@ -1,4 +1,4 @@
-package com.zhx.common.widget;
+package org.zhx.common.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,8 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
-
-import com.zhx.common.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +24,8 @@ public class BannerIndicator extends RelativeLayout {
     private int count;
     private int currentIndex;
     private Context mContext;
-    private int selectSrc = R.drawable.selected_indicator;
-    private int unSelectedSrc = R.drawable.select_indicator;
+    private int selectSrc;
+    private int unSelectedSrc;
     private List<ImageView> mIndicator;
     private LinearLayout mIndicatorContainer;
     private LayoutParams containerLp;
@@ -77,22 +75,28 @@ public class BannerIndicator extends RelativeLayout {
     public void setSelection(int currentIndex) {
         if (currentIndex <= mIndicator.size()) {
             this.currentIndex = currentIndex;
-            for (int i = 0; i < mIndicator.size(); i++) {
-                if (i == currentIndex) {
-                    mIndicator.get(i).setBackgroundResource(selectSrc);
-                } else {
-                    mIndicator.get(i).setBackgroundResource(unSelectedSrc);
-                }
+            notifyData();
+        }
+    }
+
+    private void notifyData() {
+        for (int i = 0; i < mIndicator.size(); i++) {
+            if (i == currentIndex) {
+                mIndicator.get(i).setBackgroundResource(selectSrc);
+            } else {
+                mIndicator.get(i).setBackgroundResource(unSelectedSrc);
             }
         }
     }
 
     public void setSelectSrc(int selectSrc) {
         this.selectSrc = selectSrc;
+        notifyData();
     }
 
     public void setUnSelectedSrc(int unSelectedSrc) {
         this.unSelectedSrc = unSelectedSrc;
+        notifyData();
     }
 
     public void setHeight(int height) {

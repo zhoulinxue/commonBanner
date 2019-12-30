@@ -1,4 +1,4 @@
-package com.zhx.common.widget;
+package org.zhx.common.widget;
 
 import android.content.Context;
 import android.os.Handler;
@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.DrawableRes;
 import androidx.viewpager.widget.ViewPager;
 
-import com.zhx.common.R;
+import org.zhx.common.R;
 
 import java.util.List;
 

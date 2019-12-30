@@ -1,4 +1,4 @@
-package com.common.view;
+package com.common;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.common.view.banner.BannerData;
-import com.common.view.banner.CommonBanner;
+import org.zhx.common.widget.BannerData;
+import org.zhx.common.widget.CommonBanner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
 
         //是否自动滚动  可选 默认 不滚动
         banner.autoPlay();
+        // 设置 indicator 颜色
+        banner.setSelectSrc(R.drawable.selected_indicator);
+        // 设置 indicator 选择颜色
+        banner.setUnSelectedSrc(R.drawable.select_indicator);
     }
 
     @Override

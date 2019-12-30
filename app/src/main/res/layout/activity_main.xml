@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.common.view.banner.CommonBanner
+    <org.zhx.common.widget.CommonBanner
         android:id="@+id/banner_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
