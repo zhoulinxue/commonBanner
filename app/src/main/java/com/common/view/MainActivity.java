@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         banner.setIndicatorBackgroundRes(R.drawable.shape_indicator_bg);
 
         //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
-        banner.indicatorBelow();
+//        banner.indicatorBelow();
 
         //是否自动滚动  可选 默认 不滚动
         banner.autoPlay();
