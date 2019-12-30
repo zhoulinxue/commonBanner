@@ -11,4 +11,6 @@ public interface BannerData {
     public String getPath();
 
     public String getTitle();
+
+    public int getPosition();
 }

@@ -30,7 +30,7 @@ public class BannerIndicator extends RelativeLayout {
     private int unSelectedSrc = R.drawable.select_indicator;
     private List<ImageView> mIndicator;
     private LinearLayout mIndicatorContainer;
-    private RelativeLayout.LayoutParams containerLp;
+    private LayoutParams containerLp;
 
     public BannerIndicator(Context context) {
         super(context);
@@ -51,8 +51,9 @@ public class BannerIndicator extends RelativeLayout {
         mContext = context;
         mIndicator = new ArrayList<>();
         mIndicatorContainer = new LinearLayout(context);
+        mIndicatorContainer.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         mIndicatorContainer.setOrientation(LinearLayout.HORIZONTAL);
-        containerLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        containerLp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
         containerLp.addRule(RelativeLayout.CENTER_IN_PARENT);
         addView(mIndicatorContainer, containerLp);
     }
@@ -78,9 +79,9 @@ public class BannerIndicator extends RelativeLayout {
             this.currentIndex = currentIndex;
             for (int i = 0; i < mIndicator.size(); i++) {
                 if (i == currentIndex) {
-                    mIndicator.get(i).setImageResource(selectSrc);
+                    mIndicator.get(i).setBackgroundResource(selectSrc);
                 } else {
-                    mIndicator.get(i).setImageResource(unSelectedSrc);
+                    mIndicator.get(i).setBackgroundResource(unSelectedSrc);
                 }
             }
         }

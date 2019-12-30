@@ -15,6 +15,7 @@ import com.common.view.R;
 
 import java.util.List;
 
+
 /**
  * Copyright (C), 2015-2019
  * FileName: BannerContainer
@@ -78,7 +79,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     public void initView(Context context) {
         mHandler = new Handler();
-        containerLp = new LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        containerLp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         mContainer = new RelativeLayout(context);
         mContainer.setLayoutParams(containerLp);
         indicatorLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -229,6 +230,14 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
             isPause = true;
             mHandler.removeCallbacks(playRunable);
         }
+    }
+
+    public long getDelayTime() {
+        return delayTime;
+    }
+
+    public void setDelayTime(long delayTime) {
+        this.delayTime = delayTime;
     }
 
     public synchronized void onRestart() {
