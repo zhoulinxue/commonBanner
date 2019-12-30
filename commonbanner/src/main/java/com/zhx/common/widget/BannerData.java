@@ -1,4 +1,4 @@
-package com.common.view.banner;
+package com.zhx.common.widget;
 
 /**
  * Copyright (C), 2015-2019

@@ -1,4 +1,4 @@
-package com.common.view.banner;
+package com.zhx.common.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 
-import com.common.view.R;
+import com.zhx.common.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.common.view.banner;
+package com.zhx.common.widget;
 
 import android.view.View;
 import android.view.ViewGroup;

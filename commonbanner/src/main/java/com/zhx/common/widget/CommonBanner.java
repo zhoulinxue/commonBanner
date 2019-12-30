@@ -1,4 +1,4 @@
-package com.common.view.banner;
+package com.zhx.common.widget;
 
 import android.content.Context;
 import android.os.Handler;
@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.DrawableRes;
 import androidx.viewpager.widget.ViewPager;
 
-import com.common.view.R;
+import com.zhx.common.R;
 
 import java.util.List;
 
