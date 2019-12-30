@@ -1,5 +1,8 @@
 # commonBanner
-#基本使用方法
+# 看效果
+![Image text](http://github.com/zhoulinxue/commonBanner/blob/master/gif/1577691131174.gif)
+
+# 基本使用方法
 
        CommonBanner banner = findViewById(R.id.banner_layout);
        
