@@ -1,8 +1,10 @@
 # commonBanner
- CommonBanner banner = findViewById(R.id.banner_layout);
- 
-  List<BannerData> datas = new ArrayList<>();
- 
+#基本使用方法
+
+       CommonBanner banner = findViewById(R.id.banner_layout);
+       
+       List<BannerData> datas = new ArrayList<>();
+        
         for (int i = 0; i < 5; i++) {
             PicBanner picBanner = new PicBanner();
             picBanner.setSrc(R.drawable.wx_banner_img);
