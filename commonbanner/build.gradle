@@ -7,7 +7,7 @@ publish {
     artifactId = 'CommonBanner'//项目名称，bintray上创建Package时填写的Name项
     publishVersion = '0.1.0'//版本号
     desc = 'easy banner'//描述，不重要
-    website = 'https://github.com/zhoulinxue/commonBanner.git'//网站，最好有，不重要
+    website = 'https://github.com/zhoulinxue/commonBanner'//网站，最好有，不重要
 }
 android {
     compileSdkVersion 28
