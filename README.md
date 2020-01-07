@@ -1,3 +1,6 @@
+# android  studio 引用
+ implementation 'org.zhx.common:commonBanner:0.1.0'
+
 # commonBanner
 # 看效果
 ![效果图](http://github.com/zhoulinxue/commonBanner/blob/master/gif/1577691131174.gif)
@@ -34,5 +37,4 @@
         
         //是否自动滚动  可选 默认 不滚动
         banner.autoPlay();
-# android  studio 引用
- implementation 'org.zhx.common:commonBanner:0.1.0'
+
