@@ -3,7 +3,7 @@
 
 # commonBanner
 # 看效果
-![效果图](http://github.com/zhoulinxue/commonBanner/blob/master/gif/1577691131174.gif)
+![效果图]( http://github.com/zhoulinxue/commonBanner/blob/master/screenshots/1577691131174.gif )
 
 # 基本使用方法
 
