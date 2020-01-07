@@ -34,3 +34,5 @@
         
         //是否自动滚动  可选 默认 不滚动
         banner.autoPlay();
+# android  studio 引用
+ implementation 'org.zhx.common:commonBanner:0.1.0'
