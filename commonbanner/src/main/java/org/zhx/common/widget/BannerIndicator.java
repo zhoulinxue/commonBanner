@@ -104,4 +104,8 @@ public class BannerIndicator extends RelativeLayout {
             mIndicatorContainer.setLayoutParams(containerLp);
         }
     }
+
+    public int getCount() {
+        return count;
+    }
 }

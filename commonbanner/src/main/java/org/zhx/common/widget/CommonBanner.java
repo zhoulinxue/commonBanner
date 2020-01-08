@@ -3,6 +3,7 @@ package org.zhx.common.widget;
 import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -11,7 +12,13 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import org.zhx.common.R;
+import org.zhx.common.widget.transformers.BannerTransformer;
+import org.zhx.common.widget.transformers.CardTransformer;
+import org.zhx.common.widget.transformers.Direction;
+import org.zhx.common.widget.transformers.GalleryTransformer;
+import org.zhx.common.widget.transformers.Transformer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -48,7 +55,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
                     if (index >= mAdapter.getCount()) {
                         index = 0;
                     }
-                    mViewPager.setCurrentItem(index, true);
+                    mViewPager.setCurrentItem(index, index != 0 && index != mAdapter.getCount());
                     if (mIndicators != null) {
                         mIndicators.setSelection(index);
                     }
@@ -78,12 +85,13 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     public void initView(Context context) {
         mHandler = new Handler();
-        containerLp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        containerLp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         mContainer = new RelativeLayout(context);
         mContainer.setLayoutParams(containerLp);
         indicatorLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        viewPagerLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        viewPagerLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         mViewPager = new ViewPager(context);
+        mViewPager.setClipChildren(false);
         mViewPager.setId(containerId);
         mViewPager.addOnPageChangeListener(this);
         mIndicators = new BannerIndicator(context);
@@ -95,22 +103,25 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         mContainer.addView(mViewPager, viewPagerLp);
         mContainer.addView(mIndicators, indicatorLp);
         addView(mContainer);
-        mViewPager.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        isPressed = true;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        isPressed = false;
-                        break;
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });
+       mViewPager.setOnTouchListener(new OnTouchListener() {
+           @Override
+           public boolean onTouch(View view, MotionEvent motionEvent) {
+               switch (motionEvent.getAction()) {
+                   case MotionEvent.ACTION_DOWN:
+                       isPressed = true;
+                       mHandler.removeCallbacks(playRunable);
+                       break;
+                   case MotionEvent.ACTION_UP:
+                       isPressed = false;
+                       if (autoPlay)
+                           autoPlay();
+                       break;
+                   default:
+                       break;
+               }
+               return false;
+           }
+       });
     }
 
     public void setDatas(List<BannerData> datas) {
@@ -243,6 +254,20 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         if (isPause) {
             isPause = false;
             autoPlay();
+        }
+    }
+
+    public void setTransformerType(Transformer mTransformer) {
+        if (mTransformer != null) {
+            switch (mTransformer) {
+                case CARD:
+                    mViewPager.setPageTransformer(true, new CardTransformer());
+                    break;
+                case GALLERY:
+                    mViewPager.setCurrentItem(mAdapter.getCount() / 2);
+                    mViewPager.setPageTransformer(true, new GalleryTransformer());
+                    break;
+            }
         }
     }
 }
