@@ -15,6 +15,7 @@ implementation 'org.zhx.common:commonBanner:0.2.0'
 ##基本使用方法
 
    ```
+   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ implementation 'org.zhx.common:commonBanner:0.2.0'
         // 设置 indicator 选择颜色
         banner.setUnSelectedSrc(R.drawable.select_indicator);
     }
+    
    
     ``` 
      
