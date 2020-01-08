@@ -1,6 +1,8 @@
 # android  studio 引用 (androidx 请用0.1.0 版本)
 
- implementation 'org.zhx.common:commonBanner:0.1.0'
+```
+implementation 'org.zhx.common:commonBanner:0.1.0'
+``` 
 
  v4包 请用0.2.0
 
@@ -12,7 +14,8 @@
 
 # 基本使用方法
 
-       CommonBanner banner = findViewById(R.id.banner_layout);
+   ```
+  CommonBanner banner = findViewById(R.id.banner_layout);
        
        List<BannerData> datas = new ArrayList<>();
         
@@ -42,4 +45,6 @@
         
         //是否自动滚动  可选 默认 不滚动
         banner.autoPlay();
+       ``` 
+     
 
