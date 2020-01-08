@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import org.zhx.common.widget.BannerData;
 import org.zhx.common.widget.CommonBanner;
-import org.zhx.common.widget.transformers.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         banner.setSelectSrc(R.drawable.selected_indicator);
         // 设置 indicator 选择颜色
         banner.setUnSelectedSrc(R.drawable.select_indicator);
-        banner.setTransformerType(Transformer.GALLERY);
+//        banner.setTransformerType(Transformer.GALLERY);
     }
 
     @Override

@@ -42,14 +42,14 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     private static final int containerId = R.id.container_id;
     private int mContainerHeight, mIndicatorHeight;
     private boolean isBelow = false;
-    private boolean autoPlay, isPressed;
+    private boolean autoPlay;
     private int index = 0;
     private long delayTime = 3000;
     private boolean isPause;
     private Runnable playRunable = new Runnable() {
         @Override
         public void run() {
-            if (!isPressed) {
+
                 index++;
                 if (mAdapter != null && autoPlay) {
                     if (index >= mAdapter.getCount()) {
@@ -59,12 +59,8 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
                     if (mIndicators != null) {
                         mIndicators.setSelection(index);
                     }
-                    autoPlay();
                 }
-            } else {
-                autoPlay();
             }
-        }
     };
 
 
@@ -103,25 +99,6 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         mContainer.addView(mViewPager, viewPagerLp);
         mContainer.addView(mIndicators, indicatorLp);
         addView(mContainer);
-       mViewPager.setOnTouchListener(new OnTouchListener() {
-           @Override
-           public boolean onTouch(View view, MotionEvent motionEvent) {
-               switch (motionEvent.getAction()) {
-                   case MotionEvent.ACTION_DOWN:
-                       isPressed = true;
-                       mHandler.removeCallbacks(playRunable);
-                       break;
-                   case MotionEvent.ACTION_UP:
-                       isPressed = false;
-                       if (autoPlay)
-                           autoPlay();
-                       break;
-                   default:
-                       break;
-               }
-               return false;
-           }
-       });
     }
 
     public void setDatas(List<BannerData> datas) {
@@ -155,7 +132,17 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
+        switch (state) {
+            case ViewPager.SCROLL_STATE_DRAGGING:
+                mHandler.removeCallbacks(playRunable);
+                break;
+            case ViewPager.SCROLL_STATE_IDLE:
+                if (autoPlay)
+                    autoPlay();
+                break;
+            default:
+                break;
+        }
     }
 
     public interface Bannerloader {
