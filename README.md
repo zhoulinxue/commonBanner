@@ -1,21 +1,21 @@
-# android  studio 引用 (androidx 请用0.1.0 版本)
+# android  studio 引用 
 
+##androidx 请用0.1.0 版本
 ```
 implementation 'org.zhx.common:commonBanner:0.1.0'
 ``` 
-
- v4包 请用0.2.0
-
- implementation 'org.zhx.common:commonBanner:0.2.0'
-
+ ##v4包 请用0.2.0
+```
+implementation 'org.zhx.common:commonBanner:0.2.0'
+``` 
 # commonBanner
-# 看效果
+## 看效果
 ![效果图]( http://github.com/zhoulinxue/commonBanner/blob/master/screenshots/1577691131174.gif )
 
-# 基本使用方法
+##基本使用方法
 
    ```
-  CommonBanner banner = findViewById(R.id.banner_layout);
+     CommonBanner banner = findViewById(R.id.banner_layout);
        
        List<BannerData> datas = new ArrayList<>();
         
