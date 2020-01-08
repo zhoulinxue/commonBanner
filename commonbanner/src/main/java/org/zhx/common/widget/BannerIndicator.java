@@ -1,14 +1,13 @@
 package org.zhx.common.widget;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;

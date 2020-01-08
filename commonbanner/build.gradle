@@ -5,7 +5,7 @@ publish {
     userOrg = 'zhx'//bintray.com用户名
     groupId = 'org.zhx.common'//jcenter上的路径,bintray上创建Package时填写的Version control项
     artifactId = 'commonBanner'//项目名称，bintray上创建Package时填写的Name项
-    publishVersion = '0.1.0'//版本号
+    publishVersion = '0.2.0'//版本号
     desc = 'easy banner'//描述，不重要
     website = 'https://github.com/zhoulinxue/commonBanner'//网站，最好有，不重要
 }
@@ -32,9 +32,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    api rootProject.ext.appCompatV4
+    api rootProject.ext.designCompat
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    api "com.android.support:support-annotations:28.0.0"
 }
