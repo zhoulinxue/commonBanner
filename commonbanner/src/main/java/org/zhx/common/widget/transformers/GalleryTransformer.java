@@ -11,12 +11,12 @@ import android.view.View;
  * Date: 2020/1/8 14:08
  * Description:
  */
-public class GalleryTransformer implements ViewPager.PageTransformer {
+public class GalleryTransformer extends BaseTransformer  {
     private static final float MAX_ALPHA = 0.5f;
     private static final float MAX_SCALE = 0.9f;
 
     @Override
-    public void transformPage(@NonNull View page, float position) {
+    protected void onTransform(View page, float position) {
         if (position < -1 || position > 1) {
             //不可见区域
             page.setAlpha(MAX_ALPHA);
@@ -35,6 +35,6 @@ public class GalleryTransformer implements ViewPager.PageTransformer {
             float scale = Math.max(MAX_SCALE, 1 - Math.abs(position));
             page.setScaleX(scale);
             page.setScaleY(scale);
-        }
+    }
     }
 }

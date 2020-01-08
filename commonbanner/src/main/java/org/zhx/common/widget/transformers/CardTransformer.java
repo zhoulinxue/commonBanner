@@ -11,10 +11,11 @@ import android.view.View;
  * Date: 2020/1/8 15:43
  * Description:
  */
-public class CardTransformer implements ViewPager.PageTransformer {
+public class CardTransformer extends BaseTransformer{
     private int mOffset = 60;
+
     @Override
-    public void transformPage(@NonNull View page, float position) {
+    protected void onTransform(View page, float position) {
         if (position <= 0) {
             page.setRotation(45 * position);
             page.setTranslationX((page.getWidth() / 2 * position));

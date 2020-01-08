@@ -3,22 +3,24 @@ package org.zhx.common.widget;
 import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import org.zhx.common.R;
-import org.zhx.common.widget.transformers.BannerTransformer;
+import org.zhx.common.widget.transformers.BackgroundToForegroundTransformer;
+import org.zhx.common.widget.transformers.BaseTransformer;
 import org.zhx.common.widget.transformers.CardTransformer;
-import org.zhx.common.widget.transformers.Direction;
+import org.zhx.common.widget.transformers.CubeInTransformer;
+import org.zhx.common.widget.transformers.DepthPageTransformer;
 import org.zhx.common.widget.transformers.GalleryTransformer;
+import org.zhx.common.widget.transformers.StackTransformer;
+import org.zhx.common.widget.transformers.TabletTransformer;
 import org.zhx.common.widget.transformers.Transformer;
+import org.zhx.common.widget.transformers.ZoomOutSlideTransformer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -246,15 +248,25 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     public void setTransformerType(Transformer mTransformer) {
         if (mTransformer != null) {
+            BaseTransformer transformer=null;
             switch (mTransformer) {
                 case CARD:
-                    mViewPager.setPageTransformer(true, new CardTransformer());
+                    transformer= new CardTransformer();
                     break;
                 case GALLERY:
                     mViewPager.setCurrentItem(mAdapter.getCount() / 2);
-                    mViewPager.setPageTransformer(true, new GalleryTransformer());
+                    transformer= new GalleryTransformer();
+                    break;
+                case DETH:
+                   transformer=new StackTransformer();
                     break;
             }
+            setTransformer(transformer);
         }
+    }
+
+    public void setTransformer(BaseTransformer transformer) {
+        if(mViewPager!=null){}
+        mViewPager.setPageTransformer(true,transformer);
     }
 }

@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import org.zhx.common.widget.BannerData;
 import org.zhx.common.widget.CommonBanner;
+import org.zhx.common.widget.transformers.FlipHorizontalTransformer;
+import org.zhx.common.widget.transformers.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
 
         for (int i = 0; i < mImages.length; i++) {
             PicBanner picBanner = new PicBanner();
-            picBanner.setSrc(mImages[i]);
+            picBanner.setSrc(R.drawable.wx_banner_img);
             datas.add(picBanner);
         }
         //设置 banner 数据
@@ -47,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         banner.setSelectSrc(R.drawable.selected_indicator);
         // 设置 indicator 选择颜色
         banner.setUnSelectedSrc(R.drawable.select_indicator);
-//        banner.setTransformerType(Transformer.GALLERY);
+//        banner.setTransformerType(Transformer.DETH);
+        banner.setTransformer(new FlipHorizontalTransformer());
     }
 
     @Override

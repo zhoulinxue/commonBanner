@@ -10,5 +10,5 @@ import android.view.View;
  * Description:
  */
 public enum Transformer {
-    GALLERY, CARD
+    GALLERY, CARD,DETH
 }
