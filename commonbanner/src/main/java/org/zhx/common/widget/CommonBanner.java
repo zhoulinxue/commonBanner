@@ -2,14 +2,13 @@ package org.zhx.common.widget;
 
 import android.content.Context;
 import android.os.Handler;
+import android.support.annotation.DrawableRes;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-
-import androidx.annotation.DrawableRes;
-import androidx.viewpager.widget.ViewPager;
 
 import org.zhx.common.R;
 

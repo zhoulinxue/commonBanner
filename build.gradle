@@ -25,3 +25,10 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+def supportVersion = "28.0.0"
+ext {
+    appCompatV4 = "com.android.support:support-v4:${supportVersion}"
+    appCompatV7 = "com.android.support:appcompat-v7:${supportVersion}"
+    designCompat = "com.android.support:design:${supportVersion}"
+    constraintLib = "com.android.support.constraint:constraint-layout:1.1.3"
+}

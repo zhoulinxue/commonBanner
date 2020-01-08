@@ -1,5 +1,7 @@
-# android  studio 引用
+# android  studio 引用  (androidx 请用0.1.0 版本)
  implementation 'org.zhx.common:commonBanner:0.1.0'
+ (v4包 请用0.2.0)
+ implementation 'org.zhx.common:commonBanner:0.2.0'
 
 # commonBanner
 # 看效果
