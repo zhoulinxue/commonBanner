@@ -55,6 +55,7 @@ implementation 'org.zhx.common:commonBanner:0.2.0'
         banner.setSelectSrc(R.drawable.selected_indicator);
         // 设置 indicator 选择颜色
         banner.setUnSelectedSrc(R.drawable.select_indicator);
+        // 切换动画 二选一 
          // 设置切换动画  新增10多种 动画  Transformer 类 0.3.0版本加入
           banner.setTransformerType(Transformer.F_TO_B)
          //自定义 切换动画
