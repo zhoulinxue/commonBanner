@@ -3,7 +3,13 @@ package org.zhx.common.widget.transformers;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
+/**
+ * Copyright (C), 2015-2020
+ * FileName: BaseTransformer
+ * Author: zx
+ * Date: 2020/1/9 9:11
+ * Description:
+ */
 public abstract class BaseTransformer implements  ViewPager.PageTransformer {
     protected abstract void onTransform(View page, float position);
     protected void onPostTransform(View page, float position) {

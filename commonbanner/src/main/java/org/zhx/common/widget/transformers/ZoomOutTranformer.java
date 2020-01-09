@@ -17,7 +17,13 @@
 package org.zhx.common.widget.transformers;
 
 import android.view.View;
-
+/**
+ * Copyright (C), 2015-2020
+ * FileName: ZoomOutTranformer
+ * Author: zx
+ * Date: 2020/1/9 9:11
+ * Description:
+ */
 public class ZoomOutTranformer extends BaseTransformer {
 
 	@Override

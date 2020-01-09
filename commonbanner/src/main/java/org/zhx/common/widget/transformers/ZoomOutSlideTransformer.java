@@ -17,7 +17,13 @@
 package org.zhx.common.widget.transformers;
 
 import android.view.View;
-
+/**
+ * Copyright (C), 2015-2020
+ * FileName: ZoomOutSlideTransformer
+ * Author: zx
+ * Date: 2020/1/9 9:11
+ * Description:
+ */
 public class ZoomOutSlideTransformer extends BaseTransformer {
 
 	private static final float MIN_SCALE = 0.85f;
