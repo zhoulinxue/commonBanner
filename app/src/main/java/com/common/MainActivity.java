@@ -2,7 +2,7 @@ package com.common;
 
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import org.zhx.common.widget.BannerData;
 import org.zhx.common.widget.CommonBanner;
-import org.zhx.common.widget.transformers.FlipHorizontalTransformer;
 import org.zhx.common.widget.transformers.Transformer;
 
 import java.util.ArrayList;
