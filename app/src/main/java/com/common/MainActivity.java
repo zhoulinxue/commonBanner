@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         banner.setSelectSrc(R.drawable.selected_indicator);
         // 设置 indicator 选择颜色
         banner.setUnSelectedSrc(R.drawable.select_indicator);
-        banner.setTransformerType(Transformer.DETH);
-        banner.setTransformer(new FlipHorizontalTransformer());
+        // 设置切换动画  新增10多种 动画  Transformer 类
+        banner.setTransformerType(Transformer.F_TO_B);
     }
 
     @Override
