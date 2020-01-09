@@ -4,10 +4,11 @@
 ```
 implementation 'org.zhx.common:commonBanner:0.1.0'
 ``` 
- ##v4包 请用0.2.0
+ ##v4包 请用0.2.0 /0.3.0
 ```
 implementation 'org.zhx.common:commonBanner:0.2.0'
-``` 
+```
+##0.3.0 新增切换效果
 # commonBanner
 ## 看效果
 ![效果图]( http://github.com/zhoulinxue/commonBanner/blob/master/screenshots/1577691131174.gif )
