@@ -10,5 +10,22 @@ import android.view.View;
  * Description:
  */
 public enum Transformer {
-    GALLERY, CARD,DETH
+    GALLERY,
+    CARD,
+    DETH,
+    ACCORDION,
+    B_TO_F,
+    F_TO_B,
+    CUBE_IN,
+    UBE_OUT,
+    FLIP_HORIZONTAL,
+    FLIP_VERTICAL,
+    ROTATE_DOWN,
+    ROTATE_UP,
+    SCALE,
+    STACK,
+    TABLET,
+    ZOOM_IN,
+    ZOOM_OUT,
+    ZOOM_OUT_SLIDE
 }
