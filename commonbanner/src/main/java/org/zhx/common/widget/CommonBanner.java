@@ -323,7 +323,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     public void setTransformer(BaseTransformer transformer) {
         if (mViewPager != null) {
+            mViewPager.setPageTransformer(true, transformer);
         }
-        mViewPager.setPageTransformer(true, transformer);
     }
 }
