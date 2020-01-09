@@ -57,6 +57,8 @@ implementation 'org.zhx.common:commonBanner:0.2.0'
         banner.setUnSelectedSrc(R.drawable.select_indicator);
          // 设置切换动画  新增10多种 动画  Transformer 类 0.3.0版本加入
           banner.setTransformerType(Transformer.F_TO_B)
+         //自定义 切换动画
+        //banner.setTransformer();
     }
     
    

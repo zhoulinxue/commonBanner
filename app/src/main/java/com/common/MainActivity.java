@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         banner.setUnSelectedSrc(R.drawable.select_indicator);
         // 设置切换动画  新增10多种 动画  Transformer 类
         banner.setTransformerType(Transformer.F_TO_B);
+        //自定义 切换动画
+//        banner.setTransformer();
     }
 
     @Override
