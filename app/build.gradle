@@ -20,6 +20,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':commonbanner')
-//    implementation 'org.zhx.common:commonBanner:0.3.0'
+//    implementation project(':commonbanner')
+    implementation 'org.zhx.common:commonBanner:1.0.0'
 }
