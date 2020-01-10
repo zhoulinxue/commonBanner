@@ -61,6 +61,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     private int index = 0;
     private long delayTime = 3000;
     private boolean isPause;
+    private boolean isLoop = true;
     private Runnable playRunable = new Runnable() {
         @Override
         public void run() {
@@ -109,7 +110,11 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     }
 
     public void setDatas(List<BannerData> datas) {
-        this.mDatas = loopdata(datas);
+        if (isLoop) {
+            this.mDatas = loopdata(datas);
+        } else {
+            this.mDatas = datas;
+        }
         if (mAdapter != null) {
             mAdapter.setDatas(mDatas);
         }
@@ -119,6 +124,10 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
             mViewPager.setCurrentItem(index);
             mViewPager.setOffscreenPageLimit(datas.size());
         }
+    }
+
+    public void setLoop(boolean loop) {
+        isLoop = loop;
     }
 
     private List<BannerData> loopdata(List<BannerData> datas) {
@@ -152,13 +161,17 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         Log.e(TAG, position + "onPageSelected");
         index = position;
         if (mIndicators != null) {
-            if (position == 0) {
-                mIndicators.setSelection(mAdapter.getCount() - 2);
-                mViewPager.setCurrentItem(mAdapter.getCount() - 2, false);
-            } else if (position == mAdapter.getCount() - 1) {
-                mIndicators.setSelection(0);
-            } else {
-                mIndicators.setSelection(position - 1);
+            if(isLoop) {
+                if (position == 0) {
+                    mIndicators.setSelection(mAdapter.getCount() - 2);
+                    mViewPager.setCurrentItem(mAdapter.getCount() - 2, false);
+                } else if (position == mAdapter.getCount() - 1) {
+                    mIndicators.setSelection(0);
+                } else {
+                    mIndicators.setSelection(position - 1);
+                }
+            }else {
+                mIndicators.setSelection(position);
             }
         }
         if (autoPlay)
