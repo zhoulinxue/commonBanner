@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         banner.setTransformerType(Transformer.DETH);
         // 设置循环滚动方式
         banner.setLoop(LoopType.REVERSE);
-        // 设置滚动时间
+        // 设置滚动间隔时间
         banner.setDelayTime(2000);
         //自定义 切换动画
 //        banner.setTransformer();

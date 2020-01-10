@@ -56,8 +56,13 @@ implementation 'org.zhx.common:commonBanner:0.2.0'
         // 设置 indicator 选择颜色
         banner.setUnSelectedSrc(R.drawable.select_indicator);
         // 切换动画 二选一 
-         // 设置切换动画  新增10多种 动画  Transformer 类 0.3.0版本加入
-          banner.setTransformerType(Transformer.F_TO_B)
+        // 设置切换动画  新增10多种 动画  Transformer 类 0.3.0版本加入
+        banner.setTransformerType(Transformer.DETH);
+        // 设置循环滚动方式
+        banner.setLoop(LoopType.REVERSE);
+        // 设置滚动间隔时间
+        banner.setDelayTime(2000);
+
          //自定义 切换动画
         //banner.setTransformer();
     }
