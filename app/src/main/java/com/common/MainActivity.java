@@ -2,7 +2,9 @@ package com.common;
 
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import org.zhx.common.widget.BannerData;
 import org.zhx.common.widget.CommonBanner;
+import org.zhx.common.widget.LoopType;
 import org.zhx.common.widget.transformers.Transformer;
 
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements CommonBanner.Bannerloader {
     private int[] mImages = {R.mipmap.b, R.mipmap.d, R.mipmap.e, R.mipmap.f, R.mipmap.g, R.mipmap.h};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         banner.setUnSelectedSrc(R.drawable.select_indicator);
         // 设置切换动画  新增10多种 动画  Transformer 类
         banner.setTransformerType(Transformer.DETH);
+        // 设置循环滚动方式
+        banner.setLoop(LoopType.REVERSE);
+        // 设置滚动时间
+        banner.setDelayTime(2000);
         //自定义 切换动画
 //        banner.setTransformer();
     }
@@ -63,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this,data.getPosition()+"",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, data.getPosition() + "", Toast.LENGTH_SHORT).show();
             }
         });
         return view;

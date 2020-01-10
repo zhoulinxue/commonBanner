@@ -45,7 +45,7 @@ import java.util.List;
  */
 public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeListener {
     private String TAG = CommonBanner.class.getSimpleName();
-    private List<BannerData> mDatas;
+    private List<BannerData> mDatas, loopDatas;
     private BannerPegerAdapter mAdapter;
     private Bannerloader loadBanner;
     private Handler mHandler;
@@ -61,13 +61,18 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     private int index = 0;
     private long delayTime = 3000;
     private boolean isPause;
-    private boolean isLoop = true;
+    private LoopType isLoop = LoopType.LOOP;
+    private boolean isUp = false;
     private Runnable playRunable = new Runnable() {
         @Override
         public void run() {
-            index++;
+            if (!isUp || LoopType.LOOP == isLoop)
+                index++;
+            else {
+                index--;
+            }
             if (mAdapter != null && autoPlay) {
-                mViewPager.setCurrentItem(index, index != 1);
+                mViewPager.setCurrentItem(index, true);
             }
         }
     };
@@ -110,13 +115,10 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     }
 
     public void setDatas(List<BannerData> datas) {
-        if (isLoop) {
-            this.mDatas = loopdata(datas);
-        } else {
-            this.mDatas = datas;
-        }
+        this.mDatas = datas;
+        this.loopDatas = loopdata(datas);
         if (mAdapter != null) {
-            mAdapter.setDatas(mDatas);
+            mAdapter.setDatas(loopDatas);
         }
         if (datas != null && datas.size() != 0)
             mIndicators.setCount(datas.size());
@@ -126,14 +128,16 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    public void setLoop(boolean loop) {
+    public void setLoop(LoopType loop) {
         isLoop = loop;
+        if (mDatas != null && mDatas.size() != 0)
+            setDatas(mDatas);
     }
 
     private List<BannerData> loopdata(List<BannerData> datas) {
         List<BannerData> loopList = new ArrayList<>();
         loopList.addAll(datas);
-        if (datas != null && datas.size() > 1) {
+        if (datas != null && datas.size() > 1 && isLoop == LoopType.LOOP) {
             loopList.add(0, datas.get(datas.size() - 1));
             loopList.add(datas.get(0));
             index = 1;
@@ -161,7 +165,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         Log.e(TAG, position + "onPageSelected");
         index = position;
         if (mIndicators != null) {
-            if(isLoop) {
+            if (LoopType.LOOP == isLoop) {
                 if (position == 0) {
                     mIndicators.setSelection(mAdapter.getCount() - 2);
                     mViewPager.setCurrentItem(mAdapter.getCount() - 2, false);
@@ -170,8 +174,13 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
                 } else {
                     mIndicators.setSelection(position - 1);
                 }
-            }else {
+            } else {
                 mIndicators.setSelection(position);
+                if (position == mIndicators.getCount() - 1)
+                    isUp = true;
+                if (position == 0)
+                    isUp = false;
+
             }
         }
         if (autoPlay)
@@ -186,7 +195,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
                 mHandler.removeCallbacks(playRunable);
                 break;
             case ViewPager.SCROLL_STATE_IDLE:
-                if (index == mAdapter.getCount() - 1)
+                if (index == mAdapter.getCount() - 1 && LoopType.LOOP == isLoop)
                     mViewPager.setCurrentItem(1, false);
                 if (autoPlay)
                     autoPlay();
@@ -279,10 +288,6 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
             isPause = true;
             mHandler.removeCallbacks(playRunable);
         }
-    }
-
-    public long getDelayTime() {
-        return delayTime;
     }
 
     public void setDelayTime(long delayTime) {
