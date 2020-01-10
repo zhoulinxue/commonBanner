@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.zhx.common.widget.BannerData;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
 
         for (int i = 0; i < mImages.length; i++) {
             PicBanner picBanner = new PicBanner();
-            picBanner.setSrc(R.drawable.wx_banner_img);
+            picBanner.setSrc(mImages[i]);
             datas.add(picBanner);
         }
         //设置 banner 数据
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         // 设置 indicator 选择颜色
         banner.setUnSelectedSrc(R.drawable.select_indicator);
         // 设置切换动画  新增10多种 动画  Transformer 类
-        banner.setTransformerType(Transformer.F_TO_B);
+        banner.setTransformerType(Transformer.DETH);
         //自定义 切换动画
 //        banner.setTransformer();
     }

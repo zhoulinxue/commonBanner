@@ -2,8 +2,13 @@ package org.zhx.common.widget;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.RelativeLayout;
 
 import java.util.List;
 
@@ -17,6 +22,12 @@ import java.util.List;
 public class BannerPegerAdapter extends PagerAdapter {
     private List<BannerData> dataList;
     private CommonBanner.Bannerloader loadBanner;
+    private ViewPager mPager;
+    private float itemHeight;
+
+    public BannerPegerAdapter(ViewPager mPager) {
+        this.mPager = mPager;
+    }
 
     @Override
     public int getCount() {
@@ -31,7 +42,28 @@ public class BannerPegerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = loadBanner.loadBanner(getDatas().get(position));
+        final View view = loadBanner.loadBanner(getDatas().get(position));
+        view.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+
+                    @Override
+                    public void onGlobalLayout() {
+                        if (Build.VERSION.SDK_INT >= 16) {
+                            view.getViewTreeObserver()
+                                    .removeOnGlobalLayoutListener(this);
+                        } else {
+                            view.getViewTreeObserver()
+                                    .removeGlobalOnLayoutListener(this);
+                        }
+                        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
+                        if (itemHeight < view.getHeight()) {
+                            itemHeight = view.getHeight();
+                        }
+                        lp.height = (int) (itemHeight + 1);
+                        mPager.setLayoutParams(lp);
+                    }
+                });
+
         container.addView(view);
         return view;
     }

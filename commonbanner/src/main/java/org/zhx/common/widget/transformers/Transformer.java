@@ -10,8 +10,6 @@ import android.view.View;
  * Description:
  */
 public enum Transformer {
-    GALLERY,
-    CARD,
     DETH,
     ACCORDION,
     B_TO_F,
