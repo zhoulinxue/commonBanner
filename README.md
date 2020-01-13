@@ -1,6 +1,6 @@
 # android  studio 引用 
 
-##androidx 请用0.1.0 版本
+##androidx 请用1.0.1 版本
 ```
 implementation 'org.zhx.common:commonBanner:1.0.1'
 ``` 
