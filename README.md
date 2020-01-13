@@ -2,13 +2,13 @@
 
 ##androidx 请用0.1.0 版本
 ```
-implementation 'org.zhx.common:commonBanner:0.1.0'
+implementation 'org.zhx.common:commonBanner:1.0.1'
 ``` 
- ##v4包 请用0.2.0 /0.3.0
+ ##v4包 请用1.0.0
 ```
-implementation 'org.zhx.common:commonBanner:0.2.0'
+implementation 'org.zhx.common:commonBanner:1.0.0'
 ```
-##0.3.0 新增切换效果
+##1.0.0 新增切换效果
 # commonBanner
 ## 看效果
 ![效果图]( http://github.com/zhoulinxue/commonBanner/blob/master/screenshots/1577691131174.gif )
@@ -57,14 +57,13 @@ implementation 'org.zhx.common:commonBanner:0.2.0'
         banner.setUnSelectedSrc(R.drawable.select_indicator);
         // 切换动画 二选一 
         // 设置切换动画  新增10多种 动画  Transformer 类 0.3.0版本加入
-        banner.setTransformerType(Transformer.DETH);
+        // 设置切换动画  新增10多种 动画  Transformer 类
+         banner.setTransformerType(Transformer.DETH);
         // 设置循环滚动方式
-        banner.setLoop(LoopType.REVERSE);
+            banner.setLoop(LoopType.REVERSE);
         // 设置滚动间隔时间
-        banner.setDelayTime(2000);
-
-         //自定义 切换动画
-        //banner.setTransformer();
+             banner.setDelayTime(2000);
+        //自定义 切换动画
     }
     
    
