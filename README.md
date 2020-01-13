@@ -60,9 +60,9 @@ implementation 'org.zhx.common:commonBanner:1.0.0'
         // 设置切换动画  新增10多种 动画  Transformer 类
          banner.setTransformerType(Transformer.DETH);
         // 设置循环滚动方式
-            banner.setLoop(LoopType.REVERSE);
+         banner.setLoop(LoopType.REVERSE);
         // 设置滚动间隔时间
-             banner.setDelayTime(2000);
+         banner.setDelayTime(2000);
         //自定义 切换动画
     }
     
