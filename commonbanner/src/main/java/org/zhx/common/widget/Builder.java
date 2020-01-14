@@ -33,7 +33,7 @@ public class Builder {
 
     public Builder setTransformerType(Transformer mTransformerType) {
         this.mTransformerType = mTransformerType;
-            return this;
+        return this;
     }
 
     public BaseTransformer getTransformer() {
@@ -138,13 +138,13 @@ public class Builder {
         banner.setUnSelectedSrc(getUnSelectedSrc());
         banner.setTransformer(getTransformer());
         banner.setTransformerType(getTransformerType());
-        banner.setIndicatorBackgroundRes(getIndicatorLayoutBg());
         if (isAutoPlay())
             banner.autoPlay();
         if (isBelow())
             banner.indicatorBelow();
         if (getIndicator() != null)
             banner.setIndicator(getIndicator());
+        banner.setIndicatorBackgroundRes(getIndicatorLayoutBg());
         return banner;
     }
 
