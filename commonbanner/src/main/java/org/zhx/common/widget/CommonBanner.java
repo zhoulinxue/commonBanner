@@ -106,15 +106,12 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         mViewPager = new ViewPager(context);
         mViewPager.setId(containerId);
         mViewPager.addOnPageChangeListener(this);
-        mIndicators = new DefaultIndicator(context);
         mViewPager.setLayoutParams(viewPagerLp);
         indicatorLp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         indicatorLp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        mIndicators.setLayoutParams(indicatorLp);
         mAdapter = new BannerPegerAdapter(mViewPager);
         mViewPager.setAdapter(mAdapter);
         mContainer.addView(mViewPager, viewPagerLp);
-        mContainer.addView(mIndicators.getIndicatorLayout(), indicatorLp);
         addView(mContainer);
     }
 
@@ -374,6 +371,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     protected void setIndicator(CommonIndicator mIndicators) {
         this.mIndicators = mIndicators;
+        mContainer.addView(mIndicators.getIndicatorLayout(), mIndicators.getIndicatorLayout().getLayoutParams());
     }
 
 }

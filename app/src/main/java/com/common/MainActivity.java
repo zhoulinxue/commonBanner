@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -37,6 +38,11 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
 //        CommonBanner banner = findViewById(R.id.banner_layout);
         FrameLayout container = findViewById(R.id.banner_container);
         Builder builder = new Builder(this);
+        TextIndicator indicator = new TextIndicator(this);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        indicator.setLayoutParams(lp);
         builder.setHeight(350)//设置banner 高度
                 .setIndicatorHeight(80)//设置 导航游标 高度
 //                .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
@@ -44,8 +50,9 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
                 .setSelectSrc(R.drawable.selected_indicator)// 设置 indicator 颜色
                 .setUnSelectedSrc(R.drawable.select_indicator)// 设置 indicator 选择颜色
                 .setTransformerType(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
-                .setLoopType(LoopType.REVERSE)// 设置循环滚动方式
+                .setLoopType(LoopType.LOOP)// 设置循环滚动方式
                 .setDelayTime(2000)// 设置滚动间隔时间
+                .setIndicator(indicator)
                 .setIndicatorBackgroundRes(R.drawable.shape_indicator_bg); //设置 游标 背景
 //                .setTransformer(); //自定义 切换动画
         CommonBanner banner = builder.build();

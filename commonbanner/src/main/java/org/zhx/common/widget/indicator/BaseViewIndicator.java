@@ -47,6 +47,7 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
             return;
         }
         for (int i = 0; i < mDatas.size(); i++) {
+            mDatas.get(i).setPosition(i+1);
             View item = initializeIndicatorItem(mDatas.get(i));
             mIndicator.add(item);
             mIndicatorContainer.addView(item, i);
