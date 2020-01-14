@@ -13,6 +13,8 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import org.zhx.common.R;
+import org.zhx.common.widget.indicator.CommonIndicator;
+import org.zhx.common.widget.indicator.DefaultIndicator;
 import org.zhx.common.widget.transformers.AccordionTransformer;
 import org.zhx.common.widget.transformers.BackgroundToForegroundTransformer;
 import org.zhx.common.widget.transformers.BaseTransformer;
@@ -52,15 +54,16 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     private LayoutParams containerLp;
     private RelativeLayout.LayoutParams viewPagerLp, indicatorLp;
     private ViewPager mViewPager;
-    private BannerIndicator mIndicators;
+    private CommonIndicator mIndicators;
     private RelativeLayout mContainer;
     private static final int containerId = R.id.container_id;
     private int mContainerHeight, mIndicatorHeight;
     private boolean isBelow = false;
     private boolean autoPlay;
     private int index = 0;
-    private long delayTime = 3000;
+
     private boolean isPause;
+    private long delayTime = 3000;
     private LoopType isLoop = LoopType.LOOP;
     private boolean isUp = false;
     private Runnable playRunable = new Runnable() {
@@ -93,7 +96,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         initView(context);
     }
 
-    public void initView(Context context) {
+    private void initView(Context context) {
         mHandler = new Handler();
         containerLp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         mContainer = new RelativeLayout(context);
@@ -103,14 +106,15 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         mViewPager = new ViewPager(context);
         mViewPager.setId(containerId);
         mViewPager.addOnPageChangeListener(this);
-        mIndicators = new BannerIndicator(context);
+        mIndicators = new DefaultIndicator(context);
         mViewPager.setLayoutParams(viewPagerLp);
         indicatorLp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        indicatorLp.addRule(RelativeLayout.CENTER_HORIZONTAL);
         mIndicators.setLayoutParams(indicatorLp);
         mAdapter = new BannerPegerAdapter(mViewPager);
         mViewPager.setAdapter(mAdapter);
         mContainer.addView(mViewPager, viewPagerLp);
-        mContainer.addView(mIndicators, indicatorLp);
+        mContainer.addView(mIndicators.getIndicatorLayout(), indicatorLp);
         addView(mContainer);
     }
 
@@ -121,14 +125,14 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
             mAdapter.setDatas(loopDatas);
         }
         if (datas != null && datas.size() != 0)
-            mIndicators.setCount(datas.size());
+            mIndicators.setDatas(datas);
         if (datas != null && datas.size() != 0) {
             mViewPager.setCurrentItem(index);
             mViewPager.setOffscreenPageLimit(datas.size());
         }
     }
 
-    public void setLoop(LoopType loop) {
+    protected void setLoop(LoopType loop) {
         isLoop = loop;
         if (mDatas != null && mDatas.size() != 0)
             setDatas(mDatas);
@@ -176,7 +180,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
                 }
             } else {
                 mIndicators.setSelection(position);
-                if (position == mIndicators.getCount() - 1)
+                if (position == mIndicators.getItemCount() - 1)
                     isUp = true;
                 if (position == 0)
                     isUp = false;
@@ -209,7 +213,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         public View loadBanner(BannerData data);
     }
 
-    public void setHeight(int height) {
+    protected void setHeight(int height) {
         mContainerHeight = height;
         if (mViewPager != null) {
             viewPagerLp.height = height;
@@ -225,7 +229,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    public void setWidth(int width) {
+    protected void setWidth(int width) {
         if (mViewPager != null) {
             containerLp.width = width;
             mContainer.setLayoutParams(containerLp);
@@ -236,28 +240,27 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    public void setSelectSrc(int selectSrc) {
+    protected void setSelectSrc(int selectSrc) {
         if (mIndicators != null) {
-            mIndicators.setSelectSrc(selectSrc);
+            mIndicators.setSelectedSrc(selectSrc);
         }
     }
 
-    public void setUnSelectedSrc(int unSelectedSrc) {
+    protected void setUnSelectedSrc(int unSelectedSrc) {
         if (mIndicators != null) {
-            mIndicators.setUnSelectedSrc(unSelectedSrc);
+            mIndicators.setIndicatorSrc(unSelectedSrc);
         }
     }
 
-    public void setIndicatorHeight(int height) {
+    protected void setIndicatorHeight(int height) {
         mIndicatorHeight = height;
         if (mIndicators != null) {
             indicatorLp.height = height;
             mIndicators.setLayoutParams(indicatorLp);
-            mIndicators.setHeight(height);
         }
     }
 
-    public void indicatorBelow() {
+    protected void indicatorBelow() {
         isBelow = true;
         if (mIndicators != null) {
             int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
@@ -271,13 +274,13 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         setHeight(mContainerHeight);
     }
 
-    public void setIndicatorBackgroundRes(@DrawableRes int res) {
+    protected void setIndicatorBackgroundRes(@DrawableRes int res) {
         if (mIndicators != null) {
-            mIndicators.setBackgroundResource(res);
+            mIndicators.getIndicatorLayout().setBackgroundResource(res);
         }
     }
 
-    public void autoPlay() {
+    protected void autoPlay() {
         autoPlay = true;
         mHandler.removeCallbacks(playRunable);
         mHandler.postDelayed(playRunable, delayTime);
@@ -290,7 +293,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    public void setDelayTime(long delayTime) {
+    protected void setDelayTime(long delayTime) {
         this.delayTime = delayTime;
     }
 
@@ -301,7 +304,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    public void setTransformerType(Transformer mTransformer) {
+    protected void setTransformerType(Transformer mTransformer) {
         if (mTransformer != null) {
             BaseTransformer transformer = null;
             switch (mTransformer) {
@@ -359,9 +362,18 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    public void setTransformer(BaseTransformer transformer) {
-        if (mViewPager != null) {
+    protected void setTransformer(BaseTransformer transformer) {
+        if (mViewPager != null && transformer != null) {
             mViewPager.setPageTransformer(false, transformer);
         }
     }
+
+    protected CommonIndicator getIndicator() {
+        return mIndicators;
+    }
+
+    protected void setIndicator(CommonIndicator mIndicators) {
+        this.mIndicators = mIndicators;
+    }
+
 }

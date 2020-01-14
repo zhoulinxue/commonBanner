@@ -1,0 +1,40 @@
+package org.zhx.common.widget.indicator;
+
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+
+import org.zhx.common.widget.BannerData;
+
+import java.util.List;
+
+/**
+ * Copyright (C), 2015-2020
+ * FileName: CommonIndicator
+ * Author: zx
+ * Date: 2020/1/14 10:51
+ * Description:
+ */
+public interface CommonIndicator<T> {
+    public void setDatas(List<BannerData> datas);
+
+    public T initializeIndicatorItem(BannerData data);
+
+    public ViewGroup initializeLayout(Context context);
+
+    public ViewGroup getIndicatorLayout();
+
+    public void setLayoutParams(ViewGroup.LayoutParams indicatorLp);
+
+    public void setSelection(int position);
+
+    public int getItemCount();
+
+    public void setSelectedSrc(int selectSrc);
+
+    public void setIndicatorSrc(int unSelectedSrc);
+
+    public void setHeight(int height);
+
+}

@@ -45,10 +45,8 @@ implementation 'org.zhx.common:commonBanner:1.0.0'
 
         //设置 游标 背景
         banner.setIndicatorBackgroundRes(R.drawable.shape_indicator_bg);
-
         //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
-//        banner.indicatorBelow();
-
+        //banner.indicatorBelow();
         //是否自动滚动  可选 默认 不滚动
         banner.autoPlay();
         // 设置 indicator 颜色
