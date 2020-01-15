@@ -33,9 +33,6 @@ public class CubeOutTransformer extends BaseTransformer {
 		view.setRotationY(90f * position);
 	}
 
-	@Override
-	public boolean isPagingEnabled() {
-		return true;
-	}
+
 
 }

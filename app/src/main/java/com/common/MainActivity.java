@@ -58,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         banner.setDatas(datas);
         //设置item 数据回调
         banner.setLoadBanner(this);
+        banner.setOnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
+            @Override
+            public void onItemClick(BannerData data) {
+                Toast.makeText(MainActivity.this, data.getPosition() + "", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -65,12 +71,6 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         View view = LayoutInflater.from(this).inflate(R.layout.banner_item_layout, null);
         ImageView imageView = view.findViewById(R.id.banner_img);
         imageView.setImageResource(((PicBanner) data).getSrc());
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, data.getPosition() + "", Toast.LENGTH_SHORT).show();
-            }
-        });
         return view;
     }
 }

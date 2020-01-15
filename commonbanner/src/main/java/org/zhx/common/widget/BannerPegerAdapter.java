@@ -24,6 +24,7 @@ public class BannerPegerAdapter extends PagerAdapter {
     private CommonBanner.Bannerloader loadBanner;
     private ViewPager mPager;
     private float itemHeight;
+    private CommonBanner.OnBannerItemClickLisenter onBannerItemClickLisenter;
 
     public BannerPegerAdapter(ViewPager mPager) {
         this.mPager = mPager;
@@ -41,8 +42,16 @@ public class BannerPegerAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         final View view = loadBanner.loadBanner(getDatas().get(position));
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onBannerItemClickLisenter != null) {
+                    onBannerItemClickLisenter.onItemClick(getDatas().get(position));
+                }
+            }
+        });
         view.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
 
@@ -84,5 +93,9 @@ public class BannerPegerAdapter extends PagerAdapter {
 
     public void setLoadBanner(CommonBanner.Bannerloader loadBanner) {
         this.loadBanner = loadBanner;
+    }
+
+    public void setOnBannerItemClickLisenter(CommonBanner.OnBannerItemClickLisenter onBannerItemClickLisenter) {
+        this.onBannerItemClickLisenter = onBannerItemClickLisenter;
     }
 }
