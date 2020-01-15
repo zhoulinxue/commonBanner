@@ -1,8 +1,10 @@
 package org.zhx.common.widget;
 
 import android.content.Context;
+import android.view.ViewGroup;
 
 import org.zhx.common.widget.indicator.CommonIndicator;
+import org.zhx.common.widget.indicator.DefaultIndicator;
 import org.zhx.common.widget.transformers.BaseTransformer;
 import org.zhx.common.widget.transformers.Transformer;
 
@@ -26,6 +28,12 @@ public class Builder {
     private BaseTransformer transformer;
     private Transformer mTransformerType;
     private int indicatorLayoutBg;
+    private ViewGroup mParent;
+
+    public Builder(Context mContext, ViewGroup mParent) {
+        this.mContext = mContext;
+        this.mParent = mParent;
+    }
 
     public Transformer getTransformerType() {
         return mTransformerType;
@@ -130,21 +138,25 @@ public class Builder {
 
     public CommonBanner build() {
         CommonBanner banner = new CommonBanner(mContext);
+        if (getIndicator() == null)
+            setIndicator(new DefaultIndicator(mContext));
+        banner.setIndicator(getIndicator());
         banner.setLoop(getLoopType());
         banner.setDelayTime(getDelayTime());
-        banner.setIndicatorHeight(getIndicatorHeight());
         banner.setHeight(getHeight());
         banner.setSelectSrc(getSelectSrc());
         banner.setUnSelectedSrc(getUnSelectedSrc());
         banner.setTransformer(getTransformer());
         banner.setTransformerType(getTransformerType());
+        banner.setIndicatorHeight(getIndicatorHeight());
+        banner.setIndicatorBackgroundRes(getIndicatorLayoutBg());
         if (isAutoPlay())
             banner.autoPlay();
         if (isBelow())
             banner.indicatorBelow();
-        if (getIndicator() != null)
-            banner.setIndicator(getIndicator());
-        banner.setIndicatorBackgroundRes(getIndicatorLayoutBg());
+        if (mParent != null) {
+            mParent.addView(banner);
+        }
         return banner;
     }
 

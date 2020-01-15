@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import org.zhx.common.widget.BannerData;
 
@@ -36,6 +37,9 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
         mContext = context;
         mIndicator = new ArrayList<>();
         mIndicatorContainer = initializeLayout(context);
+        RelativeLayout.LayoutParams lp = initLayoutParam();
+        if (lp != null)
+            mIndicatorContainer.setLayoutParams(lp);
     }
 
     @Override
@@ -47,7 +51,7 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
             return;
         }
         for (int i = 0; i < mDatas.size(); i++) {
-            mDatas.get(i).setPosition(i+1);
+            mDatas.get(i).setPosition(i + 1);
             View item = initializeIndicatorItem(mDatas.get(i));
             mIndicator.add(item);
             mIndicatorContainer.addView(item, i);
@@ -69,7 +73,7 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
     }
 
     @Override
-    public void setLayoutParams(ViewGroup.LayoutParams indicatorLp) {
+    public void setLayoutParams(RelativeLayout.LayoutParams indicatorLp) {
         if (indicatorLp != null) {
             mIndicatorContainer.setLayoutParams(indicatorLp);
         }
@@ -77,7 +81,6 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
 
     private void notifyData() {
         for (int i = 0; i < mIndicator.size(); i++) {
-
             if (i == currentIndex) {
                 onItemSelected(mIndicator.get(i));
                 mIndicator.get(i).setBackgroundResource(selectSrc);

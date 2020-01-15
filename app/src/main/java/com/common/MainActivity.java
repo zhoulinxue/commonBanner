@@ -17,6 +17,8 @@ import org.zhx.common.widget.BannerData;
 import org.zhx.common.widget.Builder;
 import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.LoopType;
+import org.zhx.common.widget.indicator.CommonIndicator;
+import org.zhx.common.widget.indicator.DefaultIndicator;
 import org.zhx.common.widget.transformers.Transformer;
 
 import java.util.ArrayList;
@@ -37,12 +39,8 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         }
 //        CommonBanner banner = findViewById(R.id.banner_layout);
         FrameLayout container = findViewById(R.id.banner_container);
-        Builder builder = new Builder(this);
-        TextIndicator indicator = new TextIndicator(this);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        indicator.setLayoutParams(lp);
+        Builder builder = new Builder(this,container);
+        CommonIndicator indicator = new DefaultIndicator(this);
         builder.setHeight(350)//设置banner 高度
                 .setIndicatorHeight(80)//设置 导航游标 高度
 //                .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
@@ -60,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         banner.setDatas(datas);
         //设置item 数据回调
         banner.setLoadBanner(this);
-        container.addView(banner);
     }
 
     @Override

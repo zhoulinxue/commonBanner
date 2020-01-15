@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import org.zhx.common.widget.BannerData;
 
@@ -43,7 +44,6 @@ public class DefaultIndicator extends BaseViewIndicator {
         lp.width = 12;
         lp.height = 12;
         view.setLayoutParams(lp);
-
     }
 
     public void setIndicatorMargin(int indicatorMargin) {
@@ -68,6 +68,14 @@ public class DefaultIndicator extends BaseViewIndicator {
         mIndicatorContainer.setGravity(Gravity.CENTER);
         mIndicatorContainer.setOrientation(LinearLayout.HORIZONTAL);
         return mIndicatorContainer;
+    }
+
+    @Override
+    public RelativeLayout.LayoutParams initLayoutParam() {
+        RelativeLayout.LayoutParams indicatorLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        indicatorLp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        indicatorLp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        return indicatorLp;
     }
 
 }

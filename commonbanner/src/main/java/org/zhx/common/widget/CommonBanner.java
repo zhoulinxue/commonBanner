@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 
 import org.zhx.common.R;
 import org.zhx.common.widget.indicator.CommonIndicator;
-import org.zhx.common.widget.indicator.DefaultIndicator;
 import org.zhx.common.widget.transformers.AccordionTransformer;
 import org.zhx.common.widget.transformers.BackgroundToForegroundTransformer;
 import org.zhx.common.widget.transformers.BaseTransformer;
@@ -52,7 +51,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     private Bannerloader loadBanner;
     private Handler mHandler;
     private LayoutParams containerLp;
-    private RelativeLayout.LayoutParams viewPagerLp, indicatorLp;
+    private RelativeLayout.LayoutParams viewPagerLp;
     private ViewPager mViewPager;
     private CommonIndicator mIndicators;
     private RelativeLayout mContainer;
@@ -101,14 +100,12 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         containerLp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         mContainer = new RelativeLayout(context);
         mContainer.setLayoutParams(containerLp);
-        indicatorLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
         viewPagerLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         mViewPager = new ViewPager(context);
         mViewPager.setId(containerId);
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setLayoutParams(viewPagerLp);
-        indicatorLp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        indicatorLp.addRule(RelativeLayout.CENTER_HORIZONTAL);
         mAdapter = new BannerPegerAdapter(mViewPager);
         mViewPager.setAdapter(mAdapter);
         mContainer.addView(mViewPager, viewPagerLp);
@@ -252,8 +249,9 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     protected void setIndicatorHeight(int height) {
         mIndicatorHeight = height;
         if (mIndicators != null) {
-            indicatorLp.height = height;
-            mIndicators.setLayoutParams(indicatorLp);
+            RelativeLayout.LayoutParams lp= (RelativeLayout.LayoutParams) mIndicators.getIndicatorLayout().getLayoutParams();
+            lp.height = height;
+            mIndicators.setLayoutParams(lp);
         }
     }
 

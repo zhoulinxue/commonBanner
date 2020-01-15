@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.zhx.common.widget.BannerData;
@@ -48,5 +49,13 @@ public class TextIndicator extends BaseViewIndicator {
     @Override
     public ViewGroup initializeLayout(Context context) {
         return new FrameLayout(context);
+    }
+
+    @Override
+    public RelativeLayout.LayoutParams initLayoutParam() {
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        return lp;
     }
 }

@@ -25,7 +25,7 @@ public interface CommonIndicator<T> {
 
     public ViewGroup getIndicatorLayout();
 
-    public void setLayoutParams(ViewGroup.LayoutParams indicatorLp);
+    public void setLayoutParams(RelativeLayout.LayoutParams indicatorLp);
 
     public void setSelection(int position);
 
@@ -36,5 +36,7 @@ public interface CommonIndicator<T> {
     public void setIndicatorSrc(int unSelectedSrc);
 
     public void setHeight(int height);
+
+    public RelativeLayout.LayoutParams initLayoutParam();
 
 }
