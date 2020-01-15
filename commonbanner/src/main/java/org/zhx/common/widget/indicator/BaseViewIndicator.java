@@ -1,6 +1,7 @@
 package org.zhx.common.widget.indicator;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -27,6 +28,7 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
     protected int unSelectedSrc;
     protected int currentIndex;
     private ViewGroup mIndicatorContainer;
+    private  RelativeLayout.LayoutParams mLp;
 
     public BaseViewIndicator(Context mContext) {
         this.mContext = mContext;
@@ -37,9 +39,9 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
         mContext = context;
         mIndicator = new ArrayList<>();
         mIndicatorContainer = initializeLayout(context);
-        RelativeLayout.LayoutParams lp = initLayoutParam();
-        if (lp != null)
-            mIndicatorContainer.setLayoutParams(lp);
+        mLp = initLayoutParam();
+        if (mLp != null)
+            mIndicatorContainer.setLayoutParams(mLp);
     }
 
     @Override
@@ -50,11 +52,16 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
         if (datas == null || datas.size() == 0) {
             return;
         }
-        for (int i = 0; i < mDatas.size(); i++) {
-            mDatas.get(i).setPosition(i + 1);
-            View item = initializeIndicatorItem(mDatas.get(i));
+        for (int i = 0; i < datas.size(); i++) {
+            BannerData data = datas.get(i);
+            data.setPosition(i);
+            View item = initializeIndicatorItem(data);
             mIndicator.add(item);
-            mIndicatorContainer.addView(item, i);
+            ViewGroup.LayoutParams lp = item.getLayoutParams();
+            if (lp != null)
+                mIndicatorContainer.addView(item, lp);
+            else
+                mIndicatorContainer.addView(item, i);
         }
     }
 
@@ -115,6 +122,28 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
             lp.height = height;
             getIndicatorLayout().setLayoutParams(lp);
         }
+    }
+
+    @Override
+    public RelativeLayout.LayoutParams getLayoutParams() {
+        return mLp;
+    }
+
+    @Override
+    public ViewGroup initializeLayout(Context context) {
+        LinearLayout mIndicatorContainer = new LinearLayout(context);
+        mIndicatorContainer.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+        mIndicatorContainer.setGravity(Gravity.CENTER);
+        mIndicatorContainer.setOrientation(LinearLayout.HORIZONTAL);
+        return mIndicatorContainer;
+    }
+
+    @Override
+    public RelativeLayout.LayoutParams initLayoutParam() {
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        return lp;
     }
 
     public abstract void onItemSelected(View t);

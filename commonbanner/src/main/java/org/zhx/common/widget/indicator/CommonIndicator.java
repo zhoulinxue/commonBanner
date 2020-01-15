@@ -39,4 +39,6 @@ public interface CommonIndicator<T> {
 
     public RelativeLayout.LayoutParams initLayoutParam();
 
+
+    RelativeLayout.LayoutParams getLayoutParams();
 }

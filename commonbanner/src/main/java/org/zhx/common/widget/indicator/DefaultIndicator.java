@@ -60,22 +60,4 @@ public class DefaultIndicator extends BaseViewIndicator {
         imageView.setLayoutParams(lp);
         return imageView;
     }
-
-    @Override
-    public ViewGroup initializeLayout(Context context) {
-        LinearLayout mIndicatorContainer = new LinearLayout(context);
-        mIndicatorContainer.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
-        mIndicatorContainer.setGravity(Gravity.CENTER);
-        mIndicatorContainer.setOrientation(LinearLayout.HORIZONTAL);
-        return mIndicatorContainer;
-    }
-
-    @Override
-    public RelativeLayout.LayoutParams initLayoutParam() {
-        RelativeLayout.LayoutParams indicatorLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        indicatorLp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        indicatorLp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        return indicatorLp;
-    }
-
 }

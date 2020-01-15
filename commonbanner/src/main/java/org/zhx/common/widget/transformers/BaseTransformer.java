@@ -29,9 +29,9 @@ public abstract class BaseTransformer implements  ViewPager.PageTransformer {
 
         if (hideOffscreenPages()) {
             page.setAlpha(position <= -1f || position >= 1f ? 0f : 1f);
-            page.setEnabled(false);
+//            page.setEnabled(false);
         } else {
-            page.setEnabled(true);
+//            page.setEnabled(true);
             page.setAlpha(1f);
         }
     }

@@ -63,12 +63,12 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     private boolean isPause;
     private long delayTime = 3000;
-    private LoopType isLoop = LoopType.LOOP;
+    private LoopType loopType = LoopType.LOOP;
     private boolean isUp = false;
     private Runnable playRunable = new Runnable() {
         @Override
         public void run() {
-            if (!isUp || LoopType.LOOP == isLoop)
+            if (!isUp || LoopType.LOOP == loopType)
                 index++;
             else {
                 index--;
@@ -100,6 +100,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         containerLp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         mContainer = new RelativeLayout(context);
         mContainer.setLayoutParams(containerLp);
+
         viewPagerLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         mViewPager = new ViewPager(context);
         mViewPager.setId(containerId);
@@ -116,17 +117,18 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         this.loopDatas = loopdata(datas);
         if (mAdapter != null) {
             mAdapter.setDatas(loopDatas);
+            mAdapter.setLoopType(loopType);
         }
         if (datas != null && datas.size() != 0)
             mIndicators.setDatas(datas);
         if (datas != null && datas.size() != 0) {
             mViewPager.setCurrentItem(index);
-            mViewPager.setOffscreenPageLimit(datas.size());
+            mViewPager.setOffscreenPageLimit(datas.size()-1);
         }
     }
 
-    protected void setLoop(LoopType loop) {
-        isLoop = loop;
+    protected void setLoopType(LoopType loop) {
+        loopType = loop;
         if (mDatas != null && mDatas.size() != 0)
             setDatas(mDatas);
     }
@@ -134,7 +136,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     private List<BannerData> loopdata(List<BannerData> datas) {
         List<BannerData> loopList = new ArrayList<>();
         loopList.addAll(datas);
-        if (datas != null && datas.size() > 1 && isLoop == LoopType.LOOP) {
+        if (datas != null && datas.size() > 1 && loopType == LoopType.LOOP) {
             loopList.add(0, datas.get(datas.size() - 1));
             loopList.add(datas.get(0));
             index = 1;
@@ -162,7 +164,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         Log.e(TAG, position + "onPageSelected");
         index = position;
         if (mIndicators != null) {
-            if (LoopType.LOOP == isLoop) {
+            if (LoopType.LOOP == loopType) {
                 if (position == 0) {
                     mIndicators.setSelection(mAdapter.getCount() - 2);
                     mViewPager.setCurrentItem(mAdapter.getCount() - 2, false);
@@ -192,7 +194,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
                 mHandler.removeCallbacks(playRunable);
                 break;
             case ViewPager.SCROLL_STATE_IDLE:
-                if (index == mAdapter.getCount() - 1 && LoopType.LOOP == isLoop)
+                if (index == mAdapter.getCount() - 1 && LoopType.LOOP == loopType)
                     mViewPager.setCurrentItem(1, false);
                 if (autoPlay)
                     autoPlay();
@@ -358,7 +360,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     protected void setTransformer(BaseTransformer transformer) {
         if (mViewPager != null && transformer != null) {
-            mViewPager.setPageTransformer(false, transformer);
+            mViewPager.setPageTransformer(true, transformer);
         }
     }
 
@@ -368,7 +370,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     protected void setIndicator(CommonIndicator mIndicators) {
         this.mIndicators = mIndicators;
-        mContainer.addView(mIndicators.getIndicatorLayout(), mIndicators.getIndicatorLayout().getLayoutParams());
+        mContainer.addView(mIndicators.getIndicatorLayout(), mIndicators.getLayoutParams());
     }
 
     public void setOnBannerItemClickLisenter(OnBannerItemClickLisenter onBannerItemClickLisenter) {

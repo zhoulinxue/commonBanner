@@ -141,7 +141,7 @@ public class Builder {
         if (getIndicator() == null)
             setIndicator(new DefaultIndicator(mContext));
         banner.setIndicator(getIndicator());
-        banner.setLoop(getLoopType());
+        banner.setLoopType(getLoopType());
         banner.setDelayTime(getDelayTime());
         banner.setHeight(getHeight());
         banner.setSelectSrc(getSelectSrc());

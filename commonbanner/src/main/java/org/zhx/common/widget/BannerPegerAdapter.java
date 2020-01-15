@@ -24,6 +24,7 @@ public class BannerPegerAdapter extends PagerAdapter {
     private CommonBanner.Bannerloader loadBanner;
     private ViewPager mPager;
     private float itemHeight;
+    private LoopType mLoopType;
     private CommonBanner.OnBannerItemClickLisenter onBannerItemClickLisenter;
 
     public BannerPegerAdapter(ViewPager mPager) {
@@ -76,5 +77,9 @@ public class BannerPegerAdapter extends PagerAdapter {
 
     public void setOnBannerItemClickLisenter(CommonBanner.OnBannerItemClickLisenter onBannerItemClickLisenter) {
         this.onBannerItemClickLisenter = onBannerItemClickLisenter;
+    }
+
+    public void setLoopType(LoopType mLoopType) {
+        this.mLoopType = mLoopType;
     }
 }
