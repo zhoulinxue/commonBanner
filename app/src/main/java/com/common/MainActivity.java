@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         banner.setDatas(datas);
         //设置item 数据回调
         banner.setLoadBanner(this);
+        //item 点击事件
         banner.setOnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
             @Override
             public void onItemClick(BannerData data) {
