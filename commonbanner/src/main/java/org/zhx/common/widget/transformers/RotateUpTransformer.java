@@ -39,6 +39,9 @@ public class RotateUpTransformer extends BaseTransformer {
 		view.setRotation(rotation);
 	}
 	
-
+	@Override
+	protected boolean isPagingEnabled() {
+		return true;
+	}
 
 }

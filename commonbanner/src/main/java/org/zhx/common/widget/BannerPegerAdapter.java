@@ -52,27 +52,6 @@ public class BannerPegerAdapter extends PagerAdapter {
                 }
             }
         });
-        view.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-
-                    @Override
-                    public void onGlobalLayout() {
-                        if (Build.VERSION.SDK_INT >= 16) {
-                            view.getViewTreeObserver()
-                                    .removeOnGlobalLayoutListener(this);
-                        } else {
-                            view.getViewTreeObserver()
-                                    .removeGlobalOnLayoutListener(this);
-                        }
-                        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
-                        if (itemHeight < view.getHeight()) {
-                            itemHeight = view.getHeight();
-                        }
-                        lp.height = (int) (itemHeight + 1);
-                        mPager.setLayoutParams(lp);
-                    }
-                });
-
         container.addView(view);
         return view;
     }
