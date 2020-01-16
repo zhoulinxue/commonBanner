@@ -2,11 +2,11 @@
 ##(最新 代码 请切换 git 分支 目前 最新 1.1.0)
 ##androidx 请用1.0.1 版本
 ```
-implementation 'org.zhx.common:commonBanner:1.0.1'
+implementation 'org.zhx.common:commonBanner:1.0.0'
 ``` 
  ##v4包 请用1.0.0
 ```
-implementation 'org.zhx.common:commonBanner:1.0.0'
+implementation 'org.zhx.common:commonBanner:1.0.1'
 ```
 ##1.0.0 新增切换效果
 # commonBanner
