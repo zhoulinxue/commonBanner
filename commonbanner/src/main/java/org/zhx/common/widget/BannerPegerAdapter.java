@@ -24,6 +24,8 @@ public class BannerPegerAdapter extends PagerAdapter {
     private CommonBanner.Bannerloader loadBanner;
     private ViewPager mPager;
     private float itemHeight;
+    private LoopType mLoopType;
+    private CommonBanner.OnBannerItemClickLisenter onBannerItemClickLisenter;
 
     public BannerPegerAdapter(ViewPager mPager) {
         this.mPager = mPager;
@@ -41,29 +43,16 @@ public class BannerPegerAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         final View view = loadBanner.loadBanner(getDatas().get(position));
-        view.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-
-                    @Override
-                    public void onGlobalLayout() {
-                        if (Build.VERSION.SDK_INT >= 16) {
-                            view.getViewTreeObserver()
-                                    .removeOnGlobalLayoutListener(this);
-                        } else {
-                            view.getViewTreeObserver()
-                                    .removeGlobalOnLayoutListener(this);
-                        }
-                        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
-                        if (itemHeight < view.getHeight()) {
-                            itemHeight = view.getHeight();
-                        }
-                        lp.height = (int) (itemHeight + 1);
-                        mPager.setLayoutParams(lp);
-                    }
-                });
-
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onBannerItemClickLisenter != null) {
+                    onBannerItemClickLisenter.onItemClick(getDatas().get(position));
+                }
+            }
+        });
         container.addView(view);
         return view;
     }
@@ -84,5 +73,13 @@ public class BannerPegerAdapter extends PagerAdapter {
 
     public void setLoadBanner(CommonBanner.Bannerloader loadBanner) {
         this.loadBanner = loadBanner;
+    }
+
+    public void setOnBannerItemClickLisenter(CommonBanner.OnBannerItemClickLisenter onBannerItemClickLisenter) {
+        this.onBannerItemClickLisenter = onBannerItemClickLisenter;
+    }
+
+    public void setLoopType(LoopType mLoopType) {
+        this.mLoopType = mLoopType;
     }
 }

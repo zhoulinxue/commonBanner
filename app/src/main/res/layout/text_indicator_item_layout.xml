@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="30dp"
+    android:layout_centerInParent="true">
+
+    <TextView
+        android:id="@+id/item_tv"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_indicator_bg"
+        android:gravity="center"
+        android:text="3/6"
+        android:textColor="#ffffff"
+        android:textSize="10sp" />
+
+</RelativeLayout>
