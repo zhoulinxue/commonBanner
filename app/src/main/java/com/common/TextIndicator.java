@@ -18,7 +18,7 @@ import org.zhx.common.widget.indicator.BaseViewIndicator;
  * FileName: TextIndicator
  * Author: zx
  * Date: 2020/1/14 17:38
- * Description:
+ * Description: 自定义  游标
  */
 public class TextIndicator extends BaseViewIndicator {
 
