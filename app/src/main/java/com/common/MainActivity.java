@@ -7,10 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.zhx.common.widget.BannerData;
@@ -18,7 +16,6 @@ import org.zhx.common.widget.Builder;
 import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.LoopType;
 import org.zhx.common.widget.indicator.CommonIndicator;
-import org.zhx.common.widget.indicator.DefaultIndicator;
 import org.zhx.common.widget.transformers.Transformer;
 
 import java.util.ArrayList;
@@ -43,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         CommonIndicator indicator = new TextIndicator(this);
         builder.setHeight(350)//设置banner 高度
                 .setIndicatorHeight(80)//设置 导航游标 高度
-//                .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
+//               .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
                 .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
                 .setSelectSrc(R.drawable.selected_indicator)// 设置 indicator 颜色
                 .setUnSelectedSrc(R.drawable.select_indicator)// 设置 indicator 选择颜色
