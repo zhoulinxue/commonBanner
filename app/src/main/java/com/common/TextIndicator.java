@@ -46,7 +46,9 @@ public class TextIndicator extends BaseViewIndicator {
 
     @Override
     public RelativeLayout.LayoutParams initLayoutParam() {
-        RelativeLayout.LayoutParams lp = super.initLayoutParam();
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lp.rightMargin = 30;
         return lp;
     }
