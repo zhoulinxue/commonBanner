@@ -49,7 +49,7 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
         this.mDatas = datas;
         mIndicatorContainer.removeAllViews();
         mIndicator.clear();
-        if (datas == null || datas.size() == 0) {
+        if (datas == null || datas.size() <= 1) {
             return;
         }
         for (int i = 0; i < datas.size(); i++) {
