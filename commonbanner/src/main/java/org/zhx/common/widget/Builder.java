@@ -35,8 +35,9 @@ public class Builder {
         return width;
     }
 
-    public void setWidth(int width) {
+    public Builder setWidth(int width) {
         this.width = width;
+        return this;
     }
 
     public Builder(Context mContext, ViewGroup mParent) {
