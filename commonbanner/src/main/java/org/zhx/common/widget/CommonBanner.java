@@ -123,7 +123,6 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
             mIndicators.setDatas(datas);
         if (datas != null && datas.size() != 0) {
             mViewPager.setCurrentItem(index);
-            mViewPager.setOffscreenPageLimit(datas.size()-1);
         }
     }
 
@@ -140,8 +139,10 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
             loopList.add(0, datas.get(datas.size() - 1));
             loopList.add(datas.get(0));
             index = 1;
+            mViewPager.setOffscreenPageLimit(loopList.size());
         } else {
             index = 0;
+            mViewPager.setOffscreenPageLimit(datas.size());
         }
         return loopList;
     }
