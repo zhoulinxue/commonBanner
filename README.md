@@ -1,12 +1,12 @@
 # android  studio 引用
 
-##androidx 请用1.1.0 版本
+##androidx 请用1.2.0 版本
 ```
-implementation 'org.zhx.common:commonBanner:1.1.0'
+implementation 'org.zhx.common:commonBanner:1.2.0'
 ```
- ##v4包 请用1.1.1
+ ##v4包 请用1.2.1
 ```
-implementation 'org.zhx.common:commonBanner:1.1.1'
+implementation 'org.zhx.common:commonBanner:1.2.1'
 ```
 ##基本使用方法
 ```
