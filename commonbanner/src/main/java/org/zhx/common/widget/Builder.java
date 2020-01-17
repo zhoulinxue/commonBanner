@@ -29,6 +29,15 @@ public class Builder {
     private Transformer mTransformerType;
     private int indicatorLayoutBg;
     private ViewGroup mParent;
+    private int width;
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
     public Builder(Context mContext, ViewGroup mParent) {
         this.mContext = mContext;
@@ -143,7 +152,10 @@ public class Builder {
         banner.setIndicator(getIndicator());
         banner.setLoopType(getLoopType());
         banner.setDelayTime(getDelayTime());
-        banner.setHeight(getHeight());
+        if (getHeight() != 0)
+            banner.setHeight(getHeight());
+        if (getWidth() != 0)
+            banner.setWidth(getWidth());
         banner.setSelectSrc(getSelectSrc());
         banner.setUnSelectedSrc(getUnSelectedSrc());
         banner.setTransformer(getTransformer());
