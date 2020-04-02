@@ -4,12 +4,14 @@
 ```
 implementation 'org.zhx.common:commonBanner:1.2.0'
 ```
-## 适配 非Androidx 项目  在gradle.properties 添加：
+## 适配 非Androidx 项目 ：
+build.gradle 中：
 ```
 	dependencies {
-	        implementation 'org.zhx.common:floatView:0.1.0'
+	       implementation 'org.zhx.common:commonBanner:1.2.0'
 	}
 ```
+并且 gradle.properties中 添加：
 ```
 android.useAndroidX=true
 # Automatically convert third-party libraries to use AndroidX
@@ -22,7 +24,7 @@ android.enableJetifier=true
 implementation 'org.zhx.common:commonBanner:1.2.1'
 ```
 ## 基本使用方法
-```
+```java
        @Override
          protected void onCreate(Bundle savedInstanceState) {
              super.onCreate(savedInstanceState);
@@ -79,7 +81,7 @@ implementation 'org.zhx.common:commonBanner:1.0.1'
 
 ##1.0.0及 以前 基本使用方法
 
-   ```
+   ```java
    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,8 +129,6 @@ implementation 'org.zhx.common:commonBanner:1.0.1'
          banner.setDelayTime(2000);
         //自定义 切换动画
     }
-    
-   
     ``` 
      ## 有问题请 联系QQ: 194093798
 
