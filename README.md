@@ -1,4 +1,6 @@
-# android  studio 引用
+# commonBanner
+
+## 有问题请 提交 isuue 谢谢大家 持续更新
 
 ## androidx 请用1.2.0 版本
 ```
@@ -129,6 +131,5 @@ implementation 'org.zhx.common:commonBanner:1.0.1'
          banner.setDelayTime(2000);
         //自定义 切换动画
     }
-    ``` 
-     ## 有问题请 联系QQ: 194093798
+```
 
