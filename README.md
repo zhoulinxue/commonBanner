@@ -1,14 +1,14 @@
 # android  studio 引用
 
-##androidx 请用1.2.0 版本
+## androidx 请用1.2.0 版本
 ```
 implementation 'org.zhx.common:commonBanner:1.2.0'
 ```
- ##v4包 请用1.2.1
+ ## v4包 请用1.2.1
 ```
 implementation 'org.zhx.common:commonBanner:1.2.1'
 ```
-##基本使用方法
+## 基本使用方法
 ```
        @Override
          protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +49,13 @@ implementation 'org.zhx.common:commonBanner:1.2.1'
              });
          }
 ```
-##------------------------分割线--------------------------------
+## ------------------------分割线--------------------------------
 
-##androidx 请用1.0.1 版本
+## androidx 请用1.0.1 版本
 ```
 implementation 'org.zhx.common:commonBanner:1.0.0'
 ``` 
- ##v4包 请用1.0.0
+ ## v4包 请用1.0.0
 ```
 implementation 'org.zhx.common:commonBanner:1.0.1'
 ```
