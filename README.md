@@ -4,6 +4,19 @@
 ```
 implementation 'org.zhx.common:commonBanner:1.2.0'
 ```
+## 适配 非Androidx 项目  在gradle.properties 添加：
+```
+	dependencies {
+	        implementation 'org.zhx.common:floatView:0.1.0'
+	}
+```
+```
+android.useAndroidX=true
+# Automatically convert third-party libraries to use AndroidX
+android.enableJetifier=true
+```
+或者
+
  ## v4包 请用1.2.1
 ```
 implementation 'org.zhx.common:commonBanner:1.2.1'
@@ -25,7 +38,7 @@ implementation 'org.zhx.common:commonBanner:1.2.1'
              CommonIndicator indicator = new TextIndicator(this);
              builder.setHeight(350)//设置banner 高度
                      .setIndicatorHeight(80)//设置 导航游标 高度
-     //                .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
+     //               .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
                      .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
                      .setSelectSrc(R.drawable.selected_indicator)// 设置 indicator 颜色
                      .setUnSelectedSrc(R.drawable.select_indicator)// 设置 indicator 选择颜色
@@ -33,8 +46,8 @@ implementation 'org.zhx.common:commonBanner:1.2.1'
                      .setLoopType(LoopType.LOOP)// 设置循环滚动方式
                      .setDelayTime(2000)// 设置滚动间隔时间
                      .setIndicator(indicator);
-     //                .setIndicatorBackgroundRes(R.drawable.text_indicator_bg); //设置 游标 背景
-     //                .setTransformer(); //自定义 切换动画
+     //              .setIndicatorBackgroundRes(R.drawable.text_indicator_bg); //设置 游标 背景
+     //              .setTransformer(); //自定义 切换动画
              CommonBanner banner = builder.build();
              //设置 banner 数据
              banner.setDatas(datas);
@@ -62,7 +75,7 @@ implementation 'org.zhx.common:commonBanner:1.0.1'
 ##1.0.0 新增切换效果
 # commonBanner
 ## 看效果
-![效果图]( http://github.com/zhoulinxue/commonBanner/blob/master/screenshots/1577691131174.gif )
+![效果图](http://github.com/zhoulinxue/commonBanner/blob/master/screenshots/1577691131174.gif)
 
 ##1.0.0及 以前 基本使用方法
 
