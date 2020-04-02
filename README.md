@@ -2,7 +2,15 @@
 
 ## 有问题请 提交 isuue 谢谢大家 持续更新
 
+## 集成：
 ## androidx 请用1.2.0 版本
+```
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+```
 ```
 implementation 'org.zhx.common:commonBanner:1.2.0'
 ```
