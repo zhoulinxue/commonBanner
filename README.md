@@ -1,6 +1,6 @@
 # commonBanner
 
-## 有问题请 提交 isuue 谢谢大家 持续更新
+## 有问题请 提交 isuue/(QQ:194093798) 谢谢大家 持续更新
 ![效果图](https://img-blog.csdnimg.cn/20200107201324273.gif)
 ## 集成：
 ## androidx 请用1.2.0 版本

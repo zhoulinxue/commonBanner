@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
 //        CommonBanner banner = findViewById(R.id.banner_layout);
         FrameLayout container = findViewById(R.id.banner_container);
         Builder builder = new Builder(this,container);
-        CommonIndicator indicator = new TextIndicator(this);
+        //自定义 底部指示牌
+//        CommonIndicator indicator = new TextIndicator(this);
         builder.setHeight(350)//设置banner 高度
                 .setIndicatorHeight(80)//设置 导航游标 高度
 //               .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
