@@ -4,11 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.RelativeLayout;
 
 import java.util.List;
 
@@ -25,6 +22,7 @@ public class BannerPegerAdapter extends PagerAdapter {
     private ViewPager mPager;
     private float itemHeight;
     private LoopType mLoopType;
+    private List<Integer> count;
     private CommonBanner.OnBannerItemClickLisenter onBannerItemClickLisenter;
 
     public BannerPegerAdapter(ViewPager mPager) {
@@ -33,7 +31,7 @@ public class BannerPegerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return dataList == null ? 0 : dataList.size();
+        return count == null ? 0 : count.size();
     }
 
     @Override
@@ -44,12 +42,18 @@ public class BannerPegerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        final View view = loadBanner.loadBanner(getDatas().get(position));
-        view.setOnClickListener(new View.OnClickListener() {
+        int realPosition = count.get(position);
+        if (realPosition == -1) {
+            realPosition = getCount() - 2;
+        } else if (realPosition == getCount() - 1) {
+            realPosition = 0;
+        }
+        final View view = loadBanner.loadBanner(realPosition);
+        view.setOnClickListener(new ChildClickLisenter(realPosition) {
             @Override
-            public void onClick(View view) {
+            public void onChildClick(View v, int position) {
                 if (onBannerItemClickLisenter != null) {
-                    onBannerItemClickLisenter.onItemClick(getDatas().get(position));
+                    onBannerItemClickLisenter.onItemClick(v, position);
                 }
             }
         });
@@ -57,17 +61,14 @@ public class BannerPegerAdapter extends PagerAdapter {
         return view;
     }
 
+
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View) object);
     }
 
-    public List<BannerData> getDatas() {
-        return dataList;
-    }
-
-    public void setDatas(List<BannerData> dataList) {
-        this.dataList = dataList;
+    public void setCount(List<Integer> count) {
+        this.count = count;
         notifyDataSetChanged();
     }
 

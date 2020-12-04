@@ -23,12 +23,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements CommonBanner.Bannerloader {
     private int[] mImages = {R.mipmap.b, R.mipmap.d, R.mipmap.e, R.mipmap.f, R.mipmap.g, R.mipmap.h};
+    List<BannerData> datas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        List<BannerData> datas = new ArrayList<>();
+
         for (int i = 0; i < mImages.length; i++) {
             PicBanner picBanner = new PicBanner();
             picBanner.setSrc(mImages[i]);
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         }
 //        CommonBanner banner = findViewById(R.id.banner_layout);
         FrameLayout container = findViewById(R.id.banner_container);
-        Builder builder = new Builder(this,container);
+        Builder builder = new Builder(this, container);
         //自定义 底部指示牌
 //        CommonIndicator indicator = new TextIndicator(this);
         builder.setHeight(350)//设置banner 高度
@@ -59,17 +60,17 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
         //item 点击事件
         banner.setOnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
             @Override
-            public void onItemClick(BannerData data) {
-                Toast.makeText(MainActivity.this, data.getPosition() + "", Toast.LENGTH_SHORT).show();
+            public void onItemClick(View v, int position) {
+                Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
-    public View loadBanner(final BannerData data) {
+    public View loadBanner(int positon) {
         View view = LayoutInflater.from(this).inflate(R.layout.banner_item_layout, null);
         ImageView imageView = view.findViewById(R.id.banner_img);
-        imageView.setImageResource(((PicBanner) data).getSrc());
+        imageView.setImageResource(((PicBanner) datas.get(positon)).getSrc());
         return view;
     }
 }

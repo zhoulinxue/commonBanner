@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import androidx.annotation.DrawableRes;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.AttributeSet;
@@ -46,7 +47,8 @@ import java.util.List;
  */
 public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeListener {
     private String TAG = CommonBanner.class.getSimpleName();
-    private List<BannerData> mDatas, loopDatas;
+    private List<BannerData> mDatas;
+    private List<Integer> loopDatas;
     private BannerPegerAdapter mAdapter;
     private Bannerloader loadBanner;
     private Handler mHandler;
@@ -65,6 +67,9 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     private long delayTime = 3000;
     private LoopType loopType = LoopType.LOOP;
     private boolean isUp = false;
+
+    private RecyclerView.Adapter mRecyclerViewAdapter;
+
     private Runnable playRunable = new Runnable() {
         @Override
         public void run() {
@@ -112,11 +117,15 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         addView(mContainer);
     }
 
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        mRecyclerViewAdapter = adapter;
+    }
+
     public void setDatas(List<BannerData> datas) {
         this.mDatas = datas;
-        this.loopDatas = loopdata(datas);
+        this.loopDatas = loopdata(datas.size() - 1);
         if (mAdapter != null) {
-            mAdapter.setDatas(loopDatas);
+            mAdapter.setCount(loopDatas);
             mAdapter.setLoopType(loopType);
         }
         if (datas != null && datas.size() != 0)
@@ -132,17 +141,19 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
             setDatas(mDatas);
     }
 
-    private List<BannerData> loopdata(List<BannerData> datas) {
-        List<BannerData> loopList = new ArrayList<>();
-        loopList.addAll(datas);
-        if (datas != null && datas.size() > 1 && loopType == LoopType.LOOP) {
-            loopList.add(0, datas.get(datas.size() - 1));
-            loopList.add(datas.get(0));
+    private List<Integer> loopdata(int count) {
+        List<Integer> loopList = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            loopList.add(i);
+        }
+        if (count > 1 && loopType == LoopType.LOOP) {
+            loopList.add(0, -1);
+            loopList.add(count);
             index = 1;
             mViewPager.setOffscreenPageLimit(loopList.size());
         } else {
             index = 0;
-            mViewPager.setOffscreenPageLimit(datas.size());
+            mViewPager.setOffscreenPageLimit(count);
         }
         return loopList;
     }
@@ -167,12 +178,12 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         if (mIndicators != null) {
             if (LoopType.LOOP == loopType) {
                 if (position == 0) {
-                    mIndicators.setSelection(mAdapter.getCount() - 2);
-                    mViewPager.setCurrentItem(mAdapter.getCount() - 2, false);
-                } else if (position == mAdapter.getCount() - 1) {
+                    mIndicators.setSelection(loopDatas.get(position));
+                    mViewPager.setCurrentItem(loopDatas.get(position), false);
+                } else if (position == mAdapter.getCount()) {
                     mIndicators.setSelection(0);
                 } else {
-                    mIndicators.setSelection(position - 1);
+                    mIndicators.setSelection(loopDatas.get(position));
                 }
             } else {
                 mIndicators.setSelection(position);
@@ -180,7 +191,6 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
                     isUp = true;
                 if (position == 0)
                     isUp = false;
-
             }
         }
         if (autoPlay)
@@ -206,7 +216,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     }
 
     public interface Bannerloader {
-        public View loadBanner(BannerData data);
+        public View loadBanner(int positon);
     }
 
     protected void setHeight(int height) {
@@ -381,6 +391,6 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     }
 
     public interface OnBannerItemClickLisenter {
-        public void onItemClick(BannerData data);
+        public void onItemClick(View v, int position);
     }
 }
