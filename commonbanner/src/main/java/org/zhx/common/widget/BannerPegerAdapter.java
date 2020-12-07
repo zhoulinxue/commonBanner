@@ -2,12 +2,10 @@ package org.zhx.common.widget;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
 
 /**
  * Copyright (C), 2015-2019
