@@ -17,9 +17,9 @@ import java.util.List;
  * Description:
  */
 public interface CommonIndicator<T> {
-    public void setDatas(List<BannerData> datas);
+    public void setDatas(int datas);
 
-    public T initializeIndicatorItem(BannerData data);
+    public T initializeIndicatorItem(int position);
 
     public ViewGroup initializeLayout(Context context);
 

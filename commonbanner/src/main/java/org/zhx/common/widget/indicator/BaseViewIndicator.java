@@ -22,7 +22,7 @@ import java.util.List;
  */
 public abstract class BaseViewIndicator implements CommonIndicator<View> {
     protected Context mContext;
-    protected List<BannerData> mDatas;
+    protected int mDatas;
     protected List<View> mIndicator;
     protected int selectSrc;
     protected int unSelectedSrc;
@@ -45,17 +45,15 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
     }
 
     @Override
-    public void setDatas(List<BannerData> datas) {
+    public void setDatas(int datas) {
         this.mDatas = datas;
         mIndicatorContainer.removeAllViews();
         mIndicator.clear();
-        if (datas == null || datas.size() <= 1) {
+        if (datas <= 1) {
             return;
         }
-        for (int i = 0; i < datas.size(); i++) {
-            BannerData data = datas.get(i);
-            data.setPosition(i);
-            View item = initializeIndicatorItem(data);
+        for (int i = 0; i < datas; i++) {
+            View item = initializeIndicatorItem(i);
             mIndicator.add(item);
             ViewGroup.LayoutParams lp = item.getLayoutParams();
             if (lp != null)
@@ -112,7 +110,7 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
 
     @Override
     public int getItemCount() {
-        return mDatas == null ? 0 : mDatas.size();
+        return mDatas;
     }
 
     @Override

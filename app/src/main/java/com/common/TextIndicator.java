@@ -1,16 +1,11 @@
 package com.common;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.zhx.common.widget.BannerData;
 import org.zhx.common.widget.indicator.BaseViewIndicator;
 
 /**
@@ -37,10 +32,10 @@ public class TextIndicator extends BaseViewIndicator {
     }
 
     @Override
-    public View initializeIndicatorItem(BannerData data) {
+    public View initializeIndicatorItem(int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.text_indicator_item_layout, null);
         TextView textView = view.findViewById(R.id.item_tv);
-        textView.setText((data.getPosition() + 1) + "/" + mDatas.size());
+        textView.setText((position + 1) + "/" + mDatas);
         return view;
     }
 

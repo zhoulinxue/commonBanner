@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
 //                .setTransformer(); //自定义 切换动画
         CommonBanner banner = builder.build();
         //设置 banner 数据
-        banner.setDatas(datas);
+        banner.setDatas(datas.size());
         //设置item 数据回调
         banner.setLoadBanner(this);
         //item 点击事件

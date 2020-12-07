@@ -17,21 +17,14 @@ import java.util.List;
  * Description:
  */
 public class BannerPegerAdapter extends PagerAdapter {
-    private List<BannerData> dataList;
     private CommonBanner.Bannerloader loadBanner;
-    private ViewPager mPager;
-    private float itemHeight;
     private LoopType mLoopType;
-    private List<Integer> count;
+    private int count;
     private CommonBanner.OnBannerItemClickLisenter onBannerItemClickLisenter;
-
-    public BannerPegerAdapter(ViewPager mPager) {
-        this.mPager = mPager;
-    }
 
     @Override
     public int getCount() {
-        return count == null ? 0 : count.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override
@@ -42,12 +35,7 @@ public class BannerPegerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        int realPosition = count.get(position);
-        if (realPosition == -1) {
-            realPosition = getCount() - 2;
-        } else if (realPosition == getCount() - 1) {
-            realPosition = 0;
-        }
+        int realPosition = position % count;
         final View view = loadBanner.loadBanner(realPosition);
         view.setOnClickListener(new ChildClickLisenter(realPosition) {
             @Override
@@ -67,7 +55,7 @@ public class BannerPegerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
-    public void setCount(List<Integer> count) {
+    public void setCount(int count) {
         this.count = count;
         notifyDataSetChanged();
     }

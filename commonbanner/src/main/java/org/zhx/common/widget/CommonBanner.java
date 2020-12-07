@@ -47,8 +47,6 @@ import java.util.List;
  */
 public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeListener {
     private String TAG = CommonBanner.class.getSimpleName();
-    private List<BannerData> mDatas;
-    private List<Integer> loopDatas;
     private BannerPegerAdapter mAdapter;
     private Bannerloader loadBanner;
     private Handler mHandler;
@@ -62,11 +60,13 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     private boolean isBelow = false;
     private boolean autoPlay;
     private int index = 0;
+    private int BASE_NUM = 1000;
 
     private boolean isPause;
     private long delayTime = 3000;
     private LoopType loopType = LoopType.LOOP;
     private boolean isUp = false;
+    private int size;
 
     private RecyclerView.Adapter mRecyclerViewAdapter;
 
@@ -111,51 +111,48 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         mViewPager.setId(containerId);
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setLayoutParams(viewPagerLp);
-        mAdapter = new BannerPegerAdapter(mViewPager);
+        mAdapter = new BannerPegerAdapter();
         mViewPager.setAdapter(mAdapter);
         mContainer.addView(mViewPager, viewPagerLp);
         addView(mContainer);
     }
 
-    public void setAdapter(RecyclerView.Adapter adapter) {
-        mRecyclerViewAdapter = adapter;
-    }
-
-    public void setDatas(List<BannerData> datas) {
-        this.mDatas = datas;
-        this.loopDatas = loopdata(datas.size() - 1);
+    public void setDatas(int size) {
+        index = size * BASE_NUM;
+        while (index > Integer.MAX_VALUE) {
+            index = size * BASE_NUM / 2;
+            BASE_NUM = BASE_NUM / 2;
+        }
+        mIndicators.setDatas(size);
         if (mAdapter != null) {
-            mAdapter.setCount(loopDatas);
+            mAdapter.setCount(size);
             mAdapter.setLoopType(loopType);
         }
-        if (datas != null && datas.size() != 0)
-            mIndicators.setDatas(datas);
-        if (datas != null && datas.size() != 0) {
-            mViewPager.setCurrentItem(index);
-        }
+        mViewPager.setCurrentItem(index);
     }
 
     protected void setLoopType(LoopType loop) {
         loopType = loop;
-        if (mDatas != null && mDatas.size() != 0)
-            setDatas(mDatas);
+        if (size != 0)
+            setDatas(size);
     }
 
-    private List<Integer> loopdata(int count) {
-        List<Integer> loopList = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            loopList.add(i);
+    @Override
+    public void onPageSelected(int position) {
+        index = position;
+        if (mIndicators != null) {
+            if (LoopType.LOOP == loopType && mIndicators.getItemCount() != 0){
+                mIndicators.setSelection(position % mIndicators.getItemCount());
+            } else{
+                mIndicators.setSelection(position);
+                if (position == mIndicators.getItemCount() - 1)
+                    isUp = true;
+                if (position == 0)
+                    isUp = false;
+            }
         }
-        if (count > 1 && loopType == LoopType.LOOP) {
-            loopList.add(0, -1);
-            loopList.add(count);
-            index = 1;
-            mViewPager.setOffscreenPageLimit(loopList.size());
-        } else {
-            index = 0;
-            mViewPager.setOffscreenPageLimit(count);
-        }
-        return loopList;
+        if (autoPlay)
+            autoPlay();
     }
 
     public void setLoadBanner(Bannerloader loadBanner) {
@@ -171,31 +168,6 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     }
 
-    @Override
-    public void onPageSelected(int position) {
-        Log.e(TAG, position + "onPageSelected");
-        index = position;
-        if (mIndicators != null) {
-            if (LoopType.LOOP == loopType) {
-                if (position == 0) {
-                    mIndicators.setSelection(loopDatas.get(position));
-                    mViewPager.setCurrentItem(loopDatas.get(position), false);
-                } else if (position == mAdapter.getCount()) {
-                    mIndicators.setSelection(0);
-                } else {
-                    mIndicators.setSelection(loopDatas.get(position));
-                }
-            } else {
-                mIndicators.setSelection(position);
-                if (position == mIndicators.getItemCount() - 1)
-                    isUp = true;
-                if (position == 0)
-                    isUp = false;
-            }
-        }
-        if (autoPlay)
-            autoPlay();
-    }
 
     @Override
     public void onPageScrollStateChanged(int state) {

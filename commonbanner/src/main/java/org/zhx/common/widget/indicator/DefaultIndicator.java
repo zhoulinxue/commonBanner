@@ -51,9 +51,9 @@ public class DefaultIndicator extends BaseViewIndicator {
     }
 
     @Override
-    public View initializeIndicatorItem(BannerData data) {
+    public View initializeIndicatorItem(int position) {
         ImageView imageView = new ImageView(mContext);
-        imageView.setBackgroundResource(data.getPosition() == 0 ? selectSrc : unSelectedSrc);
+        imageView.setBackgroundResource(position == 0 ? selectSrc : unSelectedSrc);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(10, 10);
         lp.gravity = Gravity.CENTER;
         lp.rightMargin = indicatorMargin;
