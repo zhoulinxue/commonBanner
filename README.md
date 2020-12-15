@@ -11,13 +11,13 @@ allprojects {
 }
 ```
 ```
-implementation 'org.zhx.common:commonBanner:1.2.2'
+implementation 'org.zhx.common:commonBanner:1.3.0'
 ```
 ## 适配 非Androidx 项目 ：
 build.gradle 中：
 ```
 	dependencies {
-	       implementation 'org.zhx.common:commonBanner:1.2.2'
+	       implementation 'org.zhx.common:commonBanner:1.3.0'
 	}
 ```
 并且 gradle.properties中 添加：
@@ -28,30 +28,29 @@ android.enableJetifier=true
 或者
 ## 基本使用方法
 ```java
-     builder.setHeight(350)//设置banner 高度
-                   .setIndicatorHeight(80)//设置 导航游标 高度
-   //               .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
-                   .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
-                   .setSelectSrc(R.drawable.selected_indicator)// 设置 indicator 颜色
-                   .setUnSelectedSrc(R.drawable.select_indicator)// 设置 indicator 选择颜色
-                   .setTransformerType(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
-                   .setLoopType(LoopType.LOOP)// 设置循环滚动方式
-                   .setDelayTime(2000)// 设置滚动间隔时间
-   //                .setIndicator(indicator)
-                   .setIndicatorBackgroundRes(R.drawable.shape_indicator_bg); //设置 游标 背景
-   //                .setTransformer(); //自定义 切换动画
-           CommonBanner banner = builder.build();
-           //设置 banner 数据
-           banner.setDatas(datas.size());
-           //设置item 数据回调
-           banner.setLoadBanner(this);
-           //item 点击事件
-           banner.setOnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
-               @Override
-               public void onItemClick(View v, int position) {
-                   Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_SHORT).show();
-               }
-           });
+       builder.setHeight(350)//设置banner 高度
+                     .setIndicatorHeight(80)//设置 导航游标 高度
+     //               .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
+                     .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
+                     .setSelectSrc(R.drawable.selected_indicator)// 设置 indicator 颜色
+                     .setUnSelectedSrc(R.drawable.select_indicator)// 设置 indicator 选择颜色
+                     .setTransformerType(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
+     //                .setTransformer()//自定义 切换动画   二选一  进行设置
+                     .setLoopType(LoopType.LOOP)// 设置循环滚动方式
+                     .setDelayTime(2000)// 设置滚动间隔时间
+                     .setIndicatorBackgroundRes(R.drawable.shape_indicator_bg); //设置 指示器 背景
+             //                .setIndicator(indicator); // 自定义 指示器
+
+             CommonBanner banner = builder.build();
+             //设置item 数据回调
+             banner.setBannerAdapter(this);
+             //item 点击事件
+             banner.setOnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
+                 @Override
+                 public void onItemClick(View v, int position) {
+                     Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_SHORT).show();
+                 }
+             });
 ```
 ## ------------------------分割线--------------------------------
 
