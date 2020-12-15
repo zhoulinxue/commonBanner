@@ -3,6 +3,8 @@ package org.zhx.common.widget;
 import android.content.Context;
 import android.view.ViewGroup;
 
+import androidx.annotation.ColorRes;
+
 import org.zhx.common.widget.indicator.CommonIndicator;
 import org.zhx.common.widget.indicator.DefaultIndicator;
 import org.zhx.common.widget.transformers.BaseTransformer;
@@ -28,6 +30,7 @@ public class Builder {
     private BaseTransformer transformer;
     private Transformer mTransformerType;
     private int indicatorLayoutBg;
+    private int indicatorLayoutColor;
     private ViewGroup mParent;
     private int width;
 
@@ -162,7 +165,11 @@ public class Builder {
         banner.setTransformer(getTransformer());
         banner.setTransformerType(getTransformerType());
         banner.setIndicatorHeight(getIndicatorHeight());
-        banner.setIndicatorBackgroundRes(getIndicatorLayoutBg());
+        if (getIndicatorLayoutBg() != 0) {
+            banner.setIndicatorBackgroundRes(getIndicatorLayoutBg());
+        } else if (getIndicatorLayoutColor() != 0) {
+            banner.setIndicatorBackgroundColor(getIndicatorLayoutColor());
+        }
         if (isAutoPlay())
             banner.autoPlay();
         if (isBelow())
@@ -180,6 +187,14 @@ public class Builder {
     public Builder setIndicatorBackgroundRes(int indicatorLayoutBg) {
         this.indicatorLayoutBg = indicatorLayoutBg;
         return this;
+    }
+
+    public int getIndicatorLayoutColor() {
+        return indicatorLayoutColor;
+    }
+
+    public void setIndicatorLayoutColor(@ColorRes int indicatorLayoutColor) {
+        this.indicatorLayoutColor = indicatorLayoutColor;
     }
 
     public Builder indicatorBelow() {

@@ -4,12 +4,8 @@ import android.content.Context;
 
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
-import org.zhx.common.widget.BannerData;
 
 /**
  * Copyright (C), 2015-2019
@@ -32,6 +28,7 @@ public class DefaultIndicator extends BaseViewIndicator {
 
     @Override
     protected void onItemUnSelected(View view) {
+        view.setBackgroundResource(unSelectedSrc);
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) view.getLayoutParams();
         lp.width = 10;
         lp.height = 10;
@@ -40,6 +37,7 @@ public class DefaultIndicator extends BaseViewIndicator {
 
     @Override
     public void onItemSelected(View view) {
+        view.setBackgroundResource(selectSrc);
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) view.getLayoutParams();
         lp.width = 12;
         lp.height = 12;

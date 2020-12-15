@@ -3,6 +3,7 @@ package org.zhx.common.widget;
 import android.content.Context;
 import android.os.Handler;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -34,9 +35,6 @@ import org.zhx.common.widget.transformers.ZoomInTransformer;
 import org.zhx.common.widget.transformers.ZoomOutSlideTransformer;
 import org.zhx.common.widget.transformers.ZoomOutTranformer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * Copyright (C), 2015-2019
@@ -48,7 +46,7 @@ import java.util.List;
 public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeListener {
     private String TAG = CommonBanner.class.getSimpleName();
     private BannerPegerAdapter mAdapter;
-    private Bannerloader loadBanner;
+    private BannerAdapter loadBanner;
     private Handler mHandler;
     private LayoutParams containerLp;
     private RelativeLayout.LayoutParams viewPagerLp;
@@ -117,7 +115,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         addView(mContainer);
     }
 
-    public void setDatas(int size) {
+    private void setDatas(int size) {
         index = size * BASE_NUM;
         while (index > Integer.MAX_VALUE) {
             index = size * BASE_NUM / 2;
@@ -141,9 +139,9 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     public void onPageSelected(int position) {
         index = position;
         if (mIndicators != null) {
-            if (LoopType.LOOP == loopType && mIndicators.getItemCount() != 0){
+            if (LoopType.LOOP == loopType && mIndicators.getItemCount() != 0) {
                 mIndicators.setSelection(position % mIndicators.getItemCount());
-            } else{
+            } else {
                 mIndicators.setSelection(position);
                 if (position == mIndicators.getItemCount() - 1)
                     isUp = true;
@@ -155,8 +153,11 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
             autoPlay();
     }
 
-    public void setLoadBanner(Bannerloader loadBanner) {
+    public void setBannerAdapter(BannerAdapter loadBanner) {
         this.loadBanner = loadBanner;
+        if (loadBanner != null && loadBanner.getItemCount() != 0) {
+            setDatas(loadBanner.getItemCount());
+        }
         if (mAdapter != null) {
             mAdapter.setLoadBanner(loadBanner);
         }
@@ -187,8 +188,10 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    public interface Bannerloader {
-        public View loadBanner(int positon);
+    public interface BannerAdapter {
+        public View onCreatItem(int positon);
+
+        public int getItemCount();
     }
 
     protected void setHeight(int height) {
@@ -256,6 +259,12 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     protected void setIndicatorBackgroundRes(@DrawableRes int res) {
         if (mIndicators != null) {
             mIndicators.getIndicatorLayout().setBackgroundResource(res);
+        }
+    }
+
+    protected void setIndicatorBackgroundColor(@ColorRes int res) {
+        if (mIndicators != null) {
+            mIndicators.getIndicatorLayout().setBackgroundColor(mContainer.getContext().getResources().getColor(res));
         }
     }
 

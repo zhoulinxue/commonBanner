@@ -15,7 +15,7 @@ import android.view.ViewGroup;
  * Description:
  */
 public class BannerPegerAdapter extends PagerAdapter {
-    private CommonBanner.Bannerloader loadBanner;
+    private CommonBanner.BannerAdapter loadBanner;
     private LoopType mLoopType;
     private int count;
     private CommonBanner.OnBannerItemClickLisenter onBannerItemClickLisenter;
@@ -34,7 +34,7 @@ public class BannerPegerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         int realPosition = position % count;
-        final View view = loadBanner.loadBanner(realPosition);
+        final View view = loadBanner.onCreatItem(realPosition);
         view.setOnClickListener(new ChildClickLisenter(realPosition) {
             @Override
             public void onChildClick(View v, int position) {
@@ -58,7 +58,7 @@ public class BannerPegerAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void setLoadBanner(CommonBanner.Bannerloader loadBanner) {
+    public void setLoadBanner(CommonBanner.BannerAdapter loadBanner) {
         this.loadBanner = loadBanner;
     }
 

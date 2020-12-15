@@ -4,8 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.DrawableRes;
 
-import org.zhx.common.widget.BannerData;
-
 /**
  * Copyright (C), 2015-2019
  * FileName: PicBanner
@@ -13,7 +11,7 @@ import org.zhx.common.widget.BannerData;
  * Date: 2019/12/20 15:21
  * Description:
  */
-public class PicBanner implements BannerData, Parcelable {
+public class PicBanner implements  Parcelable {
     @DrawableRes
     private int src;
     private String dec;
@@ -39,17 +37,6 @@ public class PicBanner implements BannerData, Parcelable {
         this.dec = dec;
     }
 
-    @Override
-    public String getPath() {
-        return null;
-    }
-
-    @Override
-    public String getTitle() {
-        return getDec();
-    }
-
-    @Override
     public int getPosition() {
         return position;
     }

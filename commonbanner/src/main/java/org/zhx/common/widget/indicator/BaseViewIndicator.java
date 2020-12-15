@@ -4,11 +4,8 @@ import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import org.zhx.common.widget.BannerData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,10 +85,8 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
         for (int i = 0; i < mIndicator.size(); i++) {
             if (i == currentIndex) {
                 onItemSelected(mIndicator.get(i));
-                mIndicator.get(i).setBackgroundResource(selectSrc);
             } else {
                 onItemUnSelected(mIndicator.get(i));
-                mIndicator.get(i).setBackgroundResource(unSelectedSrc);
             }
         }
     }

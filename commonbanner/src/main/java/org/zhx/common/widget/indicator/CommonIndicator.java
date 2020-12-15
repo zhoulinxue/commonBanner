@@ -1,13 +1,8 @@
 package org.zhx.common.widget.indicator;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-
-import org.zhx.common.widget.BannerData;
-
-import java.util.List;
 
 /**
  * Copyright (C), 2015-2020
