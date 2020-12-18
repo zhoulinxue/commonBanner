@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!--    <org.zhx.common.widget.CommonBanner-->
-    <!--        android:id="@+id/banner_layout"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:clipChildren="false"/>-->
-    <FrameLayout
-        android:id="@+id/banner_container"
+    <org.zhx.common.widget.CommonBanner
+        android:id="@+id/banner_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:clipChildren="false" />
+    <!--    <FrameLayout-->
+    <!--        android:id="@+id/banner_container"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content" />-->
 </RelativeLayout>

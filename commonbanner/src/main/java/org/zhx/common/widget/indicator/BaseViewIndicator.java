@@ -24,11 +24,22 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
     protected int selectSrc;
     protected int unSelectedSrc;
     protected int currentIndex;
+    protected int nomalWidth = 10;
+    protected int nomalHeight = 10;
+    protected int selectWidth = 12;
+    protected int selectHeight = 12;
     private ViewGroup mIndicatorContainer;
-    private  RelativeLayout.LayoutParams mLp;
+    private RelativeLayout.LayoutParams mLp;
+    protected int indicatorMargin = 18;
 
     public BaseViewIndicator(Context mContext) {
         this.mContext = mContext;
+        initView(mContext);
+    }
+
+    public BaseViewIndicator(Context mContext, int indicatorMargin) {
+        this.mContext = mContext;
+        this.indicatorMargin = indicatorMargin;
         initView(mContext);
     }
 
@@ -41,6 +52,9 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
             mIndicatorContainer.setLayoutParams(mLp);
     }
 
+
+
+
     @Override
     public void setDatas(int datas) {
         this.mDatas = datas;
@@ -50,7 +64,7 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
             return;
         }
         for (int i = 0; i < datas; i++) {
-            View item = initializeIndicatorItem(i);
+            View item = creatIndicatorItem(i);
             mIndicator.add(item);
             ViewGroup.LayoutParams lp = item.getLayoutParams();
             if (lp != null)
@@ -73,6 +87,8 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
     public ViewGroup getIndicatorLayout() {
         return mIndicatorContainer;
     }
+
+
 
     @Override
     public void setLayoutParams(RelativeLayout.LayoutParams indicatorLp) {
@@ -136,6 +152,51 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         return lp;
+    }
+
+    @Override
+    public void setItemHeightAndWidth(View view,int width, int height) {
+
+    }
+
+    public int getNomalWidth() {
+        return nomalWidth;
+    }
+
+    public void setNomalWidth(int nomalWidth) {
+        this.nomalWidth = nomalWidth;
+    }
+
+    public int getNomalHeight() {
+        return nomalHeight;
+    }
+
+    public void setNomalHeight(int nomalHeight) {
+        this.nomalHeight = nomalHeight;
+    }
+
+    public int getSelectWidth() {
+        return selectWidth;
+    }
+
+    public void setSelectWidth(int selectWidth) {
+        this.selectWidth = selectWidth;
+    }
+
+    public int getSelectHeight() {
+        return selectHeight;
+    }
+
+    public void setSelectHeight(int selectHeight) {
+        this.selectHeight = selectHeight;
+    }
+
+    public int getIndicatorMargin() {
+        return indicatorMargin;
+    }
+
+    public void setIndicatorMargin(int indicatorMargin) {
+        this.indicatorMargin = indicatorMargin;
     }
 
     public abstract void onItemSelected(View t);

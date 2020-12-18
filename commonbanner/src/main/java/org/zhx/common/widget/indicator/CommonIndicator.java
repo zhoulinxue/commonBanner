@@ -1,6 +1,7 @@
 package org.zhx.common.widget.indicator;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
@@ -14,7 +15,7 @@ import android.widget.RelativeLayout;
 public interface CommonIndicator<T> {
     public void setDatas(int datas);
 
-    public T initializeIndicatorItem(int position);
+    public T creatIndicatorItem(int position);
 
     public ViewGroup initializeLayout(Context context);
 
@@ -34,6 +35,7 @@ public interface CommonIndicator<T> {
 
     public RelativeLayout.LayoutParams initLayoutParam();
 
+    public void setItemHeightAndWidth(View view, int width, int height);
 
     RelativeLayout.LayoutParams getLayoutParams();
 }

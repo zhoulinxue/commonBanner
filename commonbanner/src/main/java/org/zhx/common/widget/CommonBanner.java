@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -120,7 +121,6 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         mIndicators.setDatas(size);
         if (mAdapter != null) {
             mAdapter.setCount(size);
-            mAdapter.setLoopType(loopType);
         }
         mViewPager.setCurrentItem(index);
     }
@@ -184,8 +184,13 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
+    public void setBuilder(Builder builder) {
+        if (builder != null)
+            builder.build(this);
+    }
+
     public interface BannerAdapter {
-        public View onCreatItem(int positon);
+        public View onCreatItem(ViewGroup container, int positon);
 
         public int getItemCount();
     }

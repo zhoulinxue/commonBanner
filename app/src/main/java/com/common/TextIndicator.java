@@ -32,7 +32,7 @@ public class TextIndicator extends BaseViewIndicator {
     }
 
     @Override
-    public View initializeIndicatorItem(int position) {
+    public View creatIndicatorItem(int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.text_indicator_item_layout, null);
         TextView textView = view.findViewById(R.id.item_tv);
         textView.setText((position + 1) + "/" + mDatas);

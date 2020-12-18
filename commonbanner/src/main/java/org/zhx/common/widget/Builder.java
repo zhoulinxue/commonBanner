@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.ColorRes;
 
 import org.zhx.common.widget.indicator.CommonIndicator;
-import org.zhx.common.widget.indicator.DefaultIndicator;
+import org.zhx.common.widget.indicator.ClassiceIndicator;
 import org.zhx.common.widget.transformers.BaseTransformer;
 import org.zhx.common.widget.transformers.Transformer;
 
@@ -141,11 +141,25 @@ public class Builder {
         return selectSrc;
     }
 
+    /**
+     * replaced  by  setIndicatorItemSelectSrc（）
+     */
+
+    @Deprecated
     public Builder setSelectSrc(int selectSrc) {
         this.selectSrc = selectSrc;
         return this;
     }
 
+    public Builder setIndicatorItemSelectSrc(int selectSrc) {
+        this.selectSrc = selectSrc;
+        return this;
+    }
+
+    /**
+     * replaced  by  setIndicatorItemUnSelectedSrc（）
+     */
+    @Deprecated
     public int getUnSelectedSrc() {
         return unSelectedSrc;
     }
@@ -155,10 +169,14 @@ public class Builder {
         return this;
     }
 
-    public CommonBanner build() {
-        CommonBanner banner = new CommonBanner(mContext);
+    public Builder setIndicatorItemUnSelectedSrc(int unSelectedSrc) {
+        this.unSelectedSrc = unSelectedSrc;
+        return this;
+    }
+
+    public CommonBanner build(CommonBanner banner) {
         if (getIndicator() == null)
-            setIndicator(new DefaultIndicator(mContext));
+            setIndicator(new ClassiceIndicator(mContext));
         banner.setIndicator(getIndicator());
         banner.setLoopType(getLoopType());
         banner.setDelayTime(getDelayTime());
@@ -186,10 +204,18 @@ public class Builder {
         return banner;
     }
 
+    public CommonBanner build() {
+        return build(new CommonBanner(mContext));
+    }
+
     public int getIndicatorLayoutBg() {
         return indicatorLayoutBg;
     }
 
+    /**
+     * replaced  by  setIndicatorLayoutBackgroundRes（）
+     */
+    @Deprecated
     public Builder setIndicatorBackgroundRes(int indicatorLayoutBg) {
         this.indicatorLayoutBg = indicatorLayoutBg;
         return this;
@@ -197,6 +223,11 @@ public class Builder {
 
     public int getIndicatorLayoutColor() {
         return indicatorLayoutColor;
+    }
+
+    public Builder setIndicatorLayoutBackgroundRes(int indicatorLayoutBg) {
+        this.indicatorLayoutBg = indicatorLayoutBg;
+        return this;
     }
 
     public void setIndicatorLayoutColor(@ColorRes int indicatorLayoutColor) {

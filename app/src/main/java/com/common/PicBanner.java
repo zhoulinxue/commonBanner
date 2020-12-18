@@ -2,6 +2,7 @@ package com.common;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.DrawableRes;
 
 /**
@@ -11,7 +12,7 @@ import androidx.annotation.DrawableRes;
  * Date: 2019/12/20 15:21
  * Description:
  */
-public class PicBanner implements  Parcelable {
+public class PicBanner implements Parcelable {
     @DrawableRes
     private int src;
     private String dec;
