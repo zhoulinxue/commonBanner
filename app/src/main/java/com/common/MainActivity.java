@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
                 .setUnSelectedSrc(R.drawable.select_indicator)// 设置 indicator 选择颜色
                 .setTransformerType(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
 //                .setTransformer()//自定义 切换动画   二选一  进行设置
-                .setLoopType(LoopType.LOOP)// 设置循环滚动方式
+                .setLoopType(LoopType.REVERSE)// 设置循环滚动方式
                 .setDelayTime(2000)// 设置滚动间隔时间
                 .setIndicatorBackgroundRes(R.drawable.shape_indicator_bg); //设置 指示器 背景
         //                .setIndicator(indicator); // 自定义 指示器

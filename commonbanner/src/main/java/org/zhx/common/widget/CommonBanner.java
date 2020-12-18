@@ -64,10 +64,6 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     private long delayTime = 3000;
     private LoopType loopType = LoopType.LOOP;
     private boolean isUp = false;
-    private int size;
-
-    private RecyclerView.Adapter mRecyclerViewAdapter;
-
     private Runnable playRunable = new Runnable() {
         @Override
         public void run() {
@@ -131,21 +127,21 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     protected void setLoopType(LoopType loop) {
         loopType = loop;
-        if (size != 0)
-            setDatas(size);
     }
 
     @Override
     public void onPageSelected(int position) {
         index = position;
+        int realIndex = position % mIndicators.getItemCount();
+        Log.e(">>>>>", position + "");
         if (mIndicators != null) {
             if (LoopType.LOOP == loopType && mIndicators.getItemCount() != 0) {
-                mIndicators.setSelection(position % mIndicators.getItemCount());
+                mIndicators.setSelection(realIndex);
             } else {
-                mIndicators.setSelection(position);
-                if (position == mIndicators.getItemCount() - 1)
+                mIndicators.setSelection(realIndex);
+                if (realIndex == mIndicators.getItemCount() - 1)
                     isUp = true;
-                if (position == 0)
+                if (realIndex == 0)
                     isUp = false;
             }
         }
