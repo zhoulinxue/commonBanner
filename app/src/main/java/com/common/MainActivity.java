@@ -4,10 +4,7 @@ package com.common;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,7 +13,6 @@ import org.zhx.common.widget.Builder;
 import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.LoopType;
 import org.zhx.common.widget.ViewHolder;
-import org.zhx.common.widget.indicator.CommonIndicator;
 import org.zhx.common.widget.transformers.Transformer;
 
 import java.util.ArrayList;
