@@ -52,10 +52,12 @@ public class Builder {
         return mTransformerType;
     }
 
-    public Builder setTransformerType(Transformer mTransformerType) {
+    public Builder setTransformer(Transformer mTransformerType) {
         this.mTransformerType = mTransformerType;
         return this;
     }
+
+
 
     public BaseTransformer getTransformer() {
         return transformer;

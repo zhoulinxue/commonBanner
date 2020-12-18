@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import org.zhx.common.widget.Builder;
 import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.LoopType;
-import org.zhx.common.widget.indicator.CommonIndicator;
 import org.zhx.common.widget.transformers.Transformer;
 
 import java.util.ArrayList;
@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity implements CommonBanner.Bann
                 .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
                 .setSelectSrc(R.drawable.selected_indicator)// 设置 indicator 颜色
                 .setUnSelectedSrc(R.drawable.select_indicator)// 设置 indicator 选择颜色
-                .setTransformerType(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
+                .setTransformer(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
 //                .setTransformer()//自定义 切换动画   二选一  进行设置
-                .setLoopType(LoopType.REVERSE)// 设置循环滚动方式
+                .setLoopType(LoopType.LOOP)// 设置循环滚动方式
                 .setDelayTime(2000)// 设置滚动间隔时间
                 .setIndicatorBackgroundRes(R.drawable.shape_indicator_bg); //设置 指示器 背景
         //                .setIndicator(indicator); // 自定义 指示器
