@@ -57,7 +57,11 @@ public class Builder {
         return this;
     }
 
-
+    @Deprecated
+    public Builder setTransformerType(Transformer mTransformerType) {
+        this.mTransformerType = mTransformerType;
+        return this;
+    }
 
     public BaseTransformer getTransformer() {
         return transformer;
