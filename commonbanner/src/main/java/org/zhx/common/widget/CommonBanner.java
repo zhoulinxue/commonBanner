@@ -5,6 +5,7 @@ import android.os.Handler;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -192,6 +193,8 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         public View onCreatItem(ViewGroup container, int positon);
 
         public int getItemCount();
+
+        public void onItemViewClick(View v);
     }
 
     protected void setHeight(int height) {
@@ -365,7 +368,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         mContainer.addView(mIndicators.getIndicatorLayout(), mIndicators.getLayoutParams());
     }
 
-    public void setOnBannerItemClickLisenter(OnBannerItemClickLisenter onBannerItemClickLisenter) {
+    public void setOnItemClickLisenter(OnBannerItemClickLisenter onBannerItemClickLisenter) {
         if (mAdapter != null) {
             mAdapter.setOnBannerItemClickLisenter(onBannerItemClickLisenter);
         }

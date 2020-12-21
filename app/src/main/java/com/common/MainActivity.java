@@ -4,11 +4,12 @@ package com.common;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.zhx.common.widget.BaseBannerAdapter;
+import org.zhx.common.widget.SimpleBannerAdapter;
 import org.zhx.common.widget.Builder;
 import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.LoopType;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private int[] mImages = {R.mipmap.b, R.mipmap.d, R.mipmap.e, R.mipmap.f, R.mipmap.g, R.mipmap.h};
-    List<PicBanner> datas = new ArrayList<>();
+    List<ItemData> datas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         for (int i = 0; i < mImages.length; i++) {
-            PicBanner picBanner = new PicBanner();
+            ItemData picBanner = new ItemData();
             picBanner.setSrc(mImages[i]);
             datas.add(picBanner);
         }
@@ -48,18 +49,24 @@ public class MainActivity extends AppCompatActivity {
                 .setDelayTime(2000);// 设置滚动间隔时间
         banner.setBuilder(builder);
         //设置item 数据回调
-        banner.setBannerAdapter(new BaseBannerAdapter<PicBanner>(R.layout.banner_item_layout, datas) {
+        banner.setBannerAdapter(new SimpleBannerAdapter<ItemData>(R.layout.banner_item_layout, datas) {
             @Override
-            protected void convert(ViewHolder holder, PicBanner item) {
+            protected void convert(ViewHolder holder, ItemData item) {
                 ImageView imageView = (ImageView) holder.findViewById(R.id.banner_img);
                 imageView.setImageResource(item.getSrc());
+                holder.addItemViewClick(R.id.banner_tv);
+            }
+
+            @Override
+            public void onItemViewClick(View v) {
+                Toast.makeText(MainActivity.this, "点击 测试", Toast.LENGTH_SHORT).show();
             }
         });
         //item 点击事件
-        banner.setOnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
+        banner.setOnItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
             @Override
             public void onItemClick(View v, int position) {
-                Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, position + " 点击item", Toast.LENGTH_SHORT).show();
             }
         });
     }

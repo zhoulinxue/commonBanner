@@ -20,11 +20,11 @@ import java.util.List;
  * @UpdateRemark:
  * @Version:1.0
  */
-public abstract class BaseBannerAdapter<T> implements CommonBanner.BannerAdapter {
+public abstract class SimpleBannerAdapter<T> implements CommonBanner.BannerAdapter {
     private List<T> datas;
     private int resurceLayout;
 
-    public BaseBannerAdapter(int resurceLayout, List<T> datas) {
+    public SimpleBannerAdapter(int resurceLayout, List<T> datas) {
         this.datas = datas;
         this.resurceLayout = resurceLayout;
     }
@@ -44,9 +44,13 @@ public abstract class BaseBannerAdapter<T> implements CommonBanner.BannerAdapter
     }
 
     protected final ViewHolder creatViewHolder(View view, int positon) {
-        return new ViewHolder(view, positon);
+        return new ViewHolder(view, positon, this);
     }
 
+    @Override
+    public void onItemViewClick(View v) {
+        
+    }
 
     protected abstract void convert(ViewHolder holder, T t);
 

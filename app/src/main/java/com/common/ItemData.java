@@ -12,7 +12,7 @@ import androidx.annotation.DrawableRes;
  * Date: 2019/12/20 15:21
  * Description:
  */
-public class PicBanner implements Parcelable {
+public class ItemData implements Parcelable {
     @DrawableRes
     private int src;
     private String dec;
@@ -54,24 +54,24 @@ public class PicBanner implements Parcelable {
         dest.writeInt(this.position);
     }
 
-    public PicBanner() {
+    public ItemData() {
     }
 
-    protected PicBanner(Parcel in) {
+    protected ItemData(Parcel in) {
         this.src = in.readInt();
         this.dec = in.readString();
         this.position = in.readInt();
     }
 
-    public static final Parcelable.Creator<PicBanner> CREATOR = new Parcelable.Creator<PicBanner>() {
+    public static final Parcelable.Creator<ItemData> CREATOR = new Parcelable.Creator<ItemData>() {
         @Override
-        public PicBanner createFromParcel(Parcel source) {
-            return new PicBanner(source);
+        public ItemData createFromParcel(Parcel source) {
+            return new ItemData(source);
         }
 
         @Override
-        public PicBanner[] newArray(int size) {
-            return new PicBanner[size];
+        public ItemData[] newArray(int size) {
+            return new ItemData[size];
         }
     };
 }
