@@ -133,7 +133,6 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     public void onPageSelected(int position) {
         index = position;
         int realIndex = position % mIndicators.getItemCount();
-        Log.e(">>>>>", position + "");
         if (mIndicators != null) {
             if (LoopType.LOOP == loopType && mIndicators.getItemCount() != 0) {
                 mIndicators.setSelection(realIndex);

@@ -1,5 +1,6 @@
 package org.zhx.common.widget;
 
+import android.util.SparseArray;
 import android.view.View;
 
 import java.util.Map;
@@ -18,13 +19,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Version:1.0
  */
 public class ViewHolderHandler {
-    private static Map<String, ViewHolder> map = new ConcurrentHashMap<>();
+    private static SparseArray<ViewHolder> map = new SparseArray<>();
 
-    public static void put(String position, ViewHolder holder) {
+    public static void put(int position, ViewHolder holder) {
         map.put(position, holder);
     }
 
-    public static ViewHolder get(String position) {
+    public static ViewHolder get(int position) {
         return map.get(position);
     }
 }

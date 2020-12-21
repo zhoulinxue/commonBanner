@@ -21,13 +21,12 @@ public class ViewHolder {
     public View itemView;
     private int position;
     private final SparseArray<View> views;
-    private int totalCount;
 
     public ViewHolder(View itemView, int position) {
         this.itemView = itemView;
         this.position = position;
         this.views = new SparseArray<>();
-        ViewHolderHandler.put(position + "", this);
+        ViewHolderHandler.put(position, this);
     }
 
     public int getPosition() {

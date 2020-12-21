@@ -31,7 +31,7 @@ public abstract class BaseBannerAdapter<T> implements CommonBanner.BannerAdapter
 
     @Override
     public View onCreatItem(ViewGroup container, int positon) {
-        ViewHolder holder = ViewHolderHandler.get(positon + "");
+        ViewHolder holder = ViewHolderHandler.get(positon);
         View view = null;
         if (holder == null) {
             view = LayoutInflater.from(container.getContext()).inflate(resurceLayout, null);
