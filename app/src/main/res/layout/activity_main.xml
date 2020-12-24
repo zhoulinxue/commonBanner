@@ -13,4 +13,10 @@
     <!--        android:id="@+id/banner_container"-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="wrap_content" />-->
+    <Button
+        android:id="@+id/animate_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/banner_layout"
+        android:text="动画" />
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.common;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTransformer(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
                 .setLoopType(LoopType.LOOP)// 设置循环滚动方式
                 .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
-                .setDuration(500)// 设置 动画 持续时间
+                .setDuration(300)// 设置 动画 持续时间(数字越大  切换动画越慢)
 //              .setIndicator(indecator)// 自定义 指示器
                 .setDelayTime(2000);// 设置滚动间隔时间
         banner.setBuilder(builder);
@@ -68,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View v, int position) {
                 Toast.makeText(MainActivity.this, position + " 点击item", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        findViewById(R.id.animate_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MultEffectActivity.class));
             }
         });
     }
