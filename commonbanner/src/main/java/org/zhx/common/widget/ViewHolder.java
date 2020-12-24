@@ -28,7 +28,6 @@ public class ViewHolder implements View.OnClickListener {
         this.position = position;
         this.adapter = adapter;
         this.views = new SparseArray<>();
-        ViewHolderHandler.put(position, this);
     }
 
 

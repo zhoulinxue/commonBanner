@@ -33,6 +33,7 @@ public class Builder {
     private int indicatorLayoutColor;
     private ViewGroup mParent;
     private int width;
+    private int duration;
 
     public int getWidth() {
         return width;
@@ -40,6 +41,15 @@ public class Builder {
 
     public Builder setWidth(int width) {
         this.width = width;
+        return this;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public Builder setDuration(int duration) {
+        this.duration = duration;
         return this;
     }
 

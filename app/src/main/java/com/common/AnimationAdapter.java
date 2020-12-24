@@ -1,40 +1,57 @@
 package com.common;
 
-
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.zhx.common.widget.SimpleBannerAdapter;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.zhx.common.widget.Builder;
 import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.LoopType;
+import org.zhx.common.widget.SimpleBannerAdapter;
 import org.zhx.common.widget.ViewHolder;
 import org.zhx.common.widget.transformers.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * @ProjectName: banner
+ * @Package: com.common
+ * @ClassName: AnimationAdapter
+ * @Description:java
+ * @Author: 86138
+ * @CreateDate: 2020/12/23 17:35
+ * @UpdateUser:
+ * @UpdateDate: 2020/12/23 17:35
+ * @UpdateRemark:
+ * @Version:1.0
+ */
+public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private List<Transformer> data;
     private int[] mImages = {R.mipmap.b, R.mipmap.d, R.mipmap.e, R.mipmap.f, R.mipmap.g, R.mipmap.h};
     List<ItemData> datas = new ArrayList<>();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public AnimationAdapter(List<Transformer> data) {
+        this.data = data;
 
         for (int i = 0; i < mImages.length; i++) {
             ItemData picBanner = new ItemData();
             picBanner.setSrc(mImages[i]);
             datas.add(picBanner);
         }
-        CommonBanner banner = findViewById(R.id.banner_layout);
-        Builder builder = new Builder(this);
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.animation_item_layout, null);
+        CommonBanner banner = view.findViewById(R.id.banner_layout);
+        Builder builder = new Builder(view.getContext());
         //自定义 底部指示牌
         builder.setHeight(350)//设置banner 高度
                 .setIndicatorHeight(80)//设置 导航游标 高度
@@ -45,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 .setTransformer(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
                 .setLoopType(LoopType.LOOP)// 设置循环滚动方式
                 .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
-                .setDuration(500)// 设置 动画 持续时间
 //              .setIndicator(indecator)// 自定义 指示器
                 .setDelayTime(2000);// 设置滚动间隔时间
         banner.setBuilder(builder);
@@ -60,16 +76,35 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemViewClick(View v) {
-                Toast.makeText(MainActivity.this, "点击 测试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "点击 测试", Toast.LENGTH_SHORT).show();
             }
         });
         //item 点击事件
         banner.setOnItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
             @Override
             public void onItemClick(View v, int position) {
-                Toast.makeText(MainActivity.this, position + " 点击item", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), position + " 点击item", Toast.LENGTH_SHORT).show();
             }
         });
+        return new ItemViewHolder(view);
     }
 
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        CommonBanner banner = holder.itemView.findViewById(R.id.banner_layout);
+        banner.setTransformer(data.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return data == null ? 0 : data.size();
+    }
+
+    class ItemViewHolder extends RecyclerView.ViewHolder {
+
+        public ItemViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
 }

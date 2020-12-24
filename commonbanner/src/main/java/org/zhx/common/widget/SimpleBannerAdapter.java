@@ -30,15 +30,9 @@ public abstract class SimpleBannerAdapter<T> implements CommonBanner.BannerAdapt
     }
 
     @Override
-    public View onCreatItem(ViewGroup container, int positon) {
-        ViewHolder holder = ViewHolderHandler.get(positon);
-        View view = null;
-        if (holder == null) {
-            view = LayoutInflater.from(container.getContext()).inflate(resurceLayout, null);
-            holder = creatViewHolder(view, positon);
-        } else {
-            view = holder.itemView;
-        }
+    public final View onCreatItem(ViewGroup container, int positon) {
+        View view = LayoutInflater.from(container.getContext()).inflate(resurceLayout, null);
+        ViewHolder holder = creatViewHolder(view, positon);
         convert(holder, datas.get(positon));
         return view;
     }
@@ -49,7 +43,7 @@ public abstract class SimpleBannerAdapter<T> implements CommonBanner.BannerAdapt
 
     @Override
     public void onItemViewClick(View v) {
-        
+
     }
 
     protected abstract void convert(ViewHolder holder, T t);

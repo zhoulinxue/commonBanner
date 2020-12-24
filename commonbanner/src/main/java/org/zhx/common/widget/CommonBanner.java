@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -24,6 +25,7 @@ import org.zhx.common.widget.transformers.BaseTransformer;
 import org.zhx.common.widget.transformers.CubeInTransformer;
 import org.zhx.common.widget.transformers.CubeOutTransformer;
 import org.zhx.common.widget.transformers.DepthPageTransformer;
+import org.zhx.common.widget.transformers.FixedSpeedScroller;
 import org.zhx.common.widget.transformers.FlipHorizontalTransformer;
 import org.zhx.common.widget.transformers.FlipVerticalTransformer;
 import org.zhx.common.widget.transformers.ForegroundToBackgroundTransformer;
@@ -36,6 +38,8 @@ import org.zhx.common.widget.transformers.Transformer;
 import org.zhx.common.widget.transformers.ZoomInTransformer;
 import org.zhx.common.widget.transformers.ZoomOutSlideTransformer;
 import org.zhx.common.widget.transformers.ZoomOutTranformer;
+
+import java.lang.reflect.Field;
 
 
 /**
@@ -57,15 +61,16 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     private RelativeLayout mContainer;
     private static final int containerId = R.id.container_id;
     private int mContainerHeight, mIndicatorHeight;
-    private boolean isBelow = false;
-    private boolean autoPlay;
-    private int index = 0;
+    private boolean isBelow = false;// 布局 是否重叠
+    private boolean autoPlay;//是否 自动播放
+    private int index = 0;// 当前 位置
     private int BASE_NUM = 1000;
 
-    private boolean isPause;
-    private long delayTime = 3000;
+    private boolean isPause;//是否赞停
+    private long delayTime = 3000;// 自动滚动时间
     private LoopType loopType = LoopType.LOOP;
-    private boolean isUp = false;
+    private boolean isUp = false;//是否到最後一個item
+    private int duration;//动画切换时间
     private Runnable playRunable = new Runnable() {
         @Override
         public void run() {
@@ -109,8 +114,23 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         mViewPager.setLayoutParams(viewPagerLp);
         mAdapter = new BannerPegerAdapter();
         mViewPager.setAdapter(mAdapter);
+        if (getDuration() != 0)
+            setScroller();
         mContainer.addView(mViewPager, viewPagerLp);
         addView(mContainer);
+    }
+
+    private void setScroller() {
+        try {
+            // 通过class文件获取mScroller属性
+            Field mField = ViewPager.class.getDeclaredField("mScroller");
+            mField.setAccessible(true);
+            FixedSpeedScroller mScroller = new FixedSpeedScroller(mViewPager.getContext(), new AccelerateInterpolator());
+            mScroller.setDuration(duration);
+            mField.set(mViewPager, mScroller);
+        } catch (Exception e) {
+
+        }
     }
 
     private void setDatas(int size) {
@@ -295,7 +315,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    protected void setTransformerType(Transformer mTransformer) {
+    public void setTransformerType(Transformer mTransformer) {
         if (mTransformer != null) {
             BaseTransformer transformer = null;
             switch (mTransformer) {
@@ -353,10 +373,14 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    protected void setTransformer(BaseTransformer transformer) {
+    public void setTransformer(BaseTransformer transformer) {
         if (mViewPager != null && transformer != null) {
             mViewPager.setPageTransformer(true, transformer);
         }
+    }
+
+    public void setTransformer(Transformer transformer) {
+        setTransformerType(transformer);
     }
 
     protected CommonIndicator getIndicator() {
@@ -376,5 +400,13 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     public interface OnBannerItemClickLisenter {
         public void onItemClick(View v, int position);
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }
