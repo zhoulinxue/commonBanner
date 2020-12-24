@@ -63,6 +63,7 @@ public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 .setLoopType(LoopType.LOOP)// 设置循环滚动方式
                 .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
 //              .setIndicator(indecator)// 自定义 指示器
+                .setDuration(1000) //动画 执行时间  为了 让大家 看清楚效果  设置慢点
                 .setDelayTime(2000);// 设置滚动间隔时间
         banner.setBuilder(builder);
         //设置item 数据回调

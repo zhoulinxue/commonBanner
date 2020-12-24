@@ -114,13 +114,11 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         mViewPager.setLayoutParams(viewPagerLp);
         mAdapter = new BannerPegerAdapter();
         mViewPager.setAdapter(mAdapter);
-        if (getDuration() != 0)
-            setScroller();
         mContainer.addView(mViewPager, viewPagerLp);
         addView(mContainer);
     }
 
-    private void setScroller() {
+    private void setScroller(int duration) {
         try {
             // 通过class文件获取mScroller属性
             Field mField = ViewPager.class.getDeclaredField("mScroller");
@@ -149,6 +147,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
     protected void setLoopType(LoopType loop) {
         loopType = loop;
     }
+
 
     @Override
     public void onPageSelected(int position) {
@@ -408,5 +407,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     public void setDuration(int duration) {
         this.duration = duration;
+        if (duration != 0)
+            setScroller(duration);
     }
 }

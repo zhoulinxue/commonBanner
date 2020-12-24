@@ -199,6 +199,7 @@ public class Builder {
         banner.setTransformer(getTransformer());
         banner.setTransformerType(getTransformerType());
         banner.setIndicatorHeight(getIndicatorHeight());
+        banner.setDuration(getDuration());
         if (getIndicatorLayoutBg() != 0) {
             banner.setIndicatorBackgroundRes(getIndicatorLayoutBg());
         } else if (getIndicatorLayoutColor() != 0) {
