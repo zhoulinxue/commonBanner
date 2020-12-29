@@ -29,7 +29,6 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
     protected int selectWidth = 12;
     protected int selectHeight = 12;
     private ViewGroup mIndicatorContainer;
-    private RelativeLayout.LayoutParams mLp;
     protected int indicatorMargin = 18;
 
     public BaseViewIndicator(Context mContext) {
@@ -47,12 +46,7 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
         mContext = context;
         mIndicator = new ArrayList<>();
         mIndicatorContainer = initializeLayout(context);
-        mLp = initLayoutParam();
-        if (mLp != null)
-            mIndicatorContainer.setLayoutParams(mLp);
     }
-
-
 
 
     @Override
@@ -86,15 +80,6 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
     @Override
     public ViewGroup getIndicatorLayout() {
         return mIndicatorContainer;
-    }
-
-
-
-    @Override
-    public void setLayoutParams(RelativeLayout.LayoutParams indicatorLp) {
-        if (indicatorLp != null) {
-            mIndicatorContainer.setLayoutParams(indicatorLp);
-        }
     }
 
     private void notifyData() {
@@ -134,28 +119,20 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
     }
 
     @Override
-    public RelativeLayout.LayoutParams getLayoutParams() {
-        return mLp;
-    }
-
-    @Override
     public ViewGroup initializeLayout(Context context) {
         LinearLayout mIndicatorContainer = new LinearLayout(context);
         mIndicatorContainer.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
         mIndicatorContainer.setGravity(Gravity.CENTER);
         mIndicatorContainer.setOrientation(LinearLayout.HORIZONTAL);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        mIndicatorContainer.setLayoutParams(lp);
         return mIndicatorContainer;
     }
 
-    @Override
-    public RelativeLayout.LayoutParams initLayoutParam() {
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        return lp;
-    }
 
     @Override
-    public void setItemHeightAndWidth(View view,int width, int height) {
+    public void setItemHeightAndWidth(View view, int width, int height) {
 
     }
 

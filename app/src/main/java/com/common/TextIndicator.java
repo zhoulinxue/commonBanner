@@ -36,15 +36,12 @@ public class TextIndicator extends BaseViewIndicator {
         View view = LayoutInflater.from(mContext).inflate(R.layout.text_indicator_item_layout, null);
         TextView textView = view.findViewById(R.id.item_tv);
         textView.setText((position + 1) + "/" + mDatas);
-        return view;
-    }
-
-    @Override
-    public RelativeLayout.LayoutParams initLayoutParam() {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lp.rightMargin = 30;
-        return lp;
+        view.setLayoutParams(lp);
+        return view;
     }
+
 }

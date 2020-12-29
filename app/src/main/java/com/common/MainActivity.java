@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         builder.setHeight(350)//设置banner 高度
                 .setIndicatorHeight(80)//设置 导航游标 高度
 //              .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
-                .setIndicatorItemSelectSrc(R.mipmap.icon_star)// 设置 指示器  item 颜色
-                .setIndicatorItemUnSelectedSrc(R.drawable.select_indicator)// 设置 indicator指示器  item 选中颜色
+                .setIndicatorItemSelectSrc(R.drawable.select_indicator)// 设置 指示器  item 颜色
+                .setIndicatorItemUnSelectedSrc(R.drawable.selected_indicator)// 设置 indicator指示器  item 选中颜色
                 .setIndicatorLayoutBackgroundRes(R.drawable.shape_indicator_bg) //设置 指示器 背景
                 .setTransformer(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
                 .setLoopType(LoopType.LOOP)// 设置循环滚动方式
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         banner.setBannerAdapter(new SimpleBannerAdapter<ItemData>(R.layout.banner_item_layout, datas) {
             @Override
             protected void convert(ViewHolder holder, ItemData item) {
+                //填充 item 数据
                 ImageView imageView = (ImageView) holder.findViewById(R.id.banner_img);
                 imageView.setImageResource(item.getSrc());
                 holder.addItemViewClick(R.id.banner_tv);
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemViewClick(View v) {
+                // item 中 某个 View 被点击
                 Toast.makeText(MainActivity.this, "点击 测试", Toast.LENGTH_SHORT).show();
             }
         });
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         banner.setOnItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
             @Override
             public void onItemClick(View v, int position) {
+                // item 被点击
                 Toast.makeText(MainActivity.this, position + " 点击item", Toast.LENGTH_SHORT).show();
             }
         });

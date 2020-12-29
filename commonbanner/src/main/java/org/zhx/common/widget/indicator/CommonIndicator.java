@@ -21,8 +21,6 @@ public interface CommonIndicator<T> {
 
     public ViewGroup getIndicatorLayout();
 
-    public void setLayoutParams(RelativeLayout.LayoutParams indicatorLp);
-
     public void setSelection(int position);
 
     public int getItemCount();
@@ -33,9 +31,6 @@ public interface CommonIndicator<T> {
 
     public void setHeight(int height);
 
-    public RelativeLayout.LayoutParams initLayoutParam();
-
     public void setItemHeightAndWidth(View view, int width, int height);
 
-    RelativeLayout.LayoutParams getLayoutParams();
 }

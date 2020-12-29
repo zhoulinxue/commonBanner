@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 /**
  * Copyright (C), 2015-2019
@@ -40,6 +41,7 @@ public class ClassiceIndicator extends BaseViewIndicator {
         lp.height = selectHeight;
         view.setLayoutParams(lp);
     }
+
 
     @Override
     public View creatIndicatorItem(int position) {

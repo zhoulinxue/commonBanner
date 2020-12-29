@@ -260,7 +260,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         if (mIndicators != null) {
             RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mIndicators.getIndicatorLayout().getLayoutParams();
             lp.height = height;
-            mIndicators.setLayoutParams(lp);
+            mIndicators.getIndicatorLayout().setLayoutParams(lp);
         }
     }
 
@@ -273,7 +273,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
             }
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, height);
             layoutParams.addRule(RelativeLayout.BELOW, containerId);
-            mIndicators.setLayoutParams(layoutParams);
+            mIndicators.getIndicatorLayout().setLayoutParams(layoutParams);
         }
         setHeight(mContainerHeight);
     }
@@ -388,7 +388,7 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     protected void setIndicator(CommonIndicator mIndicators) {
         this.mIndicators = mIndicators;
-        mContainer.addView(mIndicators.getIndicatorLayout(), mIndicators.getLayoutParams());
+        mContainer.addView(mIndicators.getIndicatorLayout());
     }
 
     public void setOnItemClickLisenter(OnBannerItemClickLisenter onBannerItemClickLisenter) {
