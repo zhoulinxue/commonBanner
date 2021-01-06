@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,7 +51,8 @@ public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.animation_item_layout, null);
-        CommonBanner banner = view.findViewById(R.id.banner_layout);
+        final ItemViewHolder viewHolder = new ItemViewHolder(view);
+        final CommonBanner banner = view.findViewById(R.id.banner_layout);
         Builder builder = new Builder(view.getContext());
         //自定义 底部指示牌
         builder.setHeight(350)//设置banner 高度
@@ -71,6 +73,8 @@ public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             @Override
             protected void convert(ViewHolder holder, ItemData item) {
                 ImageView imageView = (ImageView) holder.findViewById(R.id.banner_img);
+                TextView textView = (TextView) holder.findViewById(R.id.banner_tv);
+                textView.setText(data.get(viewHolder.getLayoutPosition()).toString());
                 imageView.setImageResource(item.getSrc());
                 holder.addItemViewClick(R.id.banner_tv);
             }
@@ -87,7 +91,7 @@ public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 Toast.makeText(view.getContext(), position + " 点击item", Toast.LENGTH_SHORT).show();
             }
         });
-        return new ItemViewHolder(view);
+        return viewHolder;
     }
 
 
