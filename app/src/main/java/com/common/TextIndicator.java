@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import org.zhx.common.widget.indicator.BaseViewIndicator;
 
 /**
@@ -29,6 +30,12 @@ public class TextIndicator extends BaseViewIndicator {
     @Override
     public void onItemSelected(View t) {
         t.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void attachToGroup(View item, int i) {
+        super.attachToGroup(item, i);
+        item.setVisibility(View.GONE);
     }
 
     @Override

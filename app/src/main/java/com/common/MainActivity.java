@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         //自定义 底部指示牌
         builder.setHeight(350)//设置banner 高度
                 .setIndicatorHeight(80)//设置 导航游标 高度
-//              .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
+//                .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
                 .setIndicatorItemSelectSrc(R.drawable.select_indicator)// 设置 指示器  item 颜色
                 .setIndicatorItemUnSelectedSrc(R.drawable.selected_indicator)// 设置 indicator指示器  item 选中颜色
                 .setIndicatorLayoutBackgroundRes(R.drawable.shape_indicator_bg) //设置 指示器 背景
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 .setLoopType(LoopType.REVERSE)// 设置循环滚动方式
                 .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
                 .setDuration(300)// 设置 动画 持续时间(数字越大  切换动画越慢)
-//              .setIndicator(indecator)// 自定义 指示器
+//                .setIndicator(new TextIndicator(this))// 自定义 指示器
                 .setDelayTime(2000);// 设置滚动间隔时间
         banner.setBuilder(builder);
         //设置item 数据回调

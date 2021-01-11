@@ -17,6 +17,8 @@ public interface CommonIndicator<T> {
 
     public T creatIndicatorItem(int position);
 
+    public void attachToGroup(T item, int i);
+
     public ViewGroup initializeLayout(Context context);
 
     public ViewGroup getIndicatorLayout();

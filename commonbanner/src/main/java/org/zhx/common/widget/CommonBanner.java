@@ -126,6 +126,8 @@ public class CommonBanner extends FrameLayout implements IContact {
         } else if (builder.getIndicatorLayoutBg() != 0) {
             mIndicators.getIndicatorLayout().setBackgroundResource(builder.getIndicatorLayoutBg());
         }
+        isBelow = builder.isBelow();
+        mIndicatorHeight = builder.getIndicatorHeight();
         setHeight(builder.getHeight());
     }
 

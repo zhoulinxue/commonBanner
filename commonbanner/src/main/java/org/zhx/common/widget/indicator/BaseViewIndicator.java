@@ -28,7 +28,7 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
     protected int nomalHeight = 10;
     protected int selectWidth = 12;
     protected int selectHeight = 12;
-    private ViewGroup mIndicatorContainer;
+    protected ViewGroup mIndicatorContainer;
     protected int indicatorMargin = 18;
 
     public BaseViewIndicator(Context mContext) {
@@ -60,12 +60,16 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
         for (int i = 0; i < datas; i++) {
             View item = creatIndicatorItem(i);
             mIndicator.add(item);
-            ViewGroup.LayoutParams lp = item.getLayoutParams();
-            if (lp != null)
-                mIndicatorContainer.addView(item, lp);
-            else
-                mIndicatorContainer.addView(item, i);
+            attachToGroup(item, i);
         }
+    }
+
+    public void attachToGroup(View item, int i) {
+        ViewGroup.LayoutParams lp = item.getLayoutParams();
+        if (lp != null)
+            mIndicatorContainer.addView(item, lp);
+        else
+            mIndicatorContainer.addView(item, i);
     }
 
 
