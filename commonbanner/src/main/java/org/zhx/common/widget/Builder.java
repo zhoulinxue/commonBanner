@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 import androidx.annotation.ColorRes;
 
 import org.zhx.common.widget.indicator.CommonIndicator;
-import org.zhx.common.widget.viewPager.BaseTransformer;
-import org.zhx.common.widget.viewPager.Transformer;
+import org.zhx.common.widget.viewPager.transformers.BaseTransformer;
+import org.zhx.common.widget.viewPager.transformers.Transformer;
 
 /**
  * Copyright (C), 2015-2020

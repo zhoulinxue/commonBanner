@@ -14,21 +14,37 @@
  * limitations under the License.
  */
 
-package org.zhx.common.widget.viewPager;
+package org.zhx.common.widget.viewPager.transformers;
 
 import android.view.View;
+
+import org.zhx.common.widget.viewPager.transformers.BaseTransformer;
+
 /**
  * Copyright (C), 2015-2020
- * FileName: StackTransformer
+ * FileName: RotateDownTransformer
  * Author: zx
  * Date: 2020/1/9 9:11
  * Description:
  */
-public class StackTransformer extends BaseTransformer {
+public class RotateDownTransformer extends BaseTransformer {
+
+	private static final float ROT_MOD = -15f;
 
 	@Override
 	protected void onTransform(View view, float position) {
-		view.setTranslationX(position < 0 ? 0f : -view.getWidth() * position);
+		final float width = view.getWidth();
+		final float height = view.getHeight();
+		final float rotation = ROT_MOD * position * -1.25f;
+
+		view.setPivotX(width * 0.5f);
+		view.setPivotY(height);
+		view.setRotation(rotation);
+	}
+
+	@Override
+	protected boolean isPagingEnabled() {
+		return true;
 	}
 
 }

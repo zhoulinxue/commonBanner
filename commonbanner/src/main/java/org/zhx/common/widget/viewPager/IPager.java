@@ -3,6 +3,7 @@ package org.zhx.common.widget.viewPager;
 import android.widget.RelativeLayout;
 
 import org.zhx.common.widget.CommonBanner;
+import org.zhx.common.widget.LoopType;
 
 /**
  * @ProjectName: banner
@@ -32,4 +33,6 @@ public interface IPager<T> {
     public void setHeight(int height);
 
     public void setWidth(int width);
+
+    public void setLoopType(LoopType type);
 }

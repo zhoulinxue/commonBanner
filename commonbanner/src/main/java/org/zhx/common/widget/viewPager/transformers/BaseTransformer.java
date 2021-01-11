@@ -1,4 +1,4 @@
-package org.zhx.common.widget.viewPager;
+package org.zhx.common.widget.viewPager.transformers;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;

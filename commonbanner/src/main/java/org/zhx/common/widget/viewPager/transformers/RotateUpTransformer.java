@@ -14,26 +14,37 @@
  * limitations under the License.
  */
 
-package org.zhx.common.widget.viewPager;
+package org.zhx.common.widget.viewPager.transformers;
 
 import android.view.View;
+
+import org.zhx.common.widget.viewPager.transformers.BaseTransformer;
+
 /**
  * Copyright (C), 2015-2020
- * FileName: FlipHorizontalTransformer
+ * FileName: RotateUpTransformer
  * Author: zx
  * Date: 2020/1/9 9:11
  * Description:
  */
-public class FlipHorizontalTransformer extends BaseTransformer {
+public class RotateUpTransformer extends BaseTransformer {
+
+	private static final float ROT_MOD = -15f;
 
 	@Override
 	protected void onTransform(View view, float position) {
-		final float rotation = 180f * position;
+		final float width = view.getWidth();
+		final float rotation = ROT_MOD * position;
 
-		view.setAlpha(rotation > 90f || rotation < -90f ? 0 : 1);
-		view.setPivotX(view.getWidth() * 0.5f);
-		view.setPivotY(view.getHeight() * 0.5f);
-		view.setRotationY(rotation);
+		view.setPivotX(width * 0.5f);
+		view.setPivotY(0f);
+		view.setTranslationX(0f);
+		view.setRotation(rotation);
+	}
+	
+	@Override
+	protected boolean isPagingEnabled() {
+		return true;
 	}
 
 }

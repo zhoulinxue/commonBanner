@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package org.zhx.common.widget.viewPager;
+package org.zhx.common.widget.viewPager.transformers;
 
 import android.graphics.Camera;
 import android.graphics.Matrix;
 import android.view.View;
+
+import org.zhx.common.widget.viewPager.transformers.BaseTransformer;
+
 /**
  * Copyright (C), 2015-2020
  * FileName: TabletTransformer

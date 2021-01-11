@@ -14,25 +14,25 @@ import androidx.viewpager.widget.ViewPager;
 import org.zhx.common.widget.indicator.ClassiceIndicator;
 import org.zhx.common.widget.indicator.CommonIndicator;
 import org.zhx.common.widget.viewPager.IPager;
-import org.zhx.common.widget.viewPager.ViewPagerImpl;
-import org.zhx.common.widget.viewPager.AccordionTransformer;
-import org.zhx.common.widget.viewPager.BackgroundToForegroundTransformer;
-import org.zhx.common.widget.viewPager.BaseTransformer;
-import org.zhx.common.widget.viewPager.CubeInTransformer;
-import org.zhx.common.widget.viewPager.CubeOutTransformer;
-import org.zhx.common.widget.viewPager.DepthPageTransformer;
-import org.zhx.common.widget.viewPager.FlipHorizontalTransformer;
-import org.zhx.common.widget.viewPager.FlipVerticalTransformer;
-import org.zhx.common.widget.viewPager.ForegroundToBackgroundTransformer;
-import org.zhx.common.widget.viewPager.RotateDownTransformer;
-import org.zhx.common.widget.viewPager.RotateUpTransformer;
-import org.zhx.common.widget.viewPager.ScaleInOutTransformer;
-import org.zhx.common.widget.viewPager.StackTransformer;
-import org.zhx.common.widget.viewPager.TabletTransformer;
-import org.zhx.common.widget.viewPager.Transformer;
-import org.zhx.common.widget.viewPager.ZoomInTransformer;
-import org.zhx.common.widget.viewPager.ZoomOutSlideTransformer;
-import org.zhx.common.widget.viewPager.ZoomOutTranformer;
+import org.zhx.common.widget.viewPager.ViewPagerManager;
+import org.zhx.common.widget.viewPager.transformers.AccordionTransformer;
+import org.zhx.common.widget.viewPager.transformers.BackgroundToForegroundTransformer;
+import org.zhx.common.widget.viewPager.transformers.BaseTransformer;
+import org.zhx.common.widget.viewPager.transformers.CubeInTransformer;
+import org.zhx.common.widget.viewPager.transformers.CubeOutTransformer;
+import org.zhx.common.widget.viewPager.transformers.DepthPageTransformer;
+import org.zhx.common.widget.viewPager.transformers.FlipHorizontalTransformer;
+import org.zhx.common.widget.viewPager.transformers.FlipVerticalTransformer;
+import org.zhx.common.widget.viewPager.transformers.ForegroundToBackgroundTransformer;
+import org.zhx.common.widget.viewPager.transformers.RotateDownTransformer;
+import org.zhx.common.widget.viewPager.transformers.RotateUpTransformer;
+import org.zhx.common.widget.viewPager.transformers.ScaleInOutTransformer;
+import org.zhx.common.widget.viewPager.transformers.StackTransformer;
+import org.zhx.common.widget.viewPager.transformers.TabletTransformer;
+import org.zhx.common.widget.viewPager.transformers.Transformer;
+import org.zhx.common.widget.viewPager.transformers.ZoomInTransformer;
+import org.zhx.common.widget.viewPager.transformers.ZoomOutSlideTransformer;
+import org.zhx.common.widget.viewPager.transformers.ZoomOutTranformer;
 
 /**
  * @ProjectName: banner
@@ -73,7 +73,7 @@ public class CommonBanner extends FrameLayout implements IContact {
         containerLp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         mContainer = new RelativeLayout(context);
         mContainer.setLayoutParams(containerLp);
-        mPager = new ViewPagerImpl(context, this);
+        mPager = new ViewPagerManager(context, this);
         addView(mContainer);
     }
 
@@ -106,6 +106,7 @@ public class CommonBanner extends FrameLayout implements IContact {
             mPager.setDuration(builder.getDuration());
             mPager.setWidth(builder.getWidth());
             mPager.isAutoPlay(builder.isAutoPlay());
+            mPager.setLoopType(builder.getLoopType());
             if (builder.getTransformerType() != null)
                 setTransformerType(builder.getTransformerType());
             else if (builder.getTransformer() != null) {

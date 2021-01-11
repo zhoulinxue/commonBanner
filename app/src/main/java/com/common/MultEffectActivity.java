@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.zhx.common.widget.viewPager.Transformer;
+import org.zhx.common.widget.viewPager.transformers.Transformer;
 
 import java.util.ArrayList;
 import java.util.Arrays;

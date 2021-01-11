@@ -15,7 +15,7 @@ import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.LoopType;
 import org.zhx.common.widget.SimpleBannerAdapter;
 import org.zhx.common.widget.ViewHolder;
-import org.zhx.common.widget.viewPager.Transformer;
+import org.zhx.common.widget.viewPager.transformers.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;

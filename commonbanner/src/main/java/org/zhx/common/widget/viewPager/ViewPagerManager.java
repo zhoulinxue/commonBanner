@@ -12,8 +12,11 @@ import org.zhx.common.widget.BannerPegerAdapter;
 import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.IContact;
 import org.zhx.common.widget.LoopType;
+import org.zhx.common.widget.viewPager.transformers.FixedSpeedScroller;
 
 import java.lang.reflect.Field;
+
+import static org.zhx.common.widget.LoopType.LOOP;
 
 /**
  * @ProjectName: banner
@@ -27,7 +30,7 @@ import java.lang.reflect.Field;
  * @UpdateRemark:
  * @Version:1.0
  */
-public class ViewPagerImpl implements IPager<ViewPager>, ViewPager.OnPageChangeListener {
+public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChangeListener {
     private RelativeLayout.LayoutParams viewPagerLp;
     private Context mContext;
     private ViewPager mViewPager;
@@ -38,12 +41,12 @@ public class ViewPagerImpl implements IPager<ViewPager>, ViewPager.OnPageChangeL
     private boolean autoPlay;//是否 自动播放
     private long delayTime = 3000;// 自动滚动时间
     private boolean REVERSE = false;//是否到最後一個item
-    private LoopType LOOP_TYPE = LoopType.LOOP;// 循环方式
+    private LoopType LOOP_TYPE = LOOP;// 循环方式
     private int index = 0;// 当前 位置
     private int BASE_NUM = 1000;
     private int count;
 
-    public ViewPagerImpl(Context context, IContact mContact) {
+    public ViewPagerManager(Context context, IContact mContact) {
         this.mContext = context;
         this.mContact = mContact;
         mHandler = new Handler();
@@ -72,6 +75,14 @@ public class ViewPagerImpl implements IPager<ViewPager>, ViewPager.OnPageChangeL
             mAdapter.setLoadBanner(datas);
             count = datas.getItemCount();
         }
+        if (LOOP_TYPE == LOOP) {
+            index = count * BASE_NUM;
+            while (index > Integer.MAX_VALUE) {
+                index = count * BASE_NUM / 2;
+                BASE_NUM = BASE_NUM / 2;
+            }
+            mViewPager.setCurrentItem(index);
+        }
     }
 
     @Override
@@ -95,7 +106,7 @@ public class ViewPagerImpl implements IPager<ViewPager>, ViewPager.OnPageChangeL
         if (mContact != null) {
             mContact.onSelected(realIndex);
         }
-        if (LoopType.LOOP != LOOP_TYPE) {
+        if (LOOP != LOOP_TYPE) {
             if (realIndex == count - 1)
                 REVERSE = true;
             if (realIndex == 0)
@@ -110,7 +121,7 @@ public class ViewPagerImpl implements IPager<ViewPager>, ViewPager.OnPageChangeL
                 mHandler.removeCallbacks(playRunable);
                 break;
             case ViewPager.SCROLL_STATE_IDLE:
-                if (index == mAdapter.getCount() - 1 && LoopType.LOOP == LOOP_TYPE)
+                if (index == mAdapter.getCount() - 1 && LOOP == LOOP_TYPE)
                     mViewPager.setCurrentItem(1, false);
                 isAutoPlay(autoPlay);
                 break;
@@ -161,10 +172,15 @@ public class ViewPagerImpl implements IPager<ViewPager>, ViewPager.OnPageChangeL
         mViewPager.setLayoutParams(viewPagerLp);
     }
 
+    @Override
+    public void setLoopType(LoopType type) {
+        this.LOOP_TYPE = type;
+    }
+
     private Runnable playRunable = new Runnable() {
         @Override
         public void run() {
-            if (!REVERSE || LoopType.LOOP == LOOP_TYPE)
+            if (!REVERSE || LOOP == LOOP_TYPE)
                 index++;
             else {
                 index--;

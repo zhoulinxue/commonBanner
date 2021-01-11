@@ -15,7 +15,7 @@ import org.zhx.common.widget.SimpleBannerAdapter;
 import org.zhx.common.widget.Builder;
 import org.zhx.common.widget.LoopType;
 import org.zhx.common.widget.ViewHolder;
-import org.zhx.common.widget.viewPager.Transformer;
+import org.zhx.common.widget.viewPager.transformers.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 .setIndicatorItemUnSelectedSrc(R.drawable.selected_indicator)// 设置 indicator指示器  item 选中颜色
                 .setIndicatorLayoutBackgroundRes(R.drawable.shape_indicator_bg) //设置 指示器 背景
                 .setTransformer(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
-                .setLoopType(LoopType.LOOP)// 设置循环滚动方式
+                .setLoopType(LoopType.REVERSE)// 设置循环滚动方式
                 .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
                 .setDuration(300)// 设置 动画 持续时间(数字越大  切换动画越慢)
 //              .setIndicator(indecator)// 自定义 指示器

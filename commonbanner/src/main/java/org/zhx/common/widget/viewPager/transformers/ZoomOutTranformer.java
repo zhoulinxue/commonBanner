@@ -14,34 +14,32 @@
  * limitations under the License.
  */
 
-package org.zhx.common.widget.viewPager;
+package org.zhx.common.widget.viewPager.transformers;
 
 import android.view.View;
+
+import org.zhx.common.widget.viewPager.transformers.BaseTransformer;
+
 /**
  * Copyright (C), 2015-2020
- * FileName: RotateDownTransformer
+ * FileName: ZoomOutTranformer
  * Author: zx
  * Date: 2020/1/9 9:11
  * Description:
  */
-public class RotateDownTransformer extends BaseTransformer {
-
-	private static final float ROT_MOD = -15f;
+public class ZoomOutTranformer extends BaseTransformer {
 
 	@Override
 	protected void onTransform(View view, float position) {
-		final float width = view.getWidth();
-		final float height = view.getHeight();
-		final float rotation = ROT_MOD * position * -1.25f;
-
-		view.setPivotX(width * 0.5f);
-		view.setPivotY(height);
-		view.setRotation(rotation);
-	}
-
-	@Override
-	protected boolean isPagingEnabled() {
-		return true;
+		final float scale = 1f + Math.abs(position);
+		view.setScaleX(scale);
+		view.setScaleY(scale);
+		view.setPivotX(view.getWidth() * 0.5f);
+		view.setPivotY(view.getHeight() * 0.5f);
+		view.setAlpha(position < -1f || position > 1f ? 0f : 1f - (scale - 1f));
+		if(position == -1){
+			view.setTranslationX(view.getWidth() * -1);
+		}
 	}
 
 }

@@ -16,7 +16,6 @@ import android.view.ViewGroup;
  */
 public class BannerPegerAdapter extends PagerAdapter {
     private CommonBanner.BannerAdapter loadBanner;
-    private int count;
     private CommonBanner.OnBannerItemClickLisenter onItemClickLisenter;
 
     @Override
@@ -50,11 +49,6 @@ public class BannerPegerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View) object);
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-        notifyDataSetChanged();
     }
 
     public void setLoadBanner(CommonBanner.BannerAdapter loadBanner) {

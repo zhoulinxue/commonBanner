@@ -1,4 +1,4 @@
-package org.zhx.common.widget.viewPager;
+package org.zhx.common.widget.viewPager.transformers;
 
 /**
  * Copyright (C), 2015-2020

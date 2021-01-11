@@ -14,29 +14,24 @@
  * limitations under the License.
  */
 
-package org.zhx.common.widget.viewPager;
+package org.zhx.common.widget.viewPager.transformers;
 
 import android.view.View;
+
+import org.zhx.common.widget.viewPager.transformers.BaseTransformer;
+
 /**
  * Copyright (C), 2015-2020
- * FileName: ZoomOutTranformer
+ * FileName: StackTransformer
  * Author: zx
  * Date: 2020/1/9 9:11
  * Description:
  */
-public class ZoomOutTranformer extends BaseTransformer {
+public class StackTransformer extends BaseTransformer {
 
 	@Override
 	protected void onTransform(View view, float position) {
-		final float scale = 1f + Math.abs(position);
-		view.setScaleX(scale);
-		view.setScaleY(scale);
-		view.setPivotX(view.getWidth() * 0.5f);
-		view.setPivotY(view.getHeight() * 0.5f);
-		view.setAlpha(position < -1f || position > 1f ? 0f : 1f - (scale - 1f));
-		if(position == -1){
-			view.setTranslationX(view.getWidth() * -1);
-		}
+		view.setTranslationX(position < 0 ? 0f : -view.getWidth() * position);
 	}
 
 }
