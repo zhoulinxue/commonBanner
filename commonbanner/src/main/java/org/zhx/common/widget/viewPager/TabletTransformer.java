@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.zhx.common.widget.transformers;
+package org.zhx.common.widget.viewPager;
 
 import android.graphics.Camera;
 import android.graphics.Matrix;

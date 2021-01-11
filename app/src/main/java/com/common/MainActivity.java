@@ -10,12 +10,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.SimpleBannerAdapter;
 import org.zhx.common.widget.Builder;
-import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.LoopType;
 import org.zhx.common.widget.ViewHolder;
-import org.zhx.common.widget.transformers.Transformer;
+import org.zhx.common.widget.viewPager.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //item 点击事件
-        banner.setOnItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
+        banner.setOnItemClickLisenter(new CommonBanner.OnItemClickLisenter() {
             @Override
             public void onItemClick(View v, int position) {
                 // item 被点击

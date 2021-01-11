@@ -1,211 +1,87 @@
 package org.zhx.common.widget;
 
 import android.content.Context;
-import android.os.Handler;
-
-import androidx.annotation.ColorRes;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.IdRes;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import org.zhx.common.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
+
+import org.zhx.common.widget.indicator.ClassiceIndicator;
 import org.zhx.common.widget.indicator.CommonIndicator;
-import org.zhx.common.widget.transformers.AccordionTransformer;
-import org.zhx.common.widget.transformers.BackgroundToForegroundTransformer;
-import org.zhx.common.widget.transformers.BaseTransformer;
-import org.zhx.common.widget.transformers.CubeInTransformer;
-import org.zhx.common.widget.transformers.CubeOutTransformer;
-import org.zhx.common.widget.transformers.DepthPageTransformer;
-import org.zhx.common.widget.transformers.FixedSpeedScroller;
-import org.zhx.common.widget.transformers.FlipHorizontalTransformer;
-import org.zhx.common.widget.transformers.FlipVerticalTransformer;
-import org.zhx.common.widget.transformers.ForegroundToBackgroundTransformer;
-import org.zhx.common.widget.transformers.RotateDownTransformer;
-import org.zhx.common.widget.transformers.RotateUpTransformer;
-import org.zhx.common.widget.transformers.ScaleInOutTransformer;
-import org.zhx.common.widget.transformers.StackTransformer;
-import org.zhx.common.widget.transformers.TabletTransformer;
-import org.zhx.common.widget.transformers.Transformer;
-import org.zhx.common.widget.transformers.ZoomInTransformer;
-import org.zhx.common.widget.transformers.ZoomOutSlideTransformer;
-import org.zhx.common.widget.transformers.ZoomOutTranformer;
-
-import java.lang.reflect.Field;
-
+import org.zhx.common.widget.viewPager.IPager;
+import org.zhx.common.widget.viewPager.ViewPagerImpl;
+import org.zhx.common.widget.viewPager.AccordionTransformer;
+import org.zhx.common.widget.viewPager.BackgroundToForegroundTransformer;
+import org.zhx.common.widget.viewPager.BaseTransformer;
+import org.zhx.common.widget.viewPager.CubeInTransformer;
+import org.zhx.common.widget.viewPager.CubeOutTransformer;
+import org.zhx.common.widget.viewPager.DepthPageTransformer;
+import org.zhx.common.widget.viewPager.FlipHorizontalTransformer;
+import org.zhx.common.widget.viewPager.FlipVerticalTransformer;
+import org.zhx.common.widget.viewPager.ForegroundToBackgroundTransformer;
+import org.zhx.common.widget.viewPager.RotateDownTransformer;
+import org.zhx.common.widget.viewPager.RotateUpTransformer;
+import org.zhx.common.widget.viewPager.ScaleInOutTransformer;
+import org.zhx.common.widget.viewPager.StackTransformer;
+import org.zhx.common.widget.viewPager.TabletTransformer;
+import org.zhx.common.widget.viewPager.Transformer;
+import org.zhx.common.widget.viewPager.ZoomInTransformer;
+import org.zhx.common.widget.viewPager.ZoomOutSlideTransformer;
+import org.zhx.common.widget.viewPager.ZoomOutTranformer;
 
 /**
- * Copyright (C), 2015-2019
- * FileName: BannerContainer
- * Author: zx
- * Date: 2019/12/20 14:44
- * Description:
+ * @ProjectName: banner
+ * @Package: org.zhx.common
+ * @ClassName: CommonBanner2
+ * @Description:java
+ * @Author: 86138
+ * @CreateDate: 2021/1/11 11:45
+ * @UpdateUser:
+ * @UpdateDate: 2021/1/11 11:45
+ * @UpdateRemark:
+ * @Version:1.0
  */
-public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeListener {
-    private String TAG = CommonBanner.class.getSimpleName();
-    private BannerPegerAdapter mAdapter;
-    private BannerAdapter loadBanner;
-    private Handler mHandler;
-    private LayoutParams containerLp;
-    private RelativeLayout.LayoutParams viewPagerLp;
-    private ViewPager mViewPager;
-    private CommonIndicator mIndicators;
-    private RelativeLayout mContainer;
-    private static final int containerId = R.id.container_id;
+public class CommonBanner extends FrameLayout implements IContact {
+    private IPager mPager;// banner
+    private CommonIndicator mIndicators; // indicator
+    private LayoutParams containerLp; // banner layoutParams
+    private RelativeLayout mContainer;// view container
     private int mContainerHeight, mIndicatorHeight;
     private boolean isBelow = false;// 布局 是否重叠
-    private boolean autoPlay;//是否 自动播放
-    private int index = 0;// 当前 位置
-    private int BASE_NUM = 1000;
 
-    private boolean isPause;//是否赞停
-    private long delayTime = 3000;// 自动滚动时间
-    private LoopType loopType = LoopType.LOOP;
-    private boolean isUp = false;//是否到最後一個item
-    private int duration;//动画切换时间
-    private Runnable playRunable = new Runnable() {
-        @Override
-        public void run() {
-            if (!isUp || LoopType.LOOP == loopType)
-                index++;
-            else {
-                index--;
-            }
-            if (mAdapter != null && autoPlay) {
-                mViewPager.setCurrentItem(index, true);
-            }
-        }
-    };
-
-
-    public CommonBanner(Context context) {
+    public CommonBanner(@NonNull Context context) {
         super(context);
-        initView(context);
+        init(context);
     }
 
-    public CommonBanner(Context context, AttributeSet attrs) {
+    public CommonBanner(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initView(context);
+        init(context);
     }
 
-    public CommonBanner(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CommonBanner(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initView(context);
+        init(context);
     }
 
-    private void initView(Context context) {
-        mHandler = new Handler();
+    private void init(Context context) {
         containerLp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         mContainer = new RelativeLayout(context);
         mContainer.setLayoutParams(containerLp);
-
-        viewPagerLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        mViewPager = new ViewPager(context);
-        mViewPager.setId(containerId);
-        mViewPager.addOnPageChangeListener(this);
-        mViewPager.setLayoutParams(viewPagerLp);
-        mAdapter = new BannerPegerAdapter();
-        mViewPager.setAdapter(mAdapter);
-        mContainer.addView(mViewPager, viewPagerLp);
+        mPager = new ViewPagerImpl(context, this);
         addView(mContainer);
     }
 
-    private void setScroller(int duration) {
-        try {
-            // 通过class文件获取mScroller属性
-            Field mField = ViewPager.class.getDeclaredField("mScroller");
-            mField.setAccessible(true);
-            FixedSpeedScroller mScroller = new FixedSpeedScroller(mViewPager.getContext(), new AccelerateInterpolator());
-            mScroller.setDuration(duration);
-            mField.set(mViewPager, mScroller);
-        } catch (Exception e) {
-
+    public void setBannerAdapter(BannerAdapter bannerBanner) {
+        if (bannerBanner != null && bannerBanner.getItemCount() != 0) {
+            mPager.setBannerAdapter(bannerBanner);
+            mIndicators.setDatas(bannerBanner.getItemCount());
         }
-    }
-
-    private void setDatas(int size) {
-        index = size * BASE_NUM;
-        while (index > Integer.MAX_VALUE) {
-            index = size * BASE_NUM / 2;
-            BASE_NUM = BASE_NUM / 2;
-        }
-        mIndicators.setDatas(size);
-        if (mAdapter != null) {
-            mAdapter.setCount(size);
-        }
-        mViewPager.setCurrentItem(index);
-    }
-
-    protected void setLoopType(LoopType loop) {
-        loopType = loop;
-    }
-
-
-    @Override
-    public void onPageSelected(int position) {
-        index = position;
-        int realIndex = position % mIndicators.getItemCount();
-        if (mIndicators != null) {
-            if (LoopType.LOOP == loopType && mIndicators.getItemCount() != 0) {
-                mIndicators.setSelection(realIndex);
-            } else {
-                mIndicators.setSelection(realIndex);
-                if (realIndex == mIndicators.getItemCount() - 1)
-                    isUp = true;
-                if (realIndex == 0)
-                    isUp = false;
-            }
-        }
-        if (autoPlay)
-            autoPlay();
-    }
-
-    public void setBannerAdapter(BannerAdapter loadBanner) {
-        this.loadBanner = loadBanner;
-        if (loadBanner != null && loadBanner.getItemCount() != 0) {
-            setDatas(loadBanner.getItemCount());
-        }
-        if (mAdapter != null) {
-            mAdapter.setLoadBanner(loadBanner);
-        }
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        Log.e(TAG, position + "onPageScrolled");
-
-    }
-
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        Log.e(TAG, state + "onPageScrollStateChanged");
-        switch (state) {
-            case ViewPager.SCROLL_STATE_DRAGGING:
-                mHandler.removeCallbacks(playRunable);
-                break;
-            case ViewPager.SCROLL_STATE_IDLE:
-                if (index == mAdapter.getCount() - 1 && LoopType.LOOP == loopType)
-                    mViewPager.setCurrentItem(1, false);
-                if (autoPlay)
-                    autoPlay();
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void setBuilder(Builder builder) {
-        if (builder != null)
-            builder.build(this);
     }
 
     public interface BannerAdapter {
@@ -216,11 +92,47 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         public void onItemViewClick(View v);
     }
 
+    public interface OnItemClickLisenter {
+        public void onItemClick(View v, int position);
+    }
+
+    public void setBuilder(Builder builder) {
+        if (builder == null) {
+            return;
+        }
+        mContainer.removeAllViews();
+        if (mPager != null) {
+            mPager.attach(mContainer);
+            mPager.setDuration(builder.getDuration());
+            mPager.setWidth(builder.getWidth());
+            mPager.isAutoPlay(builder.isAutoPlay());
+            if (builder.getTransformerType() != null)
+                setTransformerType(builder.getTransformerType());
+            else if (builder.getTransformer() != null) {
+                setTransformer(builder.getTransformer());
+            }
+        }
+        mIndicators = builder.getIndicator();
+        if (mIndicators == null) {
+            mIndicators = new ClassiceIndicator(getContext());
+        }
+        mContainer.addView(mIndicators.getIndicatorLayout());
+        mIndicators.setHeight(builder.getIndicatorHeight());
+        mIndicators.setIndicatorSrc(builder.getUnSelectedSrc());
+        mIndicators.setSelectedSrc(builder.getSelectSrc());
+        if (builder.getIndicatorLayoutColor() != 0) {
+            mIndicators.getIndicatorLayout().setBackgroundColor(builder.getIndicatorLayoutColor());
+        } else if (builder.getIndicatorLayoutBg() != 0) {
+            mIndicators.getIndicatorLayout().setBackgroundResource(builder.getIndicatorLayoutBg());
+        }
+        setHeight(builder.getHeight());
+    }
+
+
     protected void setHeight(int height) {
         mContainerHeight = height;
-        if (mViewPager != null) {
-            viewPagerLp.height = height;
-            mViewPager.setLayoutParams(viewPagerLp);
+        if (mPager != null) {
+            mPager.setHeight(height);
         }
         if (mContainer != null) {
             int totalhHight = height;
@@ -232,86 +144,22 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    protected void setWidth(int width) {
-        if (mViewPager != null) {
-            containerLp.width = width;
-            mContainer.setLayoutParams(containerLp);
-        }
-        if (mContainer != null) {
-            containerLp.width = width;
-            mContainer.setLayoutParams(containerLp);
+    public void setOnItemClickLisenter(OnItemClickLisenter onItemClickLisenter) {
+        if (mPager != null) {
+            mPager.setOnItemClickLisenter(onItemClickLisenter);
         }
     }
 
-    protected void setSelectSrc(int selectSrc) {
-        if (mIndicators != null) {
-            mIndicators.setSelectedSrc(selectSrc);
-        }
+
+    @Override
+    public void onScrolling(Object... obj) {
+
     }
 
-    protected void setUnSelectedSrc(int unSelectedSrc) {
-        if (mIndicators != null) {
-            mIndicators.setIndicatorSrc(unSelectedSrc);
-        }
-    }
-
-    protected void setIndicatorHeight(int height) {
-        mIndicatorHeight = height;
-        if (mIndicators != null) {
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mIndicators.getIndicatorLayout().getLayoutParams();
-            lp.height = height;
-            mIndicators.getIndicatorLayout().setLayoutParams(lp);
-        }
-    }
-
-    protected void indicatorBelow() {
-        isBelow = true;
-        if (mIndicators != null) {
-            int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
-            if (mIndicatorHeight != 0) {
-                height = mIndicatorHeight;
-            }
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, height);
-            layoutParams.addRule(RelativeLayout.BELOW, containerId);
-            mIndicators.getIndicatorLayout().setLayoutParams(layoutParams);
-        }
-        setHeight(mContainerHeight);
-    }
-
-    protected void setIndicatorBackgroundRes(@DrawableRes int res) {
-        if (mIndicators != null) {
-            mIndicators.getIndicatorLayout().setBackgroundResource(res);
-        }
-    }
-
-    protected void setIndicatorBackgroundColor(@ColorRes int res) {
-        if (mIndicators != null) {
-            mIndicators.getIndicatorLayout().setBackgroundColor(mContainer.getContext().getResources().getColor(res));
-        }
-    }
-
-    protected void autoPlay() {
-        autoPlay = true;
-        mHandler.removeCallbacks(playRunable);
-        mHandler.postDelayed(playRunable, delayTime);
-    }
-
-    public synchronized void onPause() {
-        if (autoPlay) {
-            isPause = true;
-            mHandler.removeCallbacks(playRunable);
-        }
-    }
-
-    protected void setDelayTime(long delayTime) {
-        this.delayTime = delayTime;
-    }
-
-    public synchronized void onRestart() {
-        if (isPause) {
-            isPause = false;
-            autoPlay();
-        }
+    @Override
+    public void onSelected(int position) {
+        if (mIndicators != null)
+            mIndicators.setSelection(position);
     }
 
     public void setTransformerType(Transformer mTransformer) {
@@ -372,42 +220,10 @@ public class CommonBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    public void setTransformer(BaseTransformer transformer) {
-        if (mViewPager != null && transformer != null) {
-            mViewPager.setPageTransformer(true, transformer);
+    public void setTransformer(ViewPager.PageTransformer transformer) {
+        if (transformer != null) {
+            if (mPager != null && mPager.getPagerView() instanceof ViewPager)
+                ((ViewPager) mPager.getPagerView()).setPageTransformer(true, transformer);
         }
-    }
-
-    public void setTransformer(Transformer transformer) {
-        setTransformerType(transformer);
-    }
-
-    protected CommonIndicator getIndicator() {
-        return mIndicators;
-    }
-
-    protected void setIndicator(CommonIndicator mIndicators) {
-        this.mIndicators = mIndicators;
-        mContainer.addView(mIndicators.getIndicatorLayout());
-    }
-
-    public void setOnItemClickLisenter(OnBannerItemClickLisenter onBannerItemClickLisenter) {
-        if (mAdapter != null) {
-            mAdapter.setOnBannerItemClickLisenter(onBannerItemClickLisenter);
-        }
-    }
-
-    public interface OnBannerItemClickLisenter {
-        public void onItemClick(View v, int position);
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-        if (duration != 0)
-            setScroller(duration);
     }
 }

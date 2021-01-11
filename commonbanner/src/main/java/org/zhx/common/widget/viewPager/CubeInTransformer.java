@@ -14,33 +14,28 @@
  * limitations under the License.
  */
 
-package org.zhx.common.widget.transformers;
+package org.zhx.common.widget.viewPager;
 
 import android.view.View;
 /**
  * Copyright (C), 2015-2020
- * FileName: RotateUpTransformer
+ * FileName: CubeInTransformer
  * Author: zx
  * Date: 2020/1/9 9:11
  * Description:
  */
-public class RotateUpTransformer extends BaseTransformer {
-
-	private static final float ROT_MOD = -15f;
+public class CubeInTransformer extends BaseTransformer {
 
 	@Override
 	protected void onTransform(View view, float position) {
-		final float width = view.getWidth();
-		final float rotation = ROT_MOD * position;
-
-		view.setPivotX(width * 0.5f);
-		view.setPivotY(0f);
-		view.setTranslationX(0f);
-		view.setRotation(rotation);
+		// Rotate the fragment on the left or right edge
+		view.setPivotX(position > 0 ? 0 : view.getWidth());
+		view.setPivotY(0);
+		view.setRotationY(-90f * position);
 	}
-	
+
 	@Override
-	protected boolean isPagingEnabled() {
+	public boolean isPagingEnabled() {
 		return true;
 	}
 

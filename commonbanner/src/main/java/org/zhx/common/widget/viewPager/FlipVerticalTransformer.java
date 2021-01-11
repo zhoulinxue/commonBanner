@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package org.zhx.common.widget.transformers;
+package org.zhx.common.widget.viewPager;
 
 import android.view.View;
 /**
  * Copyright (C), 2015-2020
- * FileName: FlipHorizontalTransformer
+ * FileName: FlipVerticalTransformer
  * Author: zx
  * Date: 2020/1/9 9:11
  * Description:
  */
-public class FlipHorizontalTransformer extends BaseTransformer {
+public class FlipVerticalTransformer extends BaseTransformer {
 
 	@Override
 	protected void onTransform(View view, float position) {
-		final float rotation = 180f * position;
+		final float rotation = -180f * position;
 
-		view.setAlpha(rotation > 90f || rotation < -90f ? 0 : 1);
+		view.setAlpha(rotation > 90f || rotation < -90f ? 0f : 1f);
 		view.setPivotX(view.getWidth() * 0.5f);
 		view.setPivotY(view.getHeight() * 0.5f);
-		view.setRotationY(rotation);
+		view.setRotationX(rotation);
 	}
 
 }

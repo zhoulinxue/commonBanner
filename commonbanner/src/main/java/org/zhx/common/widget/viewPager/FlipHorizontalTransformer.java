@@ -14,29 +14,26 @@
  * limitations under the License.
  */
 
-package org.zhx.common.widget.transformers;
+package org.zhx.common.widget.viewPager;
 
 import android.view.View;
 /**
  * Copyright (C), 2015-2020
- * FileName: CubeInTransformer
+ * FileName: FlipHorizontalTransformer
  * Author: zx
  * Date: 2020/1/9 9:11
  * Description:
  */
-public class CubeInTransformer extends BaseTransformer {
+public class FlipHorizontalTransformer extends BaseTransformer {
 
 	@Override
 	protected void onTransform(View view, float position) {
-		// Rotate the fragment on the left or right edge
-		view.setPivotX(position > 0 ? 0 : view.getWidth());
-		view.setPivotY(0);
-		view.setRotationY(-90f * position);
-	}
+		final float rotation = 180f * position;
 
-	@Override
-	public boolean isPagingEnabled() {
-		return true;
+		view.setAlpha(rotation > 90f || rotation < -90f ? 0 : 1);
+		view.setPivotX(view.getWidth() * 0.5f);
+		view.setPivotY(view.getHeight() * 0.5f);
+		view.setRotationY(rotation);
 	}
 
 }

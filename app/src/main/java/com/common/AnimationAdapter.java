@@ -15,7 +15,7 @@ import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.LoopType;
 import org.zhx.common.widget.SimpleBannerAdapter;
 import org.zhx.common.widget.ViewHolder;
-import org.zhx.common.widget.transformers.Transformer;
+import org.zhx.common.widget.viewPager.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 .setLoopType(LoopType.LOOP)// 设置循环滚动方式
                 .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
 //              .setIndicator(indecator)// 自定义 指示器
-                .setDuration(1000) //动画 执行时间  为了 让大家 看清楚效果  设置慢点
+                .setDuration(500) //动画 执行时间  为了 让大家 看清楚效果  设置慢点
                 .setDelayTime(2000);// 设置滚动间隔时间
         banner.setBuilder(builder);
         //设置item 数据回调
@@ -85,7 +85,7 @@ public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
         });
         //item 点击事件
-        banner.setOnItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
+        banner.setOnItemClickLisenter(new CommonBanner.OnItemClickLisenter() {
             @Override
             public void onItemClick(View v, int position) {
                 Toast.makeText(view.getContext(), position + " 点击item", Toast.LENGTH_SHORT).show();
@@ -98,7 +98,7 @@ public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CommonBanner banner = holder.itemView.findViewById(R.id.banner_layout);
-        banner.setTransformer(data.get(position));
+        banner.setTransformerType(data.get(position));
     }
 
     @Override

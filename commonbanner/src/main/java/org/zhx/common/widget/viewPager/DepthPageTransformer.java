@@ -14,26 +14,39 @@
  * limitations under the License.
  */
 
-package org.zhx.common.widget.transformers;
+package org.zhx.common.widget.viewPager;
 
 import android.view.View;
 /**
  * Copyright (C), 2015-2020
- * FileName: FlipVerticalTransformer
+ * FileName: DepthPageTransformer
  * Author: zx
  * Date: 2020/1/9 9:11
  * Description:
  */
-public class FlipVerticalTransformer extends BaseTransformer {
+public class DepthPageTransformer extends BaseTransformer {
+
+	private static final float MIN_SCALE = 0.75f;
 
 	@Override
 	protected void onTransform(View view, float position) {
-		final float rotation = -180f * position;
+		if (position <= 0f) {
+			view.setTranslationX(0f);
+			view.setScaleX(1f);
+			view.setScaleY(1f);
+		} else if (position <= 1f) {
+			final float scaleFactor = MIN_SCALE + (1 - MIN_SCALE) * (1 - Math.abs(position));
+			view.setAlpha(1 - position);
+			view.setPivotY(0.5f * view.getHeight());
+			view.setTranslationX(view.getWidth() * -position);
+			view.setScaleX(scaleFactor);
+			view.setScaleY(scaleFactor);
+		}
+	}
 
-		view.setAlpha(rotation > 90f || rotation < -90f ? 0f : 1f);
-		view.setPivotX(view.getWidth() * 0.5f);
-		view.setPivotY(view.getHeight() * 0.5f);
-		view.setRotationX(rotation);
+	@Override
+	protected boolean isPagingEnabled() {
+		return true;
 	}
 
 }

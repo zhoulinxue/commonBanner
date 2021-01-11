@@ -1,4 +1,4 @@
-package org.zhx.common.widget.transformers;
+package org.zhx.common.widget.viewPager;
 
 import android.content.Context;
 import android.view.animation.Interpolator;

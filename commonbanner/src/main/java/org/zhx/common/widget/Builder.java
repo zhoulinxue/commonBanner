@@ -6,9 +6,8 @@ import android.view.ViewGroup;
 import androidx.annotation.ColorRes;
 
 import org.zhx.common.widget.indicator.CommonIndicator;
-import org.zhx.common.widget.indicator.ClassiceIndicator;
-import org.zhx.common.widget.transformers.BaseTransformer;
-import org.zhx.common.widget.transformers.Transformer;
+import org.zhx.common.widget.viewPager.BaseTransformer;
+import org.zhx.common.widget.viewPager.Transformer;
 
 /**
  * Copyright (C), 2015-2020
@@ -185,33 +184,7 @@ public class Builder {
     }
 
     public CommonBanner build(CommonBanner banner) {
-        if (getIndicator() == null)
-            setIndicator(new ClassiceIndicator(mContext));
-        banner.setIndicator(getIndicator());
-        banner.setLoopType(getLoopType());
-        banner.setDelayTime(getDelayTime());
-        if (getHeight() != 0)
-            banner.setHeight(getHeight());
-        if (getWidth() != 0)
-            banner.setWidth(getWidth());
-        banner.setSelectSrc(getSelectSrc());
-        banner.setUnSelectedSrc(getUnSelectedSrc());
-        banner.setTransformer(getTransformer());
-        banner.setTransformerType(getTransformerType());
-        banner.setIndicatorHeight(getIndicatorHeight());
-        banner.setDuration(getDuration());
-        if (getIndicatorLayoutBg() != 0) {
-            banner.setIndicatorBackgroundRes(getIndicatorLayoutBg());
-        } else if (getIndicatorLayoutColor() != 0) {
-            banner.setIndicatorBackgroundColor(getIndicatorLayoutColor());
-        }
-        if (isAutoPlay())
-            banner.autoPlay();
-        if (isBelow())
-            banner.indicatorBelow();
-        if (mParent != null) {
-            mParent.addView(banner);
-        }
+        banner.setBuilder(this);
         return banner;
     }
 
