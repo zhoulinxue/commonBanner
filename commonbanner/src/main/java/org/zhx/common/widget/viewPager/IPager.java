@@ -23,7 +23,7 @@ public interface IPager<T> {
 
     public void setBannerAdapter(CommonBanner.BannerAdapter datas);
 
-    public void setOnItemClickLisenter(CommonBanner.OnItemClickLisenter onItemClickLisenter);
+    public void setOnItemClickLisenter(CommonBanner.OnBannerItemClickLisenter onItemClickLisenter);
 
     public void setDuration(int duration);
 

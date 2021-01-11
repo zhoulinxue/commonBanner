@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 public class BannerPegerAdapter extends PagerAdapter {
     private CommonBanner.BannerAdapter loadBanner;
     private int count;
-    private CommonBanner.OnItemClickLisenter onItemClickLisenter;
+    private CommonBanner.OnBannerItemClickLisenter onItemClickLisenter;
 
     @Override
     public int getCount() {
@@ -62,7 +62,7 @@ public class BannerPegerAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void setOnItemClickLisenter(CommonBanner.OnItemClickLisenter onBannerItemClickLisenter) {
+    public void setOnItemClickLisenter(CommonBanner.OnBannerItemClickLisenter onBannerItemClickLisenter) {
         this.onItemClickLisenter = onBannerItemClickLisenter;
     }
 }

@@ -92,7 +92,7 @@ public class CommonBanner extends FrameLayout implements IContact {
         public void onItemViewClick(View v);
     }
 
-    public interface OnItemClickLisenter {
+    public interface OnBannerItemClickLisenter {
         public void onItemClick(View v, int position);
     }
 
@@ -144,7 +144,7 @@ public class CommonBanner extends FrameLayout implements IContact {
         }
     }
 
-    public void setOnItemClickLisenter(OnItemClickLisenter onItemClickLisenter) {
+    public void OnBannerItemClickLisenter(OnBannerItemClickLisenter onItemClickLisenter) {
         if (mPager != null) {
             mPager.setOnItemClickLisenter(onItemClickLisenter);
         }

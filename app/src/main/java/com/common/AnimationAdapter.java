@@ -85,7 +85,7 @@ public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
         });
         //item 点击事件
-        banner.setOnItemClickLisenter(new CommonBanner.OnItemClickLisenter() {
+        banner.OnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
             @Override
             public void onItemClick(View v, int position) {
                 Toast.makeText(view.getContext(), position + " 点击item", Toast.LENGTH_SHORT).show();

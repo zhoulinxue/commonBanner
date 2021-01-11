@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //item 点击事件
-        banner.setOnItemClickLisenter(new CommonBanner.OnItemClickLisenter() {
+        banner.OnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
             @Override
             public void onItemClick(View v, int position) {
                 // item 被点击

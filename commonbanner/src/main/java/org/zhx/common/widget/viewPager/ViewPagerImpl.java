@@ -75,7 +75,7 @@ public class ViewPagerImpl implements IPager<ViewPager>, ViewPager.OnPageChangeL
     }
 
     @Override
-    public void setOnItemClickLisenter(CommonBanner.OnItemClickLisenter onItemClickLisenter) {
+    public void setOnItemClickLisenter(CommonBanner.OnBannerItemClickLisenter onItemClickLisenter) {
         if (mAdapter != null) {
             mAdapter.setOnItemClickLisenter(onItemClickLisenter);
         }
