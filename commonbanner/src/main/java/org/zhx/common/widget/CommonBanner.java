@@ -3,7 +3,6 @@ package org.zhx.common.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -34,6 +33,9 @@ import org.zhx.common.widget.viewPager.transformers.ZoomInTransformer;
 import org.zhx.common.widget.viewPager.transformers.ZoomOutSlideTransformer;
 import org.zhx.common.widget.viewPager.transformers.ZoomOutTranformer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @ProjectName: banner
  * @Package: org.zhx.common
@@ -53,6 +55,8 @@ public class CommonBanner extends FrameLayout implements IContact {
     private RelativeLayout mContainer;// view container
     private int mContainerHeight, mIndicatorHeight;
     private boolean isBelow = false;// 布局 是否重叠
+    private CommonBanner.OnBannerItemClickLisenter onItemClickLisenter;
+    private Context mContext;
 
     public CommonBanner(@NonNull Context context) {
         super(context);
@@ -70,6 +74,7 @@ public class CommonBanner extends FrameLayout implements IContact {
     }
 
     private void init(Context context) {
+        mContext = context;
         containerLp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         mContainer = new RelativeLayout(context);
         mContainer.setLayoutParams(containerLp);
@@ -78,14 +83,27 @@ public class CommonBanner extends FrameLayout implements IContact {
     }
 
     public void setBannerAdapter(BannerAdapter bannerBanner) {
+        List<View> views = new ArrayList<>();
         if (bannerBanner != null && bannerBanner.getItemCount() != 0) {
-            mPager.setBannerAdapter(bannerBanner);
+            for (int i = 0; i < bannerBanner.getItemCount(); i++) {
+                final View view = bannerBanner.onCreatItem(mContext, i);
+                views.add(view);
+                view.setOnClickListener(new ChildClickLisenter(i) {
+                    @Override
+                    public void onChildClick(View v, int position) {
+                        if (onItemClickLisenter != null) {
+                            onItemClickLisenter.onItemClick(v, position);
+                        }
+                    }
+                });
+            }
+            mPager.setViewDatas(views);
             mIndicators.setDatas(bannerBanner.getItemCount());
         }
     }
 
     public interface BannerAdapter {
-        public View onCreatItem(ViewGroup container, int positon);
+        public View onCreatItem(Context context, int positon);
 
         public int getItemCount();
 
@@ -148,9 +166,7 @@ public class CommonBanner extends FrameLayout implements IContact {
     }
 
     public void OnBannerItemClickLisenter(OnBannerItemClickLisenter onItemClickLisenter) {
-        if (mPager != null) {
-            mPager.setOnItemClickLisenter(onItemClickLisenter);
-        }
+        this.onItemClickLisenter = onItemClickLisenter;
     }
 
 

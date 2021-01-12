@@ -6,6 +6,9 @@ import androidx.viewpager.widget.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Copyright (C), 2015-2019
@@ -15,12 +18,16 @@ import android.view.ViewGroup;
  * Description:
  */
 public class BannerPegerAdapter extends PagerAdapter {
-    private CommonBanner.BannerAdapter loadBanner;
-    private CommonBanner.OnBannerItemClickLisenter onItemClickLisenter;
+    private List<View> datas = new ArrayList<>();
+
+    public void setDatas(List<View> datas) {
+        this.datas = datas;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;
+        return (datas == null || datas.size() == 0) ? 0 : Integer.MAX_VALUE;
     }
 
     @Override
@@ -31,16 +38,8 @@ public class BannerPegerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        int realPosition = position % loadBanner.getItemCount();
-        final View view = loadBanner.onCreatItem(container, realPosition);
-        view.setOnClickListener(new ChildClickLisenter(realPosition) {
-            @Override
-            public void onChildClick(View v, int position) {
-                if (onItemClickLisenter != null) {
-                    onItemClickLisenter.onItemClick(v, position);
-                }
-            }
-        });
+        int realPosition = position % datas.size();
+        View view = datas.get(realPosition);
         container.addView(view);
         return view;
     }
@@ -51,12 +50,4 @@ public class BannerPegerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
-    public void setLoadBanner(CommonBanner.BannerAdapter loadBanner) {
-        this.loadBanner = loadBanner;
-        notifyDataSetChanged();
-    }
-
-    public void setOnItemClickLisenter(CommonBanner.OnBannerItemClickLisenter onBannerItemClickLisenter) {
-        this.onItemClickLisenter = onBannerItemClickLisenter;
-    }
 }

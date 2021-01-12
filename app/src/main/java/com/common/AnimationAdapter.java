@@ -52,8 +52,15 @@ public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.animation_item_layout, null);
         final ItemViewHolder viewHolder = new ItemViewHolder(view);
-        final CommonBanner banner = view.findViewById(R.id.banner_layout);
-        Builder builder = new Builder(view.getContext());
+        return viewHolder;
+    }
+
+
+    @Override
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int position) {
+        CommonBanner banner = viewHolder.itemView.findViewById(R.id.banner_layout);
+        banner.setTransformerType(data.get(position));
+        Builder builder = new Builder(viewHolder.itemView.getContext());
         //自定义 底部指示牌
         builder.setHeight(350)//设置banner 高度
                 .setIndicatorHeight(80)//设置 导航游标 高度
@@ -81,24 +88,16 @@ public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             @Override
             public void onItemViewClick(View v) {
-                Toast.makeText(view.getContext(), "点击 测试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(viewHolder.itemView.getContext(), "点击 测试", Toast.LENGTH_SHORT).show();
             }
         });
         //item 点击事件
         banner.OnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
             @Override
             public void onItemClick(View v, int position) {
-                Toast.makeText(view.getContext(), position + " 点击item", Toast.LENGTH_SHORT).show();
+                Toast.makeText(viewHolder.itemView.getContext(), position + " 点击item", Toast.LENGTH_SHORT).show();
             }
         });
-        return viewHolder;
-    }
-
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        CommonBanner banner = holder.itemView.findViewById(R.id.banner_layout);
-        banner.setTransformerType(data.get(position));
     }
 
     @Override

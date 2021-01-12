@@ -1,5 +1,6 @@
 package org.zhx.common.widget;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,8 @@ public abstract class SimpleBannerAdapter<T> implements CommonBanner.BannerAdapt
     }
 
     @Override
-    public final View onCreatItem(ViewGroup container, int positon) {
-        View view = LayoutInflater.from(container.getContext()).inflate(resurceLayout, null);
+    public final View onCreatItem(Context context, int positon) {
+        View view = LayoutInflater.from(context).inflate(resurceLayout, null);
         ViewHolder holder = creatViewHolder(view, positon);
         convert(holder, datas.get(positon));
         return view;

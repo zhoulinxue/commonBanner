@@ -1,9 +1,12 @@
 package org.zhx.common.widget.viewPager;
 
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.LoopType;
+
+import java.util.List;
 
 /**
  * @ProjectName: banner
@@ -22,9 +25,7 @@ public interface IPager<T> {
 
     public void attach(RelativeLayout relativeLayout);
 
-    public void setBannerAdapter(CommonBanner.BannerAdapter datas);
-
-    public void setOnItemClickLisenter(CommonBanner.OnBannerItemClickLisenter onItemClickLisenter);
+    public void setViewDatas(List<View> datas);
 
     public void setDuration(int duration);
 

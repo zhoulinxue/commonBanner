@@ -2,6 +2,7 @@ package org.zhx.common.widget.viewPager;
 
 import android.content.Context;
 import android.os.Handler;
+import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.RelativeLayout;
 
@@ -9,12 +10,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import org.zhx.common.R;
 import org.zhx.common.widget.BannerPegerAdapter;
-import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.IContact;
 import org.zhx.common.widget.LoopType;
 import org.zhx.common.widget.viewPager.transformers.FixedSpeedScroller;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import static org.zhx.common.widget.LoopType.LOOP;
 
@@ -70,10 +71,10 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     }
 
     @Override
-    public void setBannerAdapter(CommonBanner.BannerAdapter datas) {
+    public void setViewDatas(List<View> datas) {
         if (mAdapter != null) {
-            mAdapter.setLoadBanner(datas);
-            count = datas.getItemCount();
+            mAdapter.setDatas(datas);
+            count = datas.size();
         }
         if (LOOP_TYPE == LOOP) {
             index = count * BASE_NUM;
@@ -85,12 +86,6 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
         }
     }
 
-    @Override
-    public void setOnItemClickLisenter(CommonBanner.OnBannerItemClickLisenter onItemClickLisenter) {
-        if (mAdapter != null) {
-            mAdapter.setOnItemClickLisenter(onItemClickLisenter);
-        }
-    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
