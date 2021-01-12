@@ -32,7 +32,7 @@ import java.util.List;
  * @UpdateRemark:
  * @Version:1.0
  */
-public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.ItemViewHolder> {
     private List<Transformer> data;
     private int[] mImages = {R.mipmap.b, R.mipmap.d, R.mipmap.e, R.mipmap.f, R.mipmap.g, R.mipmap.h};
     List<ItemData> datas = new ArrayList<>();
@@ -49,16 +49,21 @@ public class AnimationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
+    public ItemViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.animation_item_layout, null);
-        final ItemViewHolder viewHolder = new ItemViewHolder(view);
-        return viewHolder;
+        return new ItemViewHolder(view);
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull final ItemViewHolder viewHolder, int position) {
         CommonBanner banner = viewHolder.itemView.findViewById(R.id.banner_layout);
+        if (!banner.isInit()) {
+            setBanner(banner, viewHolder, position);
+        }
+    }
+
+    private void setBanner(CommonBanner banner, final ItemViewHolder viewHolder, int position) {
         banner.setTransformerType(data.get(position));
         Builder builder = new Builder(viewHolder.itemView.getContext());
         //自定义 底部指示牌

@@ -57,6 +57,7 @@ public class CommonBanner extends FrameLayout implements IContact {
     private boolean isBelow = false;// 布局 是否重叠
     private CommonBanner.OnBannerItemClickLisenter onItemClickLisenter;
     private Context mContext;
+    private boolean isInit = false;
 
     public CommonBanner(@NonNull Context context) {
         super(context);
@@ -114,16 +115,21 @@ public class CommonBanner extends FrameLayout implements IContact {
         public void onItemClick(View v, int position);
     }
 
-    public void setBuilder(Builder builder) {
-        if (builder == null) {
+    public boolean isInit() {
+        return isInit;
+    }
+
+    public synchronized void setBuilder(Builder builder) {
+        if (builder == null && !isInit) {
             return;
         }
+        isInit = true;
         mContainer.removeAllViews();
         if (mPager != null) {
             mPager.attach(mContainer);
             mPager.setDuration(builder.getDuration());
             mPager.setWidth(builder.getWidth());
-            mPager.isAutoPlay(builder.isAutoPlay());
+            mPager.autoPlay(builder.isAutoPlay());
             mPager.setLoopType(builder.getLoopType());
             if (builder.getTransformerType() != null)
                 setTransformerType(builder.getTransformerType());
@@ -140,7 +146,7 @@ public class CommonBanner extends FrameLayout implements IContact {
         mIndicators.setIndicatorSrc(builder.getUnSelectedSrc());
         mIndicators.setSelectedSrc(builder.getSelectSrc());
         if (builder.getIndicatorLayoutColor() != 0) {
-            mIndicators.getIndicatorLayout().setBackgroundColor(builder.getIndicatorLayoutColor());
+            mIndicators.getIndicatorLayout().setBackgroundColor(getResources().getColor(builder.getIndicatorLayoutColor()));
         } else if (builder.getIndicatorLayoutBg() != 0) {
             mIndicators.getIndicatorLayout().setBackgroundResource(builder.getIndicatorLayoutBg());
         }
@@ -243,6 +249,18 @@ public class CommonBanner extends FrameLayout implements IContact {
         if (transformer != null) {
             if (mPager != null && mPager.getPagerView() instanceof ViewPager)
                 ((ViewPager) mPager.getPagerView()).setPageTransformer(true, transformer);
+        }
+    }
+
+    public void onPause() {
+        if (mPager != null) {
+            mPager.onPause();
+        }
+    }
+
+    public void onRestart() {
+        if (mPager != null) {
+            mPager.onRestart();
         }
     }
 }

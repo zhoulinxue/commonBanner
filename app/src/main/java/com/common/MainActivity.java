@@ -22,7 +22,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private int[] mImages = {R.mipmap.b, R.mipmap.d, R.mipmap.e, R.mipmap.f, R.mipmap.g, R.mipmap.h};
-    List<ItemData> datas = new ArrayList<>();
+    List<ItemData> mDatas = new ArrayList<>();
+    private CommonBanner mBanner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < mImages.length; i++) {
             ItemData picBanner = new ItemData();
             picBanner.setSrc(mImages[i]);
-            datas.add(picBanner);
+            mDatas.add(picBanner);
         }
-        CommonBanner banner = findViewById(R.id.banner_layout);
+        mBanner = findViewById(R.id.banner_layout);
         Builder builder = new Builder(this);
         //自定义 底部指示牌
         builder.setHeight(350)//设置banner 高度
@@ -42,16 +43,16 @@ public class MainActivity extends AppCompatActivity {
 //                .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
                 .setIndicatorItemSelectSrc(R.drawable.select_indicator)// 设置 指示器  item 颜色
                 .setIndicatorItemUnSelectedSrc(R.drawable.selected_indicator)// 设置 indicator指示器  item 选中颜色
-                .setIndicatorLayoutBackgroundRes(R.drawable.shape_indicator_bg) //设置 指示器 背景
+                .setIndicatorLayoutColor(R.color.transparent) //设置 指示器 背景
                 .setTransformer(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
                 .setLoopType(LoopType.REVERSE)// 设置循环滚动方式
                 .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
                 .setDuration(300)// 设置 动画 持续时间(数字越大  切换动画越慢)
 //                .setIndicator(new TextIndicator(this))// 自定义 指示器
                 .setDelayTime(2000);// 设置滚动间隔时间
-        banner.setBuilder(builder);
+        mBanner.setBuilder(builder);
         //设置item 数据回调
-        banner.setBannerAdapter(new SimpleBannerAdapter<ItemData>(R.layout.banner_item_layout, datas) {
+        mBanner.setBannerAdapter(new SimpleBannerAdapter<ItemData>(R.layout.banner_item_layout, mDatas) {
             @Override
             protected void convert(ViewHolder holder, ItemData item) {
                 //填充 item 数据
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //item 点击事件
-        banner.OnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
+        mBanner.OnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
             @Override
             public void onItemClick(View v, int position) {
                 // item 被点击
@@ -83,4 +84,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mBanner.onPause();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mBanner.onRestart();
+    }
 }

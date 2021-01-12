@@ -39,7 +39,7 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     private BannerPegerAdapter mAdapter;
     private Handler mHandler;
     private IContact mContact;
-    private boolean autoPlay;//是否 自动播放
+    private boolean isAutoPlay;//是否 自动播放
     private long delayTime = 3000;// 自动滚动时间
     private boolean REVERSE = false;//是否到最後一個item
     private LoopType LOOP_TYPE = LOOP;// 循环方式
@@ -118,7 +118,7 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
             case ViewPager.SCROLL_STATE_IDLE:
                 if (index == mAdapter.getCount() - 1 && LOOP == LOOP_TYPE)
                     mViewPager.setCurrentItem(1, false);
-                isAutoPlay(autoPlay);
+                autoPlay(isAutoPlay);
                 break;
             default:
                 break;
@@ -139,9 +139,9 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     }
 
     @Override
-    public void isAutoPlay(boolean isAutoPlay) {
-        this.autoPlay = isAutoPlay;
-        if (autoPlay) {
+    public void autoPlay(boolean isAutoPlay) {
+        this.isAutoPlay = isAutoPlay;
+        if (this.isAutoPlay) {
             mHandler.removeCallbacks(playRunable);
             mHandler.postDelayed(playRunable, delayTime);
         }
@@ -172,6 +172,20 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
         this.LOOP_TYPE = type;
     }
 
+    @Override
+    public void onPause() {
+        if (isAutoPlay) {
+            mHandler.removeCallbacks(playRunable);
+        }
+    }
+
+    @Override
+    public void onRestart() {
+        if (isAutoPlay) {
+            mHandler.postDelayed(playRunable, delayTime);
+        }
+    }
+
     private Runnable playRunable = new Runnable() {
         @Override
         public void run() {
@@ -180,9 +194,9 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
             else {
                 index--;
             }
-            if (mAdapter != null && autoPlay) {
+            if (mAdapter != null && isAutoPlay) {
                 mViewPager.setCurrentItem(index, true);
-                isAutoPlay(autoPlay);
+                autoPlay(isAutoPlay);
             }
         }
     };

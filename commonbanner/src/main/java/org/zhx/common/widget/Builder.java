@@ -214,8 +214,9 @@ public class Builder {
         return this;
     }
 
-    public void setIndicatorLayoutColor(@ColorRes int indicatorLayoutColor) {
+    public Builder setIndicatorLayoutColor(@ColorRes int indicatorLayoutColor) {
         this.indicatorLayoutColor = indicatorLayoutColor;
+        return this;
     }
 
     public Builder indicatorBelow() {
