@@ -11,13 +11,13 @@ allprojects {
 }
 ```
 ```
-implementation 'org.zhx.common:commonBanner:1.3.5'
+implementation 'org.zhx.common:commonBanner:1.3.6'
 ```
 ## 适配 非Androidx 项目 ：
 build.gradle 中：
 ```
 	dependencies {
-	       implementation 'org.zhx.common:commonBanner:1.3.5'
+	       implementation 'org.zhx.common:commonBanner:1.3.6'
 	}
 ```
 并且 gradle.properties中 添加：
@@ -42,6 +42,7 @@ android.enableJetifier=true
                 datas.add(picBanner);
             }
             CommonBanner banner = findViewById(R.id.banner_layout);
+            //Builder builder = Builder.getDefault(this);  //快捷设置
             Builder builder = new Builder(this);
             //自定义 底部指示牌
             builder.setHeight(350)//设置banner 高度
@@ -79,5 +80,17 @@ android.enableJetifier=true
                 }
             });
         }
+
+           @Override
+            protected void onPause() {
+                super.onPause();
+                mBanner.onPause();
+            }
+
+            @Override
+            protected void onRestart() {
+                super.onRestart();
+                mBanner.onRestart();
+            }
 
 ```
