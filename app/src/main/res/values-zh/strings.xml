@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">banner</string>
+
+    <string name="click_str">点击</string>
+
+    <string name="notice_str">点击_child_view</string>
+
+    <string name="more">更多</string>
+</resources>

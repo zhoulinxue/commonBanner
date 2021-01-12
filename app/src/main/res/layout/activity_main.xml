@@ -18,5 +18,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/banner_layout"
-        android:text="动画" />
+        android:text="@string/more" />
 </RelativeLayout>

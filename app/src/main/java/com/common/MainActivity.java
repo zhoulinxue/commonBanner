@@ -37,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
         }
         mBanner = findViewById(R.id.banner_layout);
         Builder builder = new Builder(this);
+        //Builder builder = Builder.getDefault(this);  //快捷设置
         //自定义 底部指示牌
         builder.setHeight(350)//设置banner 高度
                 .setIndicatorHeight(80)//设置 导航游标 高度
 //                .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
                 .setIndicatorItemSelectSrc(R.drawable.select_indicator)// 设置 指示器  item 颜色
                 .setIndicatorItemUnSelectedSrc(R.drawable.selected_indicator)// 设置 indicator指示器  item 选中颜色
-                .setIndicatorLayoutColor(R.color.transparent) //设置 指示器 背景
+                .setIndicatorLayoutColor(R.color.indicator_bg) //设置 指示器 背景
                 .setTransformer(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
                 .setLoopType(LoopType.REVERSE)// 设置循环滚动方式
                 .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemViewClick(View v) {
                 // item 中 某个 View 被点击
-                Toast.makeText(MainActivity.this, "点击 测试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.notice_str, Toast.LENGTH_SHORT).show();
             }
         });
         //item 点击事件
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View v, int position) {
                 // item 被点击
-                Toast.makeText(MainActivity.this, position + " 点击item", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "position: " + position + " click ..... itemView", Toast.LENGTH_SHORT).show();
             }
         });
 

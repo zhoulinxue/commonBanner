@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.ColorRes;
 
+import org.zhx.common.R;
 import org.zhx.common.widget.indicator.CommonIndicator;
 import org.zhx.common.widget.viewPager.transformers.BaseTransformer;
 import org.zhx.common.widget.viewPager.transformers.Transformer;
@@ -222,5 +223,22 @@ public class Builder {
     public Builder indicatorBelow() {
         setBelow(true);
         return this;
+    }
+
+    public static Builder getDefault(Context context) {
+        Builder builder = new Builder(context);
+        builder.setHeight(350)//设置banner 高度
+                .setIndicatorHeight(80)//设置 导航游标 高度
+//                .indicatorBelow() //设置游标和内容相对 位置  可选 默认 游标悬浮在 内容底部
+                .setIndicatorItemSelectSrc(R.drawable.select_indicator)// 设置 指示器  item 颜色
+                .setIndicatorItemUnSelectedSrc(R.drawable.selected_indicator)// 设置 indicator指示器  item 选中颜色
+                .setIndicatorLayoutColor(R.color.transparent) //设置 指示器 背景
+                .setTransformer(Transformer.DETH) // 设置切换动画  新增10多种 动画  Transformer 类
+                .setLoopType(LoopType.REVERSE)// 设置循环滚动方式
+                .setAutoPlay(true) //是否自动滚动  可选 默认 不滚动
+                .setDuration(300)// 设置 动画 持续时间(数字越大  切换动画越慢)
+//                .setIndicator(new TextIndicator(this))// 自定义 指示器
+                .setDelayTime(2000);// 设置滚动间隔时间
+        return builder;
     }
 }
