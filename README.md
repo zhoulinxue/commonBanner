@@ -28,8 +28,73 @@ android.enableJetifier=true
 # commonBanner
 ## 看效果
 ![效果图](http://github.com/zhoulinxue/commonBanner/blob/master/screenshots/1577691131174.gif)
+## 创建一个banner2种
+###方式 一 ：xml  配置
+```xml
+<org.zhx.common.widget.CommonBanner
+        android:id="@+id/banner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false" />
+```
+```java
+   CommonBanner banner = findViewById(R.id.banner_layout);
+```
+### 方式二：xml+直接使用build
 
-## 基本使用方法
+```xml
+    <FrameLayout-->
+           android:id="@+id/banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+```
+```java
+    Builder builder = Builder.getDefault(this);
+    CommonBanner banner =  builder.build();
+    banner_container.add(banner)
+```
+### 设置item 布局 及 子布局 功能设置
+```java
+          //设置item 数据回调
+            banner.setBannerAdapter(new SimpleBannerAdapter<ItemData>(R.layout.banner_item_layout, datas) {
+                @Override
+                protected void convert(ViewHolder holder, ItemData item) {
+                    ImageView imageView = (ImageView) holder.findViewById(R.id.banner_img);
+                    imageView.setImageResource(item.getSrc());
+                    holder.addItemViewClick(R.id.banner_tv);
+                }
+
+                @Override
+                public void onItemViewClick(View v) {
+                    Toast.makeText(MainActivity.this, "点击 测试", Toast.LENGTH_SHORT).show();
+                }
+            });
+```
+### item 点击事件
+```java
+ //item 点击事件
+            banner.setOnItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
+                @Override
+                public void onItemClick(View v, int position) {
+                    Toast.makeText(MainActivity.this, position + " 点击item", Toast.LENGTH_SHORT).show();
+                }
+            });
+```
+### 暂停及 恢复
+```java
+@Override
+            protected void onPause() {
+                super.onPause();
+                mBanner.onPause();
+            }
+
+            @Override
+            protected void onRestart() {
+                super.onRestart();
+                mBanner.onRestart();
+            }
+```
+## 完整使用
 ```java
       @Override
         protected void onCreate(Bundle savedInstanceState) {
