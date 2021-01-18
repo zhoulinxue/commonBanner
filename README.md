@@ -29,7 +29,7 @@ android.enableJetifier=true
 ## 看效果
 ![效果图](http://github.com/zhoulinxue/commonBanner/blob/master/screenshots/1577691131174.gif)
 ## 创建一个banner2种
-###方式 一 ：xml  配置
+###方式 一 ：xml 直接配置
 ```xml
 <org.zhx.common.widget.CommonBanner
         android:id="@+id/banner_layout"
@@ -39,8 +39,10 @@ android.enableJetifier=true
 ```
 ```java
    CommonBanner banner = findViewById(R.id.banner_layout);
+       Builder builder = Builder.getDefault(this);
+      builder.setBuilder(builder);
 ```
-### 方式二：xml+直接使用build
+### 方式二：xml布局包裹+builder
 
 ```xml
     <FrameLayout-->

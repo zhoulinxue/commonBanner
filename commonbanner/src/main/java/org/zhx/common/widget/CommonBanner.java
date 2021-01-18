@@ -53,7 +53,7 @@ public class CommonBanner extends FrameLayout implements IContact {
     private CommonIndicator mIndicators; // indicator
     private LayoutParams containerLp; // banner layoutParams
     private RelativeLayout mContainer;// view container
-    private int mContainerHeight, mIndicatorHeight;
+    private int mContainerHeight, mIndicatorHeight; 
     private boolean isBelow = false;// 布局 是否重叠
     private CommonBanner.OnBannerItemClickLisenter onItemClickLisenter;
     private Context mContext;
