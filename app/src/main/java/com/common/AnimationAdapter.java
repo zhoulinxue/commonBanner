@@ -64,8 +64,8 @@ public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.Item
     }
 
     private void setBanner(CommonBanner banner, final ItemViewHolder viewHolder, int position) {
-        banner.setTransformerType(data.get(position));
         Builder builder = Builder.getDefault(viewHolder.itemView.getContext());
+        builder.setTransformer(data.get(position));
         banner.setBuilder(builder);
         //设置item 数据回调
         banner.setBannerAdapter(new SimpleBannerAdapter<ItemData>(R.layout.banner_item_layout, datas) {
