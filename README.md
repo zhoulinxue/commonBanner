@@ -2,22 +2,23 @@
 
 ## 有问题请 提交 isuue/(QQ:194093798) 谢谢大家 持续更新
 ![效果图](https://img-blog.csdnimg.cn/20200107201324273.gif)
+## 注意：由于jCenter 于2021 年5月1 日起 不在提供服务 本库将不在继续更新 jCenter 目前已 支持 jitPack.io
 ## 集成：
 ```
 allprojects {
     repositories {
-        jcenter()
+        maven { url 'https://jitpack.io' }
     }
 }
 ```
 ```
-implementation 'org.zhx.common:commonBanner:1.3.6'
+ implementation 'com.github.zhoulinxue:commonBanner:1.3.6'
 ```
 ## 适配 非Androidx 项目 ：
 build.gradle 中：
 ```
 	dependencies {
-	       implementation 'org.zhx.common:commonBanner:1.3.6'
+	       implementation 'com.github.zhoulinxue:commonBanner:1.3.6'
 	}
 ```
 并且 gradle.properties中 添加：
@@ -39,7 +40,7 @@ android.enableJetifier=true
 ```
 ```java
    CommonBanner banner = findViewById(R.id.banner_layout);
-       Builder builder = Builder.getDefault(this);
+      Builder builder = Builder.getDefault(this);
       builder.setBuilder(builder);
 ```
 ### 方式二：xml布局包裹+builder
