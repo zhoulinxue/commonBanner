@@ -12,13 +12,13 @@ allprojects {
 }
 ```
 ```
- implementation 'com.github.zhoulinxue:commonBanner:1.3.6'
+ implementation 'com.github.zhoulinxue:commonBanner:1.3.7'
 ```
 ## 适配 非Androidx 项目 ：
 build.gradle 中：
 ```
 	dependencies {
-	       implementation 'com.github.zhoulinxue:commonBanner:1.3.6'
+	       implementation 'com.github.zhoulinxue:commonBanner:1.3.7'
 	}
 ```
 并且 gradle.properties中 添加：
