@@ -87,6 +87,7 @@ public class CommonBanner<T> extends FrameLayout implements IContact {
         this.mBannerAdapter = bannerBanner;
         if (mPager != null) {
             mPager.setBannerAdapter(bannerBanner);
+            bannerBanner.setPager(mPager);
 
             if (mIndicators != null) {
                 mIndicators.setDatas(bannerBanner.getItemCount());
@@ -131,7 +132,8 @@ public class CommonBanner<T> extends FrameLayout implements IContact {
         }
 
         mIndicators = builder.getIndicator();
-        
+        mPager.setIndicator(mIndicators);
+
         if (mIndicators != null) {
             mContainer.addView(mIndicators.getIndicatorLayout());
             mIndicators.setHeight(builder.getIndicatorHeight());

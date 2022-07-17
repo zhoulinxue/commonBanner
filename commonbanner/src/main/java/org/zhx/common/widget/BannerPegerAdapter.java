@@ -34,6 +34,7 @@ public class BannerPegerAdapter extends PagerAdapter {
     }
 
     public void setAdapter(CommonBanner.BannerAdapter adapter) {
+        Log.e("zxxx","setAdapter ");
         this.mAdapter = adapter;
         notifyDataSetChanged();
     }

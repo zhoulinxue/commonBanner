@@ -1,6 +1,7 @@
 package org.zhx.common.widget.indicator;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public abstract class BaseViewIndicator implements CommonIndicator<View> {
 
     @Override
     public void setDatas(int datas) {
+        Log.d("zxxx","setDatas, datas:" + datas);
         this.mDatas = datas;
         mIndicatorContainer.removeAllViews();
         mIndicator.clear();

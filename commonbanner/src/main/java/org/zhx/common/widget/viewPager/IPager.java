@@ -5,6 +5,8 @@ import android.widget.RelativeLayout;
 
 import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.LoopType;
+import org.zhx.common.widget.indicator.BaseViewIndicator;
+import org.zhx.common.widget.indicator.CommonIndicator;
 
 import java.util.List;
 
@@ -83,4 +85,6 @@ public interface IPager<T> {
     void setDelayTime(long delayTime);
 
     void notifyDataChange();
+
+    void setIndicator(CommonIndicator indicator);
 }

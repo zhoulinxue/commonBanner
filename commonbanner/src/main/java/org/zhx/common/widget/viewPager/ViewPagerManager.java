@@ -12,6 +12,8 @@ import org.zhx.common.widget.BannerPegerAdapter;
 import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.IContact;
 import org.zhx.common.widget.LoopType;
+import org.zhx.common.widget.indicator.BaseViewIndicator;
+import org.zhx.common.widget.indicator.CommonIndicator;
 import org.zhx.common.widget.viewPager.transformers.FixedSpeedScroller;
 
 import java.lang.reflect.Field;
@@ -45,6 +47,7 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     private int BASE_NUM = 1000;
     private int count;
     private CommonBanner.BannerAdapter mBannerAdapter;
+    private CommonIndicator mIndicator;
 
     public ViewPagerManager(Context context, IContact mContact) {
         this.mContact = mContact;
@@ -190,7 +193,13 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     public void notifyDataChange() {
         if (mBannerAdapter != null) {
             setBannerAdapter(mBannerAdapter);
+            mIndicator.setDatas(mBannerAdapter.getItemCount());
         }
+    }
+
+    @Override
+    public void setIndicator(CommonIndicator indicator) {
+        this.mIndicator = indicator;
     }
 
     @Override

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private int[] mImages = {R.mipmap.b, R.mipmap.d};
+    private int[] mImages = {R.mipmap.b, R.mipmap.d, R.mipmap.e, R.mipmap.f, R.mipmap.g, R.mipmap.h};
     List<ItemData> mDatas = new ArrayList<>();
     private CommonBanner<ItemData> mBanner;
     private SimpleBannerAdapter mAdapter;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        for (int i = 0; i < mImages.length; i++) {
+        for (int i = 0; i < 3; i++) {
             ItemData picBanner = new ItemData();
             picBanner.setSrc(mImages[i]);
             mDatas.add(picBanner);
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 .setDuration(300)// 设置 动画 持续时间(数字越大  切换动画越慢)
                 .setIndicator(new ClassiceIndicator(this))// 自定义 指示器
 //                .setIndicator(null)
-                .setDelayTime(20000);// 设置滚动间隔时间
+                .setDelayTime(2000);// 设置滚动间隔时间
         mBanner.setBuilder(builder);
         //设置item 数据回调
         mAdapter = new SimpleBannerAdapter<ItemData>(R.layout.banner_item_layout, mDatas) {
@@ -80,12 +80,20 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mBanner.setBannerAdapter(mAdapter);
-        mAdapter.setDatas(mDatas);
+
 
         findViewById(R.id.animate_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MultEffectActivity.class));
+                mDatas.clear();
+                for (int i = 0; i < mImages.length; i++) {
+                    ItemData picBanner = new ItemData();
+                    picBanner.setSrc(mImages[i]);
+                    mDatas.add(picBanner);
+                }
+
+                mAdapter.setDatas(mDatas);
+//                startActivity(new Intent(MainActivity.this, MultEffectActivity.class));
             }
         });
     }

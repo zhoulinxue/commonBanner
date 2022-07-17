@@ -1,6 +1,7 @@
 package org.zhx.common.widget;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,8 @@ public abstract class SimpleBannerAdapter<T> implements CommonBanner.BannerAdapt
 
     public void setDatas(List<T> datas) {
         this.datas = datas;
-        if(this.mPager!=null) {
+        Log.e("zxxx","setDatas " +(this.mPager==null));
+        if (this.mPager != null) {
             mPager.notifyDataChange();
         }
     }
