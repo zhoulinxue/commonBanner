@@ -85,15 +85,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.animate_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatas.clear();
-                for (int i = 0; i < mImages.length; i++) {
-                    ItemData picBanner = new ItemData();
-                    picBanner.setSrc(mImages[i]);
-                    mDatas.add(picBanner);
-                }
-
-                mAdapter.setDatas(mDatas);
-//                startActivity(new Intent(MainActivity.this, MultEffectActivity.class));
+                startActivity(new Intent(MainActivity.this, MultEffectActivity.class));
             }
         });
     }

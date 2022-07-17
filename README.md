@@ -12,13 +12,13 @@ allprojects {
 }
 ```
 ```
- implementation 'com.github.zhoulinxue:commonBanner:1.3.7'
+ implementation 'com.github.zhoulinxue:commonBanner:1.3.8'
 ```
 ## 适配 非Androidx 项目 ：
 build.gradle 中：
 ```
 	dependencies {
-	       implementation 'com.github.zhoulinxue:commonBanner:1.3.7'
+	       implementation 'com.github.zhoulinxue:commonBanner:1.3.8'
 	}
 ```
 并且 gradle.properties中 添加：
@@ -70,16 +70,6 @@ android.enableJetifier=true
                 @Override
                 public void onItemViewClick(View v) {
                     Toast.makeText(MainActivity.this, "点击 测试", Toast.LENGTH_SHORT).show();
-                }
-            });
-```
-### item 点击事件
-```java
- //item 点击事件
-            banner.setOnItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
-                @Override
-                public void onItemClick(View v, int position) {
-                    Toast.makeText(MainActivity.this, position + " 点击item", Toast.LENGTH_SHORT).show();
                 }
             });
 ```
@@ -140,6 +130,7 @@ android.enableJetifier=true
                     Toast.makeText(MainActivity.this, "点击 测试", Toast.LENGTH_SHORT).show();
                 }
             });
+            
             //item 点击事件
             banner.setOnItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
                 @Override
