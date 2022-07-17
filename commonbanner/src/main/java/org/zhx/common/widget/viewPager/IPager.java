@@ -35,10 +35,10 @@ public interface IPager<T> {
     public void attach(RelativeLayout relativeLayout);
 
     /**
-     *  item  View
-     * @param datas
+     *  item Data
+     * @param adapter
      */
-    public void setViewDatas(List<View> datas);
+    public void setBannerAdapter(CommonBanner.BannerAdapter adapter);
 
     /**
      * item 自动切换 间隔时间
@@ -79,4 +79,6 @@ public interface IPager<T> {
      * 恢复自动 滚动
      */
     public void onRestart();
+
+    void setDelayTime(long delayTime);
 }

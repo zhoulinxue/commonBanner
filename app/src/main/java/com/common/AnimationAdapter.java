@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.zhx.common.widget.Builder;
 import org.zhx.common.widget.CommonBanner;
-import org.zhx.common.widget.LoopType;
 import org.zhx.common.widget.SimpleBannerAdapter;
 import org.zhx.common.widget.ViewHolder;
 import org.zhx.common.widget.viewPager.transformers.Transformer;
@@ -80,14 +79,13 @@ public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.Item
 
             @Override
             public void onItemViewClick(View v) {
-                Toast.makeText(viewHolder.itemView.getContext(), "点击 测试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "点击 测试", Toast.LENGTH_SHORT).show();
             }
-        });
-        //item 点击事件
-        banner.OnBannerItemClickLisenter(new CommonBanner.OnBannerItemClickLisenter() {
+
             @Override
             public void onItemClick(View v, int position) {
-                Toast.makeText(viewHolder.itemView.getContext(), position + " 点击item", Toast.LENGTH_SHORT).show();
+                // item 被点击
+                Toast.makeText(v.getContext(), "position: " + position + " click ..... itemView", Toast.LENGTH_SHORT).show();
             }
         });
     }

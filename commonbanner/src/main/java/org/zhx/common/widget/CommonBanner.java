@@ -53,9 +53,8 @@ public class CommonBanner extends FrameLayout implements IContact {
     private CommonIndicator mIndicators; // indicator
     private LayoutParams containerLp; // banner layoutParams
     private RelativeLayout mContainer;// view container
-    private int mContainerHeight, mIndicatorHeight; 
+    private int mContainerHeight, mIndicatorHeight;
     private boolean isBelow = false;// 布局 是否重叠
-    private CommonBanner.OnBannerItemClickLisenter onItemClickLisenter;
     private Context mContext;
     private boolean isInit = false;
 
@@ -84,22 +83,12 @@ public class CommonBanner extends FrameLayout implements IContact {
     }
 
     public void setBannerAdapter(BannerAdapter bannerBanner) {
-        List<View> views = new ArrayList<>();
-        if (bannerBanner != null && bannerBanner.getItemCount() != 0) {
-            for (int i = 0; i < bannerBanner.getItemCount(); i++) {
-                final View view = bannerBanner.onCreatItem(mContext, i);
-                views.add(view);
-                view.setOnClickListener(new ChildClickLisenter(i) {
-                    @Override
-                    public void onChildClick(View v, int position) {
-                        if (onItemClickLisenter != null) {
-                            onItemClickLisenter.onItemClick(v, position);
-                        }
-                    }
-                });
+        if (mPager != null) {
+            mPager.setBannerAdapter(bannerBanner);
+
+            if (mIndicators != null) {
+                mIndicators.setDatas(bannerBanner.getItemCount());
             }
-            mPager.setViewDatas(views);
-            mIndicators.setDatas(bannerBanner.getItemCount());
         }
     }
 
@@ -109,9 +98,7 @@ public class CommonBanner extends FrameLayout implements IContact {
         public int getItemCount();
 
         public void onItemViewClick(View v);
-    }
 
-    public interface OnBannerItemClickLisenter {
         public void onItemClick(View v, int position);
     }
 
@@ -129,30 +116,33 @@ public class CommonBanner extends FrameLayout implements IContact {
             mPager.attach(mContainer);
             mPager.setDuration(builder.getDuration());
             mPager.setWidth(builder.getWidth());
-            mPager.autoPlay(builder.isAutoPlay());
             mPager.setLoopType(builder.getLoopType());
+            mPager.setDelayTime(builder.getDelayTime());
+            mPager.autoPlay(builder.isAutoPlay());
             if (builder.getTransformerType() != null)
                 setTransformerType(builder.getTransformerType());
             else if (builder.getTransformer() != null) {
                 setTransformer(builder.getTransformer());
             }
         }
+
         mIndicators = builder.getIndicator();
-        if (mIndicators == null) {
-            mIndicators = new ClassiceIndicator(getContext());
+
+        if (mIndicators != null) {
+            mContainer.addView(mIndicators.getIndicatorLayout());
+            mIndicators.setHeight(builder.getIndicatorHeight());
+            mIndicators.setIndicatorSrc(builder.getUnSelectedSrc());
+            mIndicators.setSelectedSrc(builder.getSelectSrc());
+            if (builder.getIndicatorLayoutColor() != 0) {
+                mIndicators.getIndicatorLayout().setBackgroundColor(getResources().getColor(builder.getIndicatorLayoutColor()));
+            } else if (builder.getIndicatorLayoutBg() != 0) {
+                mIndicators.getIndicatorLayout().setBackgroundResource(builder.getIndicatorLayoutBg());
+            }
+
+            isBelow = builder.isBelow();
+            mIndicatorHeight = builder.getIndicatorHeight();
+            setHeight(builder.getHeight());
         }
-        mContainer.addView(mIndicators.getIndicatorLayout());
-        mIndicators.setHeight(builder.getIndicatorHeight());
-        mIndicators.setIndicatorSrc(builder.getUnSelectedSrc());
-        mIndicators.setSelectedSrc(builder.getSelectSrc());
-        if (builder.getIndicatorLayoutColor() != 0) {
-            mIndicators.getIndicatorLayout().setBackgroundColor(getResources().getColor(builder.getIndicatorLayoutColor()));
-        } else if (builder.getIndicatorLayoutBg() != 0) {
-            mIndicators.getIndicatorLayout().setBackgroundResource(builder.getIndicatorLayoutBg());
-        }
-        isBelow = builder.isBelow();
-        mIndicatorHeight = builder.getIndicatorHeight();
-        setHeight(builder.getHeight());
     }
 
 
@@ -171,11 +161,6 @@ public class CommonBanner extends FrameLayout implements IContact {
         }
     }
 
-    public void OnBannerItemClickLisenter(OnBannerItemClickLisenter onItemClickLisenter) {
-        this.onItemClickLisenter = onItemClickLisenter;
-    }
-
-
     @Override
     public void onScrolling(Object... obj) {
 
@@ -183,14 +168,17 @@ public class CommonBanner extends FrameLayout implements IContact {
 
     @Override
     public void onSelected(int position) {
-        if (mIndicators != null)
+        if (mIndicators != null) {
             mIndicators.setSelection(position);
+        }
     }
 
     public void setTransformerType(Transformer mTransformer) {
         if (mTransformer != null) {
             BaseTransformer transformer = null;
             switch (mTransformer) {
+                case NONE:
+                    break;
                 case DETH:
                     transformer = new DepthPageTransformer();
                     break;

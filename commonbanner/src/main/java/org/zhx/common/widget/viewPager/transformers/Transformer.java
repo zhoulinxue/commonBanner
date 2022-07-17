@@ -10,6 +10,7 @@ import android.view.View;
  * Description:
  */
 public enum Transformer {
+    NONE,
     DETH,
     ACCORDION,
     B_TO_F,

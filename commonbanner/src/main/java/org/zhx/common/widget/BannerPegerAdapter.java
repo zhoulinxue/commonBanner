@@ -3,6 +3,8 @@ package org.zhx.common.widget;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,16 +20,27 @@ import java.util.List;
  * Description:
  */
 public class BannerPegerAdapter extends PagerAdapter {
-    private List<View> datas = new ArrayList<>();
+    private Context mContxt;
+    private CommonBanner.BannerAdapter mAdapter;
+    private LoopType mLoopType;
 
-    public void setDatas(List<View> datas) {
-        this.datas = datas;
+    public BannerPegerAdapter(Context mContxt) {
+        this.mContxt = mContxt;
+    }
+
+    public void setLoopType(LoopType loopType) {
+        this.mLoopType = loopType;
+        notifyDataSetChanged();
+    }
+
+    public void setAdapter(CommonBanner.BannerAdapter adapter) {
+        this.mAdapter = adapter;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return (datas == null || datas.size() == 0) ? 0 : Integer.MAX_VALUE;
+        return (mAdapter == null || mAdapter.getItemCount() == 0) ? 0 : (mLoopType == LoopType.LOOP) ? Integer.MAX_VALUE : mAdapter.getItemCount();
     }
 
     @Override
@@ -38,8 +51,8 @@ public class BannerPegerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        int realPosition = position % datas.size();
-        View view = datas.get(realPosition);
+        int realPosition = position % mAdapter.getItemCount();
+        View view = mAdapter.onCreatItem(mContxt, realPosition);
         container.addView(view);
         return view;
     }
@@ -47,7 +60,9 @@ public class BannerPegerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
+        View view = (View) object;
+        container.removeView(view);
+        view = null;
     }
 
 }

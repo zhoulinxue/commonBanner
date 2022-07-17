@@ -2,6 +2,7 @@ package org.zhx.common.widget.viewPager;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.RelativeLayout;
@@ -10,11 +11,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import org.zhx.common.R;
 import org.zhx.common.widget.BannerPegerAdapter;
+import org.zhx.common.widget.ChildClickLisenter;
+import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.IContact;
 import org.zhx.common.widget.LoopType;
 import org.zhx.common.widget.viewPager.transformers.FixedSpeedScroller;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.zhx.common.widget.LoopType.LOOP;
@@ -33,7 +37,6 @@ import static org.zhx.common.widget.LoopType.LOOP;
  */
 public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChangeListener {
     private RelativeLayout.LayoutParams viewPagerLp;
-    private Context mContext;
     private ViewPager mViewPager;
     private static final int containerId = R.id.container_id;
     private BannerPegerAdapter mAdapter;
@@ -48,7 +51,6 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     private int count;
 
     public ViewPagerManager(Context context, IContact mContact) {
-        this.mContext = context;
         this.mContact = mContact;
         mHandler = new Handler();
         viewPagerLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -56,7 +58,7 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
         mViewPager.setId(containerId);
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setLayoutParams(viewPagerLp);
-        mAdapter = new BannerPegerAdapter();
+        mAdapter = new BannerPegerAdapter(context);
         mViewPager.setAdapter(mAdapter);
     }
 
@@ -71,18 +73,21 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     }
 
     @Override
-    public void setViewDatas(List<View> datas) {
+    public void setBannerAdapter(CommonBanner.BannerAdapter adapter) {
         if (mAdapter != null) {
-            mAdapter.setDatas(datas);
-            count = datas.size();
-        }
-        if (LOOP_TYPE == LOOP) {
-            index = count * BASE_NUM;
-            while (index > Integer.MAX_VALUE) {
-                index = count * BASE_NUM / 2;
-                BASE_NUM = BASE_NUM / 2;
+            mAdapter.setAdapter(adapter);
+            mAdapter.setLoopType(LOOP_TYPE);
+            count = adapter.getItemCount();
+
+            if (LOOP_TYPE == LOOP) {
+                index = count * BASE_NUM;
+                while (index > Integer.MAX_VALUE) {
+                    index = count * BASE_NUM / 2;
+                    BASE_NUM = BASE_NUM / 2;
+                }
+
+                mViewPager.setCurrentItem(index);
             }
-            mViewPager.setCurrentItem(index);
         }
     }
 
@@ -98,14 +103,19 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     public void onPageSelected(int position) {
         index = position;
         int realIndex = position % count;
+
         if (mContact != null) {
             mContact.onSelected(realIndex);
         }
+
         if (LOOP != LOOP_TYPE) {
-            if (realIndex == count - 1)
+            if (realIndex == count - 1) {
                 REVERSE = true;
-            if (realIndex == 0)
+            }
+
+            if (realIndex == 0) {
                 REVERSE = false;
+            }
         }
     }
 
@@ -116,8 +126,10 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
                 mHandler.removeCallbacks(playRunable);
                 break;
             case ViewPager.SCROLL_STATE_IDLE:
-                if (index == mAdapter.getCount() - 1 && LOOP == LOOP_TYPE)
+                if (index == mAdapter.getCount() - 1 && LOOP == LOOP_TYPE) {
                     mViewPager.setCurrentItem(1, false);
+                }
+
                 autoPlay(isAutoPlay);
                 break;
             default:
@@ -173,6 +185,11 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     }
 
     @Override
+    public void setDelayTime(long delayTime) {
+        this.delayTime = delayTime;
+    }
+
+    @Override
     public void onPause() {
         if (isAutoPlay) {
             mHandler.removeCallbacks(playRunable);
@@ -189,11 +206,20 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     private Runnable playRunable = new Runnable() {
         @Override
         public void run() {
-            if (!REVERSE || LOOP == LOOP_TYPE)
+            if (mAdapter.getCount() < 2) {
+                index = 0;
+                mHandler.removeCallbacks(playRunable);
+                mViewPager.setCurrentItem(index);
+
+                return;
+            }
+
+            if (!REVERSE || LOOP == LOOP_TYPE) {
                 index++;
-            else {
+            } else {
                 index--;
             }
+
             if (mAdapter != null && isAutoPlay) {
                 mViewPager.setCurrentItem(index, true);
                 autoPlay(isAutoPlay);

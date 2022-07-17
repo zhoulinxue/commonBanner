@@ -29,8 +29,15 @@ public abstract class SimpleBannerAdapter<T> implements CommonBanner.BannerAdapt
     }
 
     @Override
-    public final View onCreatItem(Context context, int positon) {
+    public final View onCreatItem(Context context, final int positon) {
         View view = LayoutInflater.from(context).inflate(resurceLayout, null);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClick(v,positon);
+            }
+        });
+
         ViewHolder holder = creatViewHolder(view, positon);
         convert(holder, datas.get(positon));
         return view;

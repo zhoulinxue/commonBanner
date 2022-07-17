@@ -14,7 +14,7 @@ import android.view.View;
  * @UpdateRemark:
  * @Version:1.0
  */
-abstract class ChildClickLisenter implements View.OnClickListener {
+public abstract class ChildClickLisenter implements View.OnClickListener {
     private int position;
 
     public ChildClickLisenter(int position) {
