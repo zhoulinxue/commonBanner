@@ -2,8 +2,6 @@ package org.zhx.common.widget.viewPager;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
-import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.RelativeLayout;
 
@@ -11,15 +9,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import org.zhx.common.R;
 import org.zhx.common.widget.BannerPegerAdapter;
-import org.zhx.common.widget.ChildClickLisenter;
 import org.zhx.common.widget.CommonBanner;
 import org.zhx.common.widget.IContact;
 import org.zhx.common.widget.LoopType;
 import org.zhx.common.widget.viewPager.transformers.FixedSpeedScroller;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.zhx.common.widget.LoopType.LOOP;
 
@@ -49,6 +44,7 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     private int index = 0;// 当前 位置
     private int BASE_NUM = 1000;
     private int count;
+    private CommonBanner.BannerAdapter mBannerAdapter;
 
     public ViewPagerManager(Context context, IContact mContact) {
         this.mContact = mContact;
@@ -74,7 +70,8 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
 
     @Override
     public void setBannerAdapter(CommonBanner.BannerAdapter adapter) {
-        if (mAdapter != null) {
+        this.mBannerAdapter = adapter;
+        if (mAdapter != null && adapter != null) {
             mAdapter.setAdapter(adapter);
             mAdapter.setLoopType(LOOP_TYPE);
             count = adapter.getItemCount();
@@ -187,6 +184,13 @@ public class ViewPagerManager implements IPager<ViewPager>, ViewPager.OnPageChan
     @Override
     public void setDelayTime(long delayTime) {
         this.delayTime = delayTime;
+    }
+
+    @Override
+    public void notifyDataChange() {
+        if (mBannerAdapter != null) {
+            setBannerAdapter(mBannerAdapter);
+        }
     }
 
     @Override

@@ -24,7 +24,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private int[] mImages = {R.mipmap.b, R.mipmap.d};
     List<ItemData> mDatas = new ArrayList<>();
-    private CommonBanner mBanner;
+    private CommonBanner<ItemData> mBanner;
+    private SimpleBannerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             picBanner.setSrc(mImages[i]);
             mDatas.add(picBanner);
         }
+
         mBanner = findViewById(R.id.banner_layout);
         Builder builder = new Builder(this);
         //Builder builder = Builder.getDefault(this);  //快捷设置
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 .setDelayTime(20000);// 设置滚动间隔时间
         mBanner.setBuilder(builder);
         //设置item 数据回调
-        mBanner.setBannerAdapter(new SimpleBannerAdapter<ItemData>(R.layout.banner_item_layout, mDatas) {
+        mAdapter = new SimpleBannerAdapter<ItemData>(R.layout.banner_item_layout, mDatas) {
             @Override
             protected void convert(ViewHolder holder, ItemData item) {
                 //填充 item 数据
@@ -75,7 +77,10 @@ public class MainActivity extends AppCompatActivity {
                 // item 被点击
                 Toast.makeText(MainActivity.this, "position: " + position + " click ..... itemView", Toast.LENGTH_SHORT).show();
             }
-        });
+        };
+
+        mBanner.setBannerAdapter(mAdapter);
+        mAdapter.setDatas(mDatas);
 
         findViewById(R.id.animate_btn).setOnClickListener(new View.OnClickListener() {
             @Override

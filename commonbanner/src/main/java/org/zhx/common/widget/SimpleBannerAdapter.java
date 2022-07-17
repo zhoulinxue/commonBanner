@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.zhx.common.widget.viewPager.IPager;
+
 import java.util.List;
 
 /**
@@ -22,6 +24,7 @@ import java.util.List;
 public abstract class SimpleBannerAdapter<T> implements CommonBanner.BannerAdapter {
     private List<T> datas;
     private int resurceLayout;
+    private IPager mPager;
 
     public SimpleBannerAdapter(int resurceLayout, List<T> datas) {
         this.datas = datas;
@@ -57,5 +60,17 @@ public abstract class SimpleBannerAdapter<T> implements CommonBanner.BannerAdapt
     @Override
     public int getItemCount() {
         return datas == null ? 0 : datas.size();
+    }
+
+    public void setDatas(List<T> datas) {
+        this.datas = datas;
+        if(this.mPager!=null) {
+            mPager.notifyDataChange();
+        }
+    }
+
+    @Override
+    public void setPager(IPager pager) {
+        this.mPager = pager;
     }
 }

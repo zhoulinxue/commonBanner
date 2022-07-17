@@ -48,7 +48,7 @@ import java.util.List;
  * @UpdateRemark:
  * @Version:1.0
  */
-public class CommonBanner extends FrameLayout implements IContact {
+public class CommonBanner<T> extends FrameLayout implements IContact {
     private IPager mPager;// banner
     private CommonIndicator mIndicators; // indicator
     private LayoutParams containerLp; // banner layoutParams
@@ -57,6 +57,7 @@ public class CommonBanner extends FrameLayout implements IContact {
     private boolean isBelow = false;// 布局 是否重叠
     private Context mContext;
     private boolean isInit = false;
+    private BannerAdapter mBannerAdapter;
 
     public CommonBanner(@NonNull Context context) {
         super(context);
@@ -83,6 +84,7 @@ public class CommonBanner extends FrameLayout implements IContact {
     }
 
     public void setBannerAdapter(BannerAdapter bannerBanner) {
+        this.mBannerAdapter = bannerBanner;
         if (mPager != null) {
             mPager.setBannerAdapter(bannerBanner);
 
@@ -100,6 +102,8 @@ public class CommonBanner extends FrameLayout implements IContact {
         public void onItemViewClick(View v);
 
         public void onItemClick(View v, int position);
+
+        public void setPager(IPager pager);
     }
 
     public boolean isInit() {
@@ -127,7 +131,7 @@ public class CommonBanner extends FrameLayout implements IContact {
         }
 
         mIndicators = builder.getIndicator();
-
+        
         if (mIndicators != null) {
             mContainer.addView(mIndicators.getIndicatorLayout());
             mIndicators.setHeight(builder.getIndicatorHeight());

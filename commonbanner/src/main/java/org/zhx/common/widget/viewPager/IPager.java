@@ -81,4 +81,6 @@ public interface IPager<T> {
     public void onRestart();
 
     void setDelayTime(long delayTime);
+
+    void notifyDataChange();
 }
