@@ -112,9 +112,10 @@ public class CommonBanner<T> extends FrameLayout implements IContact {
     }
 
     public synchronized void setBuilder(Builder builder) {
-        if (builder == null && !isInit) {
+        if (builder == null && isInit) {
             return;
         }
+
         isInit = true;
         mContainer.removeAllViews();
         if (mPager != null) {
