@@ -1,5 +1,6 @@
 package com.common;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.Item
     private List<Transformer> data;
     private int[] mImages = {R.mipmap.b, R.mipmap.d, R.mipmap.e, R.mipmap.f, R.mipmap.g, R.mipmap.h};
     List<ItemData> datas = new ArrayList<>();
+    private String TAG = AnimationAdapter.class.getSimpleName();
 
     public AnimationAdapter(List<Transformer> data) {
         this.data = data;
@@ -57,7 +59,9 @@ public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.Item
     @Override
     public void onBindViewHolder(@NonNull final ItemViewHolder viewHolder, int position) {
         CommonBanner banner = viewHolder.itemView.findViewById(R.id.banner_layout);
-        if (!banner.isInit()) {
+        boolean hasInit = banner.isInit();
+        Log.e(TAG, "onBindViewHolder, banner.isInit:"+ hasInit);
+        if (!hasInit) {
             setBanner(banner, viewHolder, position);
         }
     }
@@ -92,7 +96,9 @@ public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.Item
 
     @Override
     public int getItemCount() {
-        return data == null ? 0 : data.size();
+        int count = (data == null ? 0 : data.size());
+        Log.e(TAG,"getItemCount, count:"+count);
+        return count;
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
